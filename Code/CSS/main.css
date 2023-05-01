@@ -1,0 +1,19 @@
+:root {
+    --background-color: rgb(34, 34, 34);
+    --secondary-color: rgb(194, 36, 36);
+    --white-color: rgb(214, 214, 214);
+    --accent-color: rgba(121, 0, 0, 0.562);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Mulish', sans-serif;
+}
+
+h1 {
+   color: var(--white-color); 
+}
+
+body {
+    background-color: var(--background-color);
+}
