@@ -13,6 +13,7 @@
     <!-- CSS Imports -->
     <link rel="stylesheet" href="./CSS/main.css">
     <link rel="stylesheet" href="./CSS/map.css">
+    <link rel="stylesheet" href="./CSS/query.css">
 
     <!-- Leaflet Imports -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -20,15 +21,35 @@
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
-    <title>RA Work</title>
+    <title>Disposession</title>
 </head>
 
 <body>
-    <h1>Disposession of Mohawk lands at the hands of the Sulpicians</h1>
-    <div id="map"></div>
+    <nav>
+        <h1 style="color:#ff7800; font-size: 2rem;">Disposession</h1>
+        <a>About</a>
+        <a>Research</a>
+        <a>Contribute</a>
+    </nav>
+
+    <main>
+        <div id="decoration">
+            <div id="query">
+                <div class="input-stack">
+                    <p>Address</p>
+                    <input type="search">
+                </div>
+                <div class="input-stack">
+                    <p>Date</p>
+                    <input type="number" min="1780" max="1960", value="Year"/>
+                </div>
+            </div>
+        </div>
+        <div id="map"></div>
+    </main>
 
     <!-- Map Script Import -->
-    <script src="script.js"></script>
+    <script src="./JS/map.js"></script>
 </body>
 
 </html>

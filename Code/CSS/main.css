@@ -1,8 +1,11 @@
 :root {
     --background-color: rgb(34, 34, 34);
-    --secondary-color: rgb(194, 36, 36);
+    --secondary-color: #ff7800;
     --white-color: rgb(214, 214, 214);
     --accent-color: rgba(121, 0, 0, 0.562);
+}
+html {
+    line-height: 2.2rem;
 }
 
 * {
@@ -10,10 +13,48 @@
     font-family: 'Mulish', sans-serif;
 }
 
-h1 {
+h1, a, p {
    color: var(--white-color); 
 }
 
 body {
     background-color: var(--background-color);
+}
+
+
+main::-webkit-scrollbar {
+    display: none;
+}
+
+
+main {
+    scroll-behavior: smooth;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 7vh 3vw 1vw 3vw;
+    overflow-y: scroll;
+    z-index: 1;
+}
+
+nav {
+    background-color: var(--background-color);
+    position: fixed;
+    display: flex;
+    max-height: 10vmax;
+    width: 100%;
+    justify-content: left;
+    gap: 2%;
+    top: 0%;
+    z-index: 5;
+}
+
+nav > h1 {
+    padding-right: 8%;
+    padding-left: 2%;
+}
+
+nav > a {
+    display: flex;
+    align-items: center;
 }
