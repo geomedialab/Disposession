@@ -3,6 +3,7 @@
     --secondary-color: #ff7800;
     --white-color: rgb(214, 214, 214);
     --accent-color: rgba(121, 0, 0, 0.562);
+    --purple-color: rgb(123,25,148)
 }
 html {
     line-height: 2.2rem;
@@ -14,7 +15,8 @@ html {
 }
 
 h1, a, p {
-   color: var(--white-color); 
+   color: var(--white-color);
+   margin: 0;
 }
 
 body {
@@ -35,25 +37,32 @@ main {
     padding: 7vh 3vw 1vw 3vw;
     overflow-y: scroll;
     z-index: 1;
+    margin: 0;
+    padding: 0;
+    margin-top: 7vh;
 }
 
 nav {
     background-color: var(--background-color);
     position: fixed;
     display: flex;
-    max-height: 10vmax;
+    height: 7vh;
     width: 100%;
     justify-content: left;
     gap: 2%;
     top: 0%;
-    z-index: 5;
+    z-index: 99999;
 }
 
 nav > h1 {
+    color: var(--secondary-color);
+    font-size: 2rem;
     padding-right: 8%;
     padding-left: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 nav > a {
     display: flex;
     align-items: center;

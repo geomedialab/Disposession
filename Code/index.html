@@ -14,25 +14,45 @@
     <link rel="stylesheet" href="./CSS/main.css">
     <link rel="stylesheet" href="./CSS/map.css">
     <link rel="stylesheet" href="./CSS/query.css">
+    <link rel="stylesheet" href="./CSS/landing.css">
 
     <!-- Leaflet Imports -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.min.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/iso8601-js-period@0.2.1/iso8601.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
 
     <title>Disposession</title>
 </head>
 
 <body>
     <nav>
-        <h1 style="color:#ff7800; font-size: 2rem;">Disposession</h1>
+        <h1>Disposession</h1>
         <a>About</a>
         <a>Research</a>
         <a>Contribute</a>
     </nav>
 
     <main>
+        <div id="landing">
+            <div id="left-text">KANEHSATAKE</div>
+            <div id="right-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+        </div>
         <div id="decoration">
             <div id="query">
                 <div class="input-stack">
@@ -41,7 +61,7 @@
                 </div>
                 <div class="input-stack">
                     <p>Date</p>
-                    <input type="number" min="1780" max="1960", value="Year"/>
+                    <input type="number" min="1780" max="1960" , value="Year" />
                 </div>
             </div>
         </div>

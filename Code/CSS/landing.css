@@ -1,0 +1,43 @@
+#landing {
+    margin-bottom: 9vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#landing::before {
+    content: "";
+    position: absolute;
+    background: url('../../Assets/lot_22_first_sale_in_the_land_registry_cropped.png');
+    box-shadow: 0 0 100px 50px var(--background-color) inset;
+    border-radius: 18px;
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    height: 100%;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.15;
+}
+
+#left-text {
+    position: relative;
+    display: flex;
+    font-size: 5rem;
+    color: var(--secondary-color);
+    padding-top: 3rem;
+    padding-left: 3rem;
+    line-height: 5rem;
+    flex: 0 0 10rem;
+    text-shadow: 3px 3px 10px #000000;
+}
+
+#right-text {
+    position: relative;
+    display: flex;
+    align-items: start;
+    color: var(--white-color);
+    text-align: justify;
+    flex-grow: 1;
+    padding: 0rem 5rem;
+}

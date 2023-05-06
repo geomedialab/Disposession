@@ -1,6 +1,8 @@
 #map {
+    position: relative;
     height: 65vh;
-    width: 80vw;
+    width: 90vw;
     margin: auto;
     margin-top: 1vh;
+    margin-bottom: 20vh;
 }

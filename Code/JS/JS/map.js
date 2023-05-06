@@ -1,15 +1,4 @@
-var map = L.map('map',
-    {
-        minZoom: 10,
-        maxBounds:[[45.943618, -74.272889],[45.422965, -73.860249]],
-        center: [45.569934, -74.082510],
-        zoom: 10,
-        timeDimension: true,
-        timeDimensionOptions: {
-            timeInterval: "2014/1960",
-        },
-        timeDimensionControl: true,
-    });
+var map = L.map('map', {minZoom: 10, maxBounds:[[45.813049, -74.253832],[45.422965, -73.860249]]}).setView([45.569934, -74.082510], 10);
 
 var Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
     maxZoom: 20,
@@ -42,21 +31,18 @@ fetch('../Data/GeoJSON/Full_Cadaster.geojson')
                       + word.slice(1).toLowerCase()
         
         
-                    layer.bindTooltip(
-                    `<center><h2>Lot number ${feature.properties.LOT_NUMBER}</h2><h3>Sold ${feature.properties.DATE_MM_DD}</center></h3>
+                    layer.bindTooltip(`<center>
+                    <h2>Lot number ${feature.properties.LOT_NUMBER}<br>Sold ${feature.properties.DATE_MM_DD}</h2></center>
                     Sold by: ${feature.properties.SOLD_BY}<br>
                     Sold to: ${feature.properties.CONCEDED_T}<br>
-                    Notes: ${feature.properties.NOTES}<br><br>
                     Found original sale: ${capitalized}`,
+                    
+                    // Tooltip Styling Options
                     {
                         sticky: true,
-                        opacity: 0.8,
+                        opacity: 0.8
                     });
                 }
             }).addTo(map);
         
       });
-
-
-// timeline
-// var L.timeline();
