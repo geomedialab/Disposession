@@ -1,17 +1,19 @@
-#query {
+#address {
     position: relative;
     display: inline-flex;
-    gap: 2rem;
     justify-content: center;
+    align-items: center;
     margin: 0vh 0 2vh 0;
     padding: 10px;
-    border: 3px solid var(--secondary-color);
+    flex-direction: column;
+    border: 3px solid var(--primary-color);
     border-radius: 18px;
 }
 
-#decoration {
+.decoration {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .input-stack {
@@ -19,4 +21,47 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: 10px;
+}
+
+#cadaster-query {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 0 10vw;
+    margin-bottom: 10vh;
+
+    width: 100%;
+}
+
+#query-decorator > input {
+    font-size: 1rem;
+    border: 1px solid #ddd;
+}
+
+#query-decorator {
+    display: flex;
+    flex-direction: column;
+}
+
+#query-decorator > ul {
+    /* Remove default list styling */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 300px;
+    overflow-y: auto;
+}
+
+ul > p {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 5%;
+    font-size: 1rem;
+    color: black;
+}
+
+#myUL p:hover:not(.header) {
+    background-color: #eee;
+    /* Add a hover effect to all links, except for headers */
 }

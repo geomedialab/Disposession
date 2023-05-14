@@ -1,6 +1,6 @@
 :root {
     --background-color: rgb(34, 34, 34);
-    --secondary-color: #ff7800;
+    --primary-color: #ff7800;
     --white-color: rgb(214, 214, 214);
     --accent-color: rgba(121, 0, 0, 0.562);
     --purple-color: rgb(123,25,148)
@@ -55,7 +55,7 @@ nav {
 }
 
 nav > h1 {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-size: 2rem;
     padding-right: 8%;
     padding-left: 2%;

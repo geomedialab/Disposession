@@ -11,10 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
 
     <!-- CSS Imports -->
-    <link rel="stylesheet" href="./CSS/main.css">
-    <link rel="stylesheet" href="./CSS/map.css">
-    <link rel="stylesheet" href="./CSS/query.css">
-    <link rel="stylesheet" href="./CSS/landing.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/map.css">
+    <link rel="stylesheet" href="../CSS/query.css">
+    <link rel="stylesheet" href="../CSS/landing.css">
 
     <!-- Leaflet Imports -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -27,10 +27,12 @@
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
 
+
     <title>Disposession</title>
 </head>
 
 <body>
+    <script src="../JS/query.js"></script>
     <nav>
         <h1>Disposession</h1>
         <a>About</a>
@@ -53,23 +55,46 @@
                 in culpa qui officia deserunt mollit anim id est laborum.
             </div>
         </div>
-        <div id="decoration">
-            <div id="query">
+        <div class="decoration">
+            <div id="address">
+                <p>PLACEHOLDER</p>
                 <div class="input-stack">
                     <p>Address</p>
                     <input type="search">
                 </div>
-                <div class="input-stack">
-                    <p>Date</p>
-                    <input type="number" min="1780" max="1960" , value="Year" />
-                </div>
+
             </div>
         </div>
         <div id="map"></div>
+
+        <!-- Query -->
+        <form id="cadaster-query" autocomplete="off">
+            <div id="query-decorator">
+                <input type="text" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')" placeholder="Search by lot purchaser">
+                <ul id="buyerUL">
+                </ul>
+            </div>
+            <div id="query-decorator">
+                <input type="text" id="sellerQuery" oninput="showSelectableFields('sellerQuery', 'sellerUL')" placeholder="Search by lot seller">
+                <ul id="sellerUL">
+                </ul>
+            </div>
+            <div id="query-decorator">
+                <input type="text" id="yearQuery" oninput="showSelectableFields('yearQuery', 'yearUL')" placeholder="Search by year sold">
+                <ul id="yearUL">
+                </ul>
+            </div>
+            <div id="query-decorator">
+                <input type="text" id="originalAQuery" oninput="showSelectableFields('originalAQuery', 'originalAUL')" placeholder="Original deed of sale">
+                <ul id="originalAUL">
+                </ul>
+            </div>
+        </form>
+
     </main>
 
     <!-- Map Script Import -->
-    <script src="./JS/map.js"></script>
+    <script src="../JS/map.js"></script>
 </body>
 
 </html>
