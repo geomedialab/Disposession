@@ -1,10 +1,14 @@
 :root {
-    --background-color: rgb(34, 34, 34);
-    --primary-color: #ff7800;
-    --white-color: rgb(214, 214, 214);
-    --accent-color: rgba(121, 0, 0, 0.562);
-    --purple-color: rgb(123,25,148)
+    --background-color: rgb(51, 51, 51);
+    --primary-color: #d14e49;
+    --white-color: #F9F6F1;
+    --subtitle-color: #ffa8a8;
+    ;
+    --purple-color: rgb(123, 25, 148);
+    --radius: 10px;
+    --cadaster-color: #c4b9aa;
 }
+
 html {
     line-height: 2.2rem;
 }
@@ -12,11 +16,27 @@ html {
 * {
     box-sizing: border-box;
     font-family: 'Mulish', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-h1, a, p {
-   color: var(--white-color);
-   margin: 0;
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+h1,
+a,
+p {
+    color: var(--white-color);
+    margin: 0;
+    text-decoration: none;
+}
+
+strong {
+    font-weight: bold;
 }
 
 body {
@@ -34,36 +54,49 @@ main {
     position: relative;
     height: 100%;
     width: 100%;
-    padding: 7vh 3vw 1vw 3vw;
     overflow-y: scroll;
     z-index: 1;
-    margin: 0;
-    padding: 0;
-    margin-top: 7vh;
+    margin-top: 8vh;
+    margin-bottom: 2vh;
 }
 
 nav {
-    background-color: var(--background-color);
+    background-color: #C56E59;
     position: fixed;
     display: flex;
     height: 7vh;
     width: 100%;
     justify-content: left;
-    gap: 2%;
     top: 0%;
     z-index: 99999;
+    padding-left: 2rem;
 }
 
-nav > h1 {
-    color: var(--primary-color);
-    font-size: 2rem;
-    padding-right: 8%;
-    padding-left: 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+nav>a:hover {
+    background-position: bottom;
 }
-nav > a {
+
+nav>a {
     display: flex;
     align-items: center;
+    padding: 1rem;
+    margin: 0;
+    background-image: linear-gradient(to top, var(--primary-color) 50%, transparent 50%);
+    background-size: 100% 200%;
+    background-position: top;
+    transition: background-position 0.25s ease-in-out;
+}
+
+#content {
+    display: flex;
+    border-radius: var(--radius);
+    height: 800px;
+}
+
+.dividing-line {
+    width: 90%;
+    background: linear-gradient(90deg, rgb(135 131 131 / 83%), transparent);
+    height: 0.3vh;
+    border-radius: 8px;
 }

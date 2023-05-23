@@ -23,45 +23,134 @@
     padding-bottom: 10px;
 }
 
-#cadaster-query {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    padding: 0 10vw;
-    margin-bottom: 10vh;
-
-    width: 100%;
+#query-text {
+    align-items: start;
+    color: var(--white-color);
+    font-size: 2rem;
 }
 
-#query-decorator > input {
+#cadaster-query {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1%;
+    background-color: rgb(51, 51, 51);
+
+    align-items: self-start;
+    flex: 0 0 10%;
+}
+
+#query-decorator>p {
+    font-size: 1.05rem;
+    white-space: nowrap;
+}
+
+#query-decorator>input {
     font-size: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #cac9c9;
+    padding: 0.5rem;
+    width: max-content;
+    border-radius: calc(var(--radius) - 5px);
 }
 
 #query-decorator {
     display: flex;
     flex-direction: column;
+    width: 40%;
+    position: relative;
 }
 
-#query-decorator > ul {
-    /* Remove default list styling */
+#query-decorator>ul {
     list-style-type: none;
+    position: absolute;
     padding: 0;
     margin: 0;
-    height: 300px;
-    overflow-y: auto;
+    height: 220%;
+    width: 215px;
+    overflow-y: scroll;
+    display: none;
+    z-index: 2;
+
+    top: 72px;
 }
 
-ul > p {
+#query-decorator>ul::-webkit-scrollbar {
+    display: none;
+}
+
+
+ul>span {
+    display: block;
+}
+
+ul>span>p {
     border: 1px solid #ddd;
     margin-top: -1px;
     background-color: #f6f6f6;
-    padding: 5%;
+    padding: 1% 0 1% 1%;
     font-size: 1rem;
     color: black;
 }
 
-#myUL p:hover:not(.header) {
-    background-color: #eee;
-    /* Add a hover effect to all links, except for headers */
+ul :hover {
+    background-color: #d8d6d6;
+}
+
+#input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+
+#button-container {
+    padding-top: 10%;
+}
+
+#button-decorators {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    align-items: center;
+    height: 2.5rem;
+    width: 10rem;
+    white-space: nowrap;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all .2s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+#submit-query {
+    background-color: var(--primary-color);
+    border: var(--white-color);
+    color: white;
+}
+
+#no-data {
+    position: relative;
+    color: white;
+    display: none;
+    margin: auto;
+    z-index: 2;
+    text-align: center;
+    animation: transparency-change 0.7s 2 forwards;
+}
+
+@keyframes transparency-change {
+    0% {opacity: 100%;}
+    25% {opacity: 0%;}
+    50% {opacity: 100%;}
+    75% {opacity: 0%;}
+    100% {opacity: 100%;}
 }

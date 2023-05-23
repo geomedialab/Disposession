@@ -34,63 +34,119 @@
 <body>
     <script src="../JS/query.js"></script>
     <nav>
-        <h1>Disposession</h1>
-        <a>About</a>
-        <a>Research</a>
-        <a>Contribute</a>
+        <a href="#">About</a>
+        <a href="#">Research</a>
+        <a href="#">Contribute</a>
     </nav>
 
     <main>
         <div id="landing">
-            <div id="left-text">KANEHSATAKE</div>
-            <div id="right-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                in culpa qui officia deserunt mollit anim id est laborum.
+            <div id="top-text">Mapping Archives: Mohawk Land Dispossession by Sulpician Priests</div>
+            <div id="subtitle-text">Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke (hereafter the Kanehsata'keró:non) over the course of 200 years. </div>
+            <div class="dividing-line" id="landing-line"></div>
+            <div id="bottom-text">This map was made as a testimony to the Two Dog Wampum. Wampum are chains of
+                friendship binding groups around specific responsibilities and obligations. They need to be regularly
+                polished to renew and confirm commitments and keep communications channels open. This is a process used
+                by the Kanehsata'keró:non to preserve peace with other nations, including the British Crown and the
+                Seminary of St Sulpice. Although the Kanehsata'keró:non repeatedly delivered this Two Dog Wampum to
+                British officials to honour their promise and protect the land from white settlement, the British upheld
+                the claim of the Sulpician priests. The fact that the people of Kanehsatà: ke were never recognized as
+                the rightful title holders meant that they were entirely dependent on the Sulpician priests, who never
+                swore vows of poverty, to keep the land in “trust” for them. Instead, the Sulpicians sold 98% of the
+                land and set up the deeply unequal and racist structures at the core of conflicts today.<br><br>
+                There has never been an adequate response to right the historical wrongs from the Government nor the
+                settler public.<br><br>
+                However, in their land registries the Sulpicians painstakingly recorded every property transaction they
+                made with settlers for more than 200 years. By reconstructing the historical cadaster of the Seigneurie
+                du Lac des Deux Montagnes and locating the initial deeds of sale and concession for each individual lot,
+                we can analyze and understand the rhythm, geographical distribution, and spatial dynamics of these
+                transactions. This information provides valuable insights into the colonization process and its
+                significant impact on the people of Kanehsatà:ke.
+
             </div>
         </div>
         <div class="decoration">
             <div id="address">
-                <p>PLACEHOLDER</p>
+                <p>Question your own property rights by entering your address to uncover the origins of the lot <br>where your house is located and understand its connection to the process of colonization.</p>
                 <div class="input-stack">
-                    <p>Address</p>
+
                     <input type="search">
                 </div>
 
             </div>
         </div>
-        <div id="map"></div>
+        <div id="content">
+            <div id="map"></div>
 
-        <!-- Query -->
-        <form id="cadaster-query" autocomplete="off">
-            <div id="query-decorator">
-                <input type="text" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')" placeholder="Search by lot purchaser">
-                <ul id="buyerUL">
-                </ul>
+            <!-- Query -->
+            <div id="cadaster-query">
+                <div id="input-container">
+                    <div id="query-text">
+                        Search the Lots Distributted by Sulpician Priests
+                    </div>
+                    <div class="dividing-line"></div>
+                    <div id="query-decorator">
+                        <p>Sold to</p>
+                        <input type="text" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')"
+                            onclick="showList('buyerQuery', 'buyerUL')" placeholder="Search by lot purchaser">
+                        <ul class="queryList" id="buyerUL">
+                        </ul>
+                    </div>
+                    <div id="query-decorator">
+                        <p>Conceeded by</p>
+                        <input type="text" id="conceededByQuery" oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
+                            onclick="showList('conceededByQuery','conceededByUL')" placeholder="Search by conceeded by">
+                        <ul class="queryList" id="conceededByUL">
+                        </ul>
+                    </div>
+                    <div id="query-decorator">
+                        <p>Conceeded To</p>
+                        <input type="text" id="conceededToQuery" oninput="showSelectableFields('conceededToQuery', 'conceededToUL')"
+                            onclick="showList('conceededToQuery','conceededToUL')" placeholder="Search by conceeded to">
+                        <ul class="queryList" id="conceededToUL">
+                        </ul>
+                    </div>
+                    <div id="query-decorator">
+                        <p>Lot number</p>
+                        <input type="text" id="lotNumberQuery"
+                            oninput="showSelectableFields('lotNumberQuery', 'lotNumberUL')"
+                            onclick="showList('lotNumberQuery','lotNumberUL')" placeholder="Search by lot number">
+                        <ul class="queryList" id="lotNumberUL">
+                        </ul>
+                    </div>
+                    <div id="query-decorator">
+                        <p>Year sold</p>
+                        <input type="text" id="yearQuery" oninput="showSelectableFields('yearQuery', 'yearUL')"
+                            onclick="showList('yearQuery','yearUL')" placeholder="Search by year sold">
+                        <ul class="queryList" id="yearUL">
+                        </ul>
+                    </div>
+                    <div id="query-decorator">
+                        <p>Registration Number</p>
+                        <input type="text" id="numEnregiQuery" oninput="showSelectableFields('yearQuery', 'yearUL')"
+                            onclick="showList('numEnregiQuery','numEnregiUL')" placeholder="Search by year sold">
+                        <ul class="queryList" id="numEnregiUL">
+                        </ul>
+                    </div>
+                    <div id="query-decorator">
+                        <p>Deed of Sale</p>
+                        <input type="text" id="originalAQuery"
+                            oninput="showSelectableFields('originalAQuery', 'originalAUL')"
+                            onclick="showList('originalAQuery', 'originalAUL')" placeholder="Original deed of sale">
+                        <ul class="queryList" id="originalAUL">
+                        </ul>
+                    </div>
+                </div>
+                <div id="button-container">
+                    <div id="button-decorators">
+                        <button id="submit-query" onclick="filterQuery()">Submit Query</button>
+                        <button id="reset-map" onclick="resetMap()">Reset Map</button>
+                    </div>
+                    <div id="no-data">No lots in the cadaster match your query.</div>
+                </div>
             </div>
-            <div id="query-decorator">
-                <input type="text" id="sellerQuery" oninput="showSelectableFields('sellerQuery', 'sellerUL')" placeholder="Search by lot seller">
-                <ul id="sellerUL">
-                </ul>
-            </div>
-            <div id="query-decorator">
-                <input type="text" id="yearQuery" oninput="showSelectableFields('yearQuery', 'yearUL')" placeholder="Search by year sold">
-                <ul id="yearUL">
-                </ul>
-            </div>
-            <div id="query-decorator">
-                <input type="text" id="originalAQuery" oninput="showSelectableFields('originalAQuery', 'originalAUL')" placeholder="Original deed of sale">
-                <ul id="originalAUL">
-                </ul>
-            </div>
-        </form>
-
+        </div>
+    
     </main>
 
     <!-- Map Script Import -->

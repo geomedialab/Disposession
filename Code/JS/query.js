@@ -1,92 +1,179 @@
-function createSoldToIndex(indexArray) {
-
-    for (var i=0; i< cadasterData.features.length; i++) {
+function createSoldToIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
         obj = cadasterData.features[i].properties.SOLD_TO
-        indexArray.push(obj);
+        index.push(obj);
     }
-    uniq = [...new Set(indexArray)];
-    createPElementsForSearch('buyerUL')
+    var uniq = [...new Set(index)];
+    createPElementsForSearch(uniq, 'buyerUL', inputId)
 }
 
-function createSoldbyIndex(indexArray) {
-
-    for (var i=0; i< cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.SOLD_BY
-        indexArray.push(obj);
+function createConceededByIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
+        obj = cadasterData.features[i].properties.CONCEDED_B
+        index.push(obj);
     }
-    uniq = [...new Set(indexArray)];
-    createPElementsForSearch('sellerUL')
+    var uniq = [...new Set(index)];
+    createPElementsForSearch(uniq, 'conceededByUL', inputId)
 }
 
-function createnumEnregiIndex(indexArray) {
-
-    for (var i=0; i< cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.NUM_ENREGI
-        indexArray.push(obj);
+function createConceededToIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
+        obj = cadasterData.features[i].properties.CONCEDED_T
+        index.push(obj);
     }
-    uniq = [...new Set(indexArray)];
+    var uniq = [...new Set(index)];
+    createPElementsForSearch(uniq, 'conceededToUL', inputId)
 }
 
-function createorigAIndex(indexArray) {
-
-    for (var i=0; i< cadasterData.features.length; i++) {
+function createorigAIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
         obj = cadasterData.features[i].properties.ORIGINAL_A
-        indexArray.push(obj);
+        index.push(obj);
     }
-    uniq = [...new Set(indexArray)];
-    createPElementsForSearch('originalAUL')
+    var uniq = [...new Set(index)];
+    createPElementsForSearch(uniq, 'originalAUL', inputId)
 
 }
 
-function createLotNumberIndex(indexArray) {
-
-    for (var i=0; i< cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.LOT_NUMBER
-        indexArray.push(obj);
-    }
-    uniq = [...new Set(indexArray)];
-
-}
-
-function createYearSoldIndex(indexArray) {
-
-    for (var i=0; i< cadasterData.features.length; i++) {
+function createYearSoldIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
         obj = cadasterData.features[i].properties.times
-        indexArray.push(obj);
+        index.push(obj.toString());
     }
-    uniq = [...new Set(indexArray)];
-    createPElementsForSearch('yearUL')
+    index.sort()
+
+    let uniqYears = [...new Set(index)];
+
+    createPElementsForSearch(uniqYears, 'yearUL', inputId)
 }
 
-function createPElementsForSearch(ulId) {
-    for (i = 0; i < uniq.length; i++) {
-        var name = uniq[i]
-        var spanElement = document.createElement("span");
-        var pElement = document.createElement("p")
-        pElement.innerHTML = name
+function createLotNumberIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
+        obj = cadasterData.features[i].properties.LOT_NUMBER
+        index.push(obj);
+    }
+    var uniq = [...new Set(index)];
 
-        var container = document.getElementById(ulId)
+    createPElementsForSearch(uniq, 'lotNumberUL', inputId)
+}
+
+function createNumEnregiIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
+        obj = cadasterData.features[i].properties.NUM_ENREGI
+        index.push(obj);
+    }
+    index.sort()
+    var uniq = [...new Set(index)];
+
+    createPElementsForSearch(uniq, 'numEnregiUL', inputId)
+}
+
+
+function createPElementsForSearch(array, ulId, inputId,) {
+    for (i = 0; i < array.length; i++) {
+        let newValue = array[i];
+        const spanElement = document.createElement("span");
+        const pElement = document.createElement("p");
+        const ulElement = document.getElementById(ulId);
+        const inputElement = document.getElementById(inputId);
+
+        pElement.innerHTML = newValue;
+
+        spanElement.addEventListener("click", function () {
+            inputElement.value = newValue;
+            ulElement.style.display = 'none';
+        })
+
+        const container = document.getElementById(ulId)
+        document.addEventListener("mouseup", function (e) {
+            if (!ulElement.contains(e.target)) {
+                ulElement.style.display = "none";
+                inputElement.style.borderRadius = "calc(var(--radius) - 5px)";
+            }
+        })
         container.appendChild(spanElement);
         spanElement.appendChild(pElement);
     }
 }
 
 function showSelectableFields(inputId, ulId) {
+
     // Declare variables
     var input, filter, ul, i, txtValue;
     input = document.getElementById(inputId);
     filter = input.value.toUpperCase();
     ul = document.getElementById(ulId);
     p = ul.getElementsByTagName('p');
-  
+
     // Loop through all list items, and hide those who don't match the search query
     for (i = 0; i < p.length; i++) {
-      a = p[i];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        p[i].style.display = "";
-      } else {
-        p[i].style.display = "none";
-      }
+        a = p[i];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            p[i].style.display = "";
+        } else {
+            p[i].style.display = "none";
+        }
     }
-  }
+}
+
+
+function showList(inputId, uLId) {
+    document.getElementById(inputId).style.borderRadius = "calc(var(--radius) - 5px) calc(var(--radius) - 5px) 0 0"
+    ul = document.getElementById(uLId)
+    ul.style.display = 'block';
+}
+
+function filterQuery() {
+
+    const soldToQuery = document.getElementById("buyerQuery").value;
+    const conceededByQuery = document.getElementById("conceededByQuery").value;
+    const conceededToQuery = document.getElementById("conceededToQuery").value;
+    const lotNumberQuery = document.getElementById("lotNumberQuery").value;
+    const yearQuery = document.getElementById("yearQuery").value;
+    const numEnregiQuery = document.getElementById("numEnregiQuery").value;
+    const originalAQuery = document.getElementById("originalAQuery").value;
+
+    const data = cadasterData.features;
+    var queryResults = []
+
+    // Loop over data, push the lots passing conditions to queryResultys array
+    for (i = 0; i < data.length; i++) {
+        var featureData = data[i].properties
+
+        // This is the magic that is the actual filtering of whether the filter is wanted & if it is to filter it.
+        if ((!soldToQuery || featureData.SOLD_TO == buyerQuery) //
+            && (!conceededToQuery || featureData.CONCEDED_T == conceededToQuery)//
+            && (!conceededByQuery || featureData.CONCEDED_B == conceededByQuery)//
+            && (!yearQuery || featureData.times == yearQuery)//
+            && (!originalAQuery || featureData.ORIGINAL_A == originalAQuery)//
+            && (!numEnregiQuery || featureData.NUM_ENREGI == numEnregiQuery)//
+            && (!lotNumberQuery || featureData.LOT_NUMBER == lotNumberQuery))//
+        {
+            queryResults.push(data[i]);
+        }
+    }
+
+    if (queryResults.length != 0) {
+        displayQueryResults(queryResults)
+        document.getElementById("no-data").style.display = "none"
+    } else {
+        document.getElementById("no-data").style.display = "block"
+    }
+}
+function resetInputs() {
+    document.getElementById("buyerQuery").value = "";
+    document.getElementById("conceededByQuery").value = "";
+    document.getElementById("conceededToQuery").value = "";
+    document.getElementById("originalAQuery").value = "";
+    document.getElementById("lotNumberQuery").value = "";
+    document.getElementById("numEnregiQuery").value = "";
+    document.getElementById("yearQuery").value = "";
+}
