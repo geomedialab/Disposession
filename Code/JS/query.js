@@ -79,6 +79,9 @@ function createPElementsForSearch(array, ulId, inputId,) {
 
         spanElement.addEventListener("click", function () {
             inputElement.value = newValue;
+            if (inputId == 'geocoding-search') {
+                placeMapMarker(newValue);
+            }
             ulElement.style.display = 'none';
         })
 

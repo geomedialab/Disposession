@@ -73,7 +73,11 @@
                 <p>Question your own property rights by entering your address to uncover the origins of the lot
                     <br>where your house is located and understand its connection to the process of colonization.</p>
                 <div id="query-decorator">
-                    <input type="search" placeholder="Enter your address">
+                    <input type="search" placeholder="Enter your address" id="geocoding-search">
+                    <ul class="queryList" id="geocodingUL"></ul>
+                    <div id="button-decorators">
+                        <button id="submit-query" onclick="callNominatim()">Submit Address</button>
+                    </div>
                 </div>
             </div>
         </div>
