@@ -1,0 +1,24 @@
+Locate by address only thing in orange box
+	highlight one sliver
+
+classic legend on the side
+	all lots of 1780 where
+
+dont worry about contributions
+
+Search by:
+	All except volume
+	area
+	precide date
+	volume
+
+
+throwing all search into one large js array, adding to it as more variables come then a submit to compile it(like a form)
+
+no tabular form at bottom.
+
+in timeline, kanehsatake has to appear at the end.
+
+Research tab has graphs.
+
+not tuesdays

@@ -1,0 +1,34 @@
+sold or conceeded to
+	- put them together
+and sold or conceeded by
+	-put them 
+
+Year slider as part of the query column
+
+How do you display uncertainty in data
+
+Has to be in french
+	- toggle in top right of nav bar
+
+Nav bar sources
+	style - http://revolt.axismaps.com/sources.html
+
+Nav bar headers:
+	About - Research - Sources - Acknowledgements - Contribute
+
+Timeline Feature
+	- Style red like submit query
+	- no box on years, Big white color text
+
+Main legend
+	- smaller
+
+Timeline
+	- make 3 first lots pop up
+	- Full cadaster outline
+	- Fill lots gradually over time
+		- lots will have small outline and little fill (or fill over time?)
+
+Two row wampum under the title row
+
+Unavailable on Tuesday Wednesday, 
