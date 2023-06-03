@@ -10,10 +10,10 @@ path:focus {
 
 .legend {
     padding: 6px 8px;
-    font-size: 1rem;
-    background: white;
-    background: rgba(255, 255, 255, 0.8);
+    font-size: 1.3em;
+    background: rgba(255, 255, 255, 0.6);
     color: var(--background-color);
+    border-radius: 4px;
 }
 
 .legend h4 {
@@ -43,4 +43,9 @@ path:focus {
 
 .leaflet-popup-content-wrapper{
     opacity: 0.8;
+}
+
+/* For some reason this doesn't override the font size ... */
+.leaflet-popup-content {
+    font-size: 2em;
 }

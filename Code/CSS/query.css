@@ -23,12 +23,6 @@
     padding-bottom: 10px;
 }
 
-#query-text {
-    align-items: start;
-    color: var(--white-color);
-    font-size: 2rem;
-}
-
 #cadaster-query {
     display: flex;
     position: relative;
@@ -41,6 +35,22 @@
     flex: 0 0 10%;
 }
 
+#cadaster-query>div:last-of-type {
+    margin-top: auto;
+}
+
+#query-decorator {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#query-text {
+    align-items: start;
+    color: var(--white-color);
+    font-size: 2rem;
+}
+
 #query-decorator>p {
     font-size: 1.05rem;
     white-space: nowrap;
@@ -50,15 +60,8 @@
     font-size: 1rem;
     border: 1px solid #cac9c9;
     padding: 0.5rem;
-    width: max-content;
+    width: 80%;
     border-radius: calc(var(--radius) - 5px);
-}
-
-#query-decorator {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    position: relative;
 }
 
 #query-decorator>ul {
@@ -67,7 +70,7 @@
     padding: 0;
     margin: 0;
     height: 220%;
-    width: 215px;
+    width: 80%;
     overflow-y: scroll;
     display: none;
     z-index: 2;
@@ -103,11 +106,6 @@ ul :hover {
     gap: 0.5rem;
 }
 
-
-#button-container {
-    padding-top: 10%;
-}
-
 #button-decorators {
     display: flex;
     flex-direction: row;
@@ -116,7 +114,7 @@ ul :hover {
     justify-content: center;
 }
 
-button {
+#button-decorators > button {
     align-items: center;
     height: 2.5rem;
     width: 10rem;

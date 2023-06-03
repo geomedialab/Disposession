@@ -1,8 +1,10 @@
 function createSoldToIndex(inputId) {
     var index = []
     for (var i = 0; i < cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.SOLD_TO
-        index.push(obj);
+        obj1 = cadasterData.features[i].properties.SOLD_TO
+        obj2 = cadasterData.features[i].properties.CONCEDED_T
+        index.push(obj1);
+        index.push(obj2)
     }
     var uniq = [...new Set(index)];
     createPElementsForSearch(uniq, 'buyerUL', inputId)
@@ -18,16 +20,6 @@ function createConceededByIndex(inputId) {
     createPElementsForSearch(uniq, 'conceededByUL', inputId)
 }
 
-function createConceededToIndex(inputId) {
-    var index = []
-    for (var i = 0; i < cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.CONCEDED_T
-        index.push(obj);
-    }
-    var uniq = [...new Set(index)];
-    createPElementsForSearch(uniq, 'conceededToUL', inputId)
-}
-
 function createorigAIndex(inputId) {
     var index = []
     for (var i = 0; i < cadasterData.features.length; i++) {
@@ -36,14 +28,13 @@ function createorigAIndex(inputId) {
     }
     var uniq = [...new Set(index)];
     createPElementsForSearch(uniq, 'originalAUL', inputId)
-
 }
 
 function createYearSoldIndex(inputId) {
     var index = []
     for (var i = 0; i < cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.times
-        index.push(obj.toString());
+        obj = cadasterData.features[i].properties.year
+        index.push(obj);
     }
     index.sort()
 
@@ -104,7 +95,7 @@ function createPElementsForSearch(array, ulId, inputId,) {
 }
 
 function showSelectableFields(inputId, ulId) {
-
+    
     // Declare variables
     var input, filter, ul, i, txtValue;
     input = document.getElementById(inputId);
@@ -135,7 +126,6 @@ function filterQuery() {
 
     const soldToQuery = document.getElementById("buyerQuery").value;
     const conceededByQuery = document.getElementById("conceededByQuery").value;
-    const conceededToQuery = document.getElementById("conceededToQuery").value;
     const lotNumberQuery = document.getElementById("lotNumberQuery").value;
     const yearQuery = document.getElementById("yearQuery").value;
     const numEnregiQuery = document.getElementById("numEnregiQuery").value;
@@ -149,10 +139,9 @@ function filterQuery() {
         var featureData = data[i].properties
 
         // This is the magic that is the actual filtering of whether the filter is wanted & if it is to filter it.
-        if ((!soldToQuery || featureData.SOLD_TO == buyerQuery) //
-            && (!conceededToQuery || featureData.CONCEDED_T == conceededToQuery)//
+        if ((!soldToQuery || (featureData.SOLD_TO || featureData.CONCEDED_T) == soldToQuery) //
             && (!conceededByQuery || featureData.CONCEDED_B == conceededByQuery)//
-            && (!yearQuery || featureData.times == yearQuery)//
+            && (!yearQuery || featureData.year == yearQuery)//
             && (!originalAQuery || featureData.ORIGINAL_A == originalAQuery)//
             && (!numEnregiQuery || featureData.NUM_ENREGI == numEnregiQuery)//
             && (!lotNumberQuery || featureData.LOT_NUMBER == lotNumberQuery))//
@@ -163,17 +152,26 @@ function filterQuery() {
 
     if (queryResults.length != 0) {
         displayQueryResults(queryResults)
-        document.getElementById("no-data").style.display = "none"
+        document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'none';
     } else {
         document.getElementById("no-data").style.display = "block"
     }
 }
+
 function resetInputs() {
     document.getElementById("buyerQuery").value = "";
     document.getElementById("conceededByQuery").value = "";
-    document.getElementById("conceededToQuery").value = "";
     document.getElementById("originalAQuery").value = "";
     document.getElementById("lotNumberQuery").value = "";
     document.getElementById("numEnregiQuery").value = "";
     document.getElementById("yearQuery").value = "";
+}
+
+function resetUls() {
+    document.getElementById("buyerUL").innerHTML = "";
+    document.getElementById("conceededByUL").innerHTML = "";
+    document.getElementById("lotNumberUL").innerHTML = "";
+    document.getElementById("yearUL").innerHTML = "";
+    document.getElementById("numEnregiUL").innerHTML = "";
+    document.getElementById("originalAUL").innerHTML = "";
 }

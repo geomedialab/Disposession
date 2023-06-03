@@ -31,3 +31,7 @@
     flex-grow: 1;
     padding-right: 10rem;
 }
+
+#address > #query-decorator > input {
+    width: 100%;
+}

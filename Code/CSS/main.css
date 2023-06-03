@@ -3,7 +3,7 @@
     --primary-color: #d14e49;
     --white-color: #F9F6F1;
     --subtitle-color: #ffa8a8;
-    ;
+    --orange-color: #F56B06;
     --purple-color: rgb(123, 25, 148);
     --radius: 10px;
     --cadaster-color: #c4b9aa;
@@ -11,6 +11,8 @@
 
 html {
     line-height: 2.2rem;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 * {
@@ -46,10 +48,13 @@ body {
 
 main::-webkit-scrollbar {
     display: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
-
 main {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     scroll-behavior: smooth;
     position: relative;
     height: 100%;

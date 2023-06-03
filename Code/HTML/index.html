@@ -9,23 +9,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6680fa8d52.js" crossorigin="anonymous"></script>
+
 
     <!-- CSS Imports -->
     <link rel="stylesheet" href="../CSS/main.css">
     <link rel="stylesheet" href="../CSS/map.css">
     <link rel="stylesheet" href="../CSS/query.css">
     <link rel="stylesheet" href="../CSS/landing.css">
+    <link rel="stylesheet" href="../CSS/timeline.css">
 
     <!-- Leaflet Imports -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.min.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/iso8601-js-period@0.2.1/iso8601.min.js"></script>
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
 
 
     <title>Disposession</title>
@@ -33,6 +31,8 @@
 
 <body>
     <script src="../JS/query.js"></script>
+    <script src="../JS/geocoding.js"></script>
+
     <nav>
         <a href="#">About</a>
         <a href="#">Research</a>
@@ -40,9 +40,11 @@
     </nav>
 
     <main>
+        <!-- Landing Intro -->
         <div id="landing">
             <div id="top-text">Mapping Archives: Mohawk Land Dispossession by Sulpician Priests</div>
-            <div id="subtitle-text">Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke (hereafter the Kanehsata'keró:non) over the course of 200 years. </div>
+            <div id="subtitle-text">Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke
+                (hereafter the Kanehsata'keró:non) over the course of 200 years. </div>
             <div class="dividing-line" id="landing-line"></div>
             <div id="bottom-text">This map was made as a testimony to the Two Dog Wampum. Wampum are chains of
                 friendship binding groups around specific responsibilities and obligations. They need to be regularly
@@ -55,7 +57,7 @@
                 swore vows of poverty, to keep the land in “trust” for them. Instead, the Sulpicians sold 98% of the
                 land and set up the deeply unequal and racist structures at the core of conflicts today.<br><br>
                 There has never been an adequate response to right the historical wrongs from the Government nor the
-                settler public.<br><br>
+                settler public.<br>
                 However, in their land registries the Sulpicians painstakingly recorded every property transaction they
                 made with settlers for more than 200 years. By reconstructing the historical cadaster of the Seigneurie
                 du Lac des Deux Montagnes and locating the initial deeds of sale and concession for each individual lot,
@@ -65,19 +67,19 @@
 
             </div>
         </div>
+        <!-- Geocoding -->
         <div class="decoration">
             <div id="address">
-                <p>Question your own property rights by entering your address to uncover the origins of the lot <br>where your house is located and understand its connection to the process of colonization.</p>
-                <div class="input-stack">
-
-                    <input type="search">
+                <p>Question your own property rights by entering your address to uncover the origins of the lot
+                    <br>where your house is located and understand its connection to the process of colonization.</p>
+                <div id="query-decorator">
+                    <input type="search" placeholder="Enter your address">
                 </div>
-
             </div>
         </div>
+        <!-- Main Map content -->
         <div id="content">
             <div id="map"></div>
-
             <!-- Query -->
             <div id="cadaster-query">
                 <div id="input-container">
@@ -86,29 +88,23 @@
                     </div>
                     <div class="dividing-line"></div>
                     <div id="query-decorator">
-                        <p>Sold to</p>
-                        <input type="text" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')"
-                            onclick="showList('buyerQuery', 'buyerUL')" placeholder="Search by lot purchaser">
+                        <p>Sold or Conceeded to</p>
+                        <input type="search" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')"
+                            onclick="showList('buyerQuery', 'buyerUL')" placeholder="Search by lot acquirer">
                         <ul class="queryList" id="buyerUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
                         <p>Conceeded by</p>
-                        <input type="text" id="conceededByQuery" oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
-                            onclick="showList('conceededByQuery','conceededByUL')" placeholder="Search by conceeded by">
+                        <input type="search" id="conceededByQuery"
+                            oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
+                            onclick="showList('conceededByQuery','conceededByUL')" placeholder="Search by Sulpician name">
                         <ul class="queryList" id="conceededByUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
-                        <p>Conceeded To</p>
-                        <input type="text" id="conceededToQuery" oninput="showSelectableFields('conceededToQuery', 'conceededToUL')"
-                            onclick="showList('conceededToQuery','conceededToUL')" placeholder="Search by conceeded to">
-                        <ul class="queryList" id="conceededToUL">
-                        </ul>
-                    </div>
-                    <div id="query-decorator">
                         <p>Lot number</p>
-                        <input type="text" id="lotNumberQuery"
+                        <input type="search" id="lotNumberQuery"
                             oninput="showSelectableFields('lotNumberQuery', 'lotNumberUL')"
                             onclick="showList('lotNumberQuery','lotNumberUL')" placeholder="Search by lot number">
                         <ul class="queryList" id="lotNumberUL">
@@ -116,37 +112,38 @@
                     </div>
                     <div id="query-decorator">
                         <p>Year sold</p>
-                        <input type="text" id="yearQuery" oninput="showSelectableFields('yearQuery', 'yearUL')"
+                        <input type="search" id="yearQuery" oninput="showSelectableFields('yearQuery', 'yearUL')"
                             onclick="showList('yearQuery','yearUL')" placeholder="Search by year sold">
                         <ul class="queryList" id="yearUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
-                        <p>Registration Number</p>
-                        <input type="text" id="numEnregiQuery" oninput="showSelectableFields('yearQuery', 'yearUL')"
-                            onclick="showList('numEnregiQuery','numEnregiUL')" placeholder="Search by year sold">
-                        <ul class="queryList" id="numEnregiUL">
-                        </ul>
-                    </div>
-                    <div id="query-decorator">
-                        <p>Deed of Sale</p>
-                        <input type="text" id="originalAQuery"
+                        <p>With origininal deed of sale</p>
+                        <input type="search" id="originalAQuery"
                             oninput="showSelectableFields('originalAQuery', 'originalAUL')"
                             onclick="showList('originalAQuery', 'originalAUL')" placeholder="Original deed of sale">
                         <ul class="queryList" id="originalAUL">
                         </ul>
                     </div>
+                    <div id="query-decorator">
+                        <p>Registration Number</p>
+                        <input type="search" id="numEnregiQuery"
+                            oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
+                            onclick="showList('numEnregiQuery','numEnregiUL')" placeholder="Search by registration number">
+                        <ul class="queryList" id="numEnregiUL">
+                        </ul>
+                    </div>
                 </div>
+                <div id="no-data">No lots in the cadaster match your query.</div>
                 <div id="button-container">
                     <div id="button-decorators">
                         <button id="submit-query" onclick="filterQuery()">Submit Query</button>
                         <button id="reset-map" onclick="resetMap()">Reset Map</button>
                     </div>
-                    <div id="no-data">No lots in the cadaster match your query.</div>
                 </div>
             </div>
         </div>
-    
+
     </main>
 
     <!-- Map Script Import -->
