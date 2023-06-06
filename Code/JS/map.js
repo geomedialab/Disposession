@@ -4,10 +4,11 @@ var center = [45.627687, -74.073016];
 var control;
 
 // Variables for timeline
-const interval = 800;
-const earliestDate = 1960;
+const interval = 1000;
+const earliestDate = 1760;
 const range = 10;
 
+// Initialize map
 var map = L.map('map',
     {
         minZoom: 10,
@@ -34,23 +35,45 @@ var orangeColor = getComputedStyle(document.documentElement)
 var queryColor = getComputedStyle(document.documentElement)
     .getPropertyValue('--primary-color');
 
-var fullCadasterStyle = {
+const fullCadasterStyle = {
     "color": cadasterColor,
     "weight": 0.5,
     "opacity": 0.5,
 };
 
-var queryStyle = {
+const queryStyle = {
     "color": queryColor,
     "fillColor": queryColor,
     "weight": 0.6,
     "opacity": 1,
 }
 
-var kanehsatakeStyle = {
+const timelineStyle = {
+    "color": cadasterColor,
+    "fillColor": cadasterColor,
+    "weight": 0.2,
+    "opacity": 0.5,
+    "fillOpacity": 1
+}
+
+const kanehsatakeStyle = {
     "color": purpleColor,
     "weight": 1,
     "opacity": 1,
+}
+
+function addMerged() {
+    fetch('../../Data/GEOJSON/mergedCadaster.geojson')
+        .then((response) => response.json())
+        .then((data) => mergedData = data)
+        .then(() => {
+            console.log(mergedData)
+            mergedLayer = L.geoJSON(
+                mergedData,
+                setOptions = {
+                    style: kanehsatakeStyle,
+                }).addTo(map);
+        })
 }
 
 async function addCadaster() {
@@ -79,6 +102,19 @@ async function addCadaster() {
         });
 }
 
+function pointInPoly(marker) {
+    const latLng = marker.getLatLng();
+    cadasterLayer.eachLayer(function (indivLot) {
+        if (indivLot.contains(latLng)) {
+            displayQueryResults(indivLot.feature)
+            marker.addTo(map);
+        }
+        else {
+            document.getElementById("not-in-polygon").style.display = "block";
+        }
+    })
+}
+
 function addKanehsatake() {
     fetch('../../Data/GEOJSON/kanehsatake.geojson')
         .then((response) => response.json())
@@ -98,7 +134,7 @@ const cadasterLegend = L.control({ position: 'topleft' });
 cadasterLegend.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
     labels = [],
-        categories = [{ name: 'White settlement', color: cadasterColor }, { name: 'Kahnesatake Today', color: purpleColor }];
+        categories = [{ name: 'White settlement', color: cadasterColor }, { name: 'Kahnesatake', color: purpleColor }];
     // Seignerie du Lac des Deux Montagnes
     for (var i = 0; i < categories.length; i++) {
 
@@ -117,7 +153,7 @@ timelinePlayControl.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
 
     div.innerHTML = 'Experience disposession through time\
-    <button id"start-timeline" onclick="startTimeDisplay()"><i class="fa-solid fa-play"></i></button>'
+    <button class="button play" onclick="startTimeDisplay()"></button>'
     return div
 }
 timelinePlayControl.addTo(map);
@@ -130,7 +166,7 @@ function timeDisplay(data, previousYear, liveYear) {
     }
 
 
-    var yearLegend = L.control({ position: 'bottomleft' });
+    var yearLegend = L.control({ position: 'topright' });
     yearLegend.onAdd = function () {
         const div = L.DomUtil.create('div', 'info legend year-legend');
 
@@ -144,7 +180,7 @@ function timeDisplay(data, previousYear, liveYear) {
         const correctArray = [];
         const featureTime = data.features[i].properties.year;
 
-        if ((featureTime < previousYear) && (featureTime >= (previousYear - range))) {
+        if ((featureTime > previousYear) && (featureTime <= (previousYear + range))) {
             correctArray.push(data.features[i])
         }
         // show layer with array of correct conditions 
@@ -157,12 +193,14 @@ function timeDisplay(data, previousYear, liveYear) {
     }
 
     // Recursive call 
-    if (liveYear >= 1760) {
-        setTimeout(() => { timeDisplay(data, liveYear, (liveYear - range)); }, interval);
+    if (liveYear <= 1960) {
+        setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
     } else {
         document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
         document.getElementsByClassName('info legend year-legend leaflet-control')[0].style.display = 'none';
+        document.getElementsByClassName("leaflet-bottom")[0].style.display = 'block';
         map.addLayer(kanehsatakeLayer);
+        map.removeLayer(mergedLayer)
         console.log('Timeline Completed')
     }
 }
@@ -175,12 +213,14 @@ function startTimeDisplay() {
         }
     });
 
-    document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'none';
+    // document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'none';
+    document.getElementsByClassName("leaflet-bottom")[0].style.display = 'none';
+    addMerged();
 
     fetch('../../Data/GEOJSON/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
-        .then(() => setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate - range)); }, 800));
+        .then(() => setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800));
 }
 
 
@@ -193,10 +233,13 @@ function resetMap() {
 
     resetInputs();
     resetUls();
-    addCadaster();
     addKanehsatake();
+    addCadaster();
 
     document.getElementById("no-data").style.display = "none";
+    document.getElementById("no-address").style.display = "none";
+    document.getElementById("not-in-polygon").style.display = "none";
+
     document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
     map.fitBounds(cadasterLayer.getBounds());
 }
@@ -263,6 +306,5 @@ var onEachFeature = function (feature, layer) {
      <h2>Lot number ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
 }
-
-addCadaster();
 addKanehsatake();
+addCadaster();

@@ -24,7 +24,10 @@
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
 
+    <link rel="stylesheet" href="style/I18NSwitch.css" />
+    <script src="script/I18NSwitch.js"></script>
 
     <title>Disposession</title>
 </head>
@@ -37,6 +40,7 @@
         <a href="#">About</a>
         <a href="#">Research</a>
         <a href="#">Contribute</a>
+        <div id="i18n-switch"></div>
     </nav>
 
     <main>
@@ -46,6 +50,7 @@
             <div id="subtitle-text">Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke
                 (hereafter the Kanehsata'keró:non) over the course of 200 years. </div>
             <div class="dividing-line" id="landing-line"></div>
+            <div id="wampum" alt="Two dog wampum"></div>
             <div id="bottom-text">This map was made as a testimony to the Two Dog Wampum. Wampum are chains of
                 friendship binding groups around specific responsibilities and obligations. They need to be regularly
                 polished to renew and confirm commitments and keep communications channels open. This is a process used
@@ -71,7 +76,8 @@
         <div class="decoration">
             <div id="address">
                 <p>Question your own property rights by entering your address to uncover the origins of the lot
-                    <br>where your house is located and understand its connection to the process of colonization.</p>
+                    <br>where your house is located and understand its connection to the process of colonization.
+                </p>
                 <div id="query-decorator">
                     <input type="search" placeholder="Enter your address" id="geocoding-search">
                     <ul class="queryList" id="geocodingUL"></ul>
@@ -79,6 +85,8 @@
                         <button id="submit-query" onclick="callNominatim()">Submit Address</button>
                     </div>
                 </div>
+                <div id="no-address">Address not found.</div>
+                <div id="not-in-polygon">Location is not within research area.</div>
             </div>
         </div>
         <!-- Main Map content -->
@@ -102,7 +110,8 @@
                         <p>Conceeded by</p>
                         <input type="search" id="conceededByQuery"
                             oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
-                            onclick="showList('conceededByQuery','conceededByUL')" placeholder="Search by Sulpician name">
+                            onclick="showList('conceededByQuery','conceededByUL')"
+                            placeholder="Search by Sulpician name">
                         <ul class="queryList" id="conceededByUL">
                         </ul>
                     </div>
@@ -133,7 +142,8 @@
                         <p>Registration Number</p>
                         <input type="search" id="numEnregiQuery"
                             oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
-                            onclick="showList('numEnregiQuery','numEnregiUL')" placeholder="Search by registration number">
+                            onclick="showList('numEnregiQuery','numEnregiUL')"
+                            placeholder="Search by registration number">
                         <ul class="queryList" id="numEnregiUL">
                         </ul>
                     </div>

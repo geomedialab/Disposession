@@ -1,24 +1,21 @@
-#address {
+#no-address {
     position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0vh 0 2vh 0;
-    padding: 10px;
-    flex-direction: column;
-    border: 3px solid var(--primary-color);
-    border-radius: 18px;
+    color: white;
+    display: none;
+    margin: auto;
+    z-index: 2;
+    text-align: center;
+    animation: transparency-change 0.7s 2 forwards;
 }
 
-#address > #query-decorator {
-    flex-direction: row;
-    gap: 1em
-}
-
-#address > #query-decorator > ul {
-    top: 38px;
-    width: 80%;
-    z-index: 9999;
+#not-in-polygon {
+    position: relative;
+    color: white;
+    display: none;
+    margin: auto;
+    z-index: 2;
+    text-align: center;
+    animation: transparency-change 0.7s 2 forwards;
 }
 
 

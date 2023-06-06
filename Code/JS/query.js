@@ -66,7 +66,6 @@ function createNumEnregiIndex(inputId) {
     createPElementsForSearch(uniq, 'numEnregiUL', inputId)
 }
 
-
 function createPElementsForSearch(array, ulId, inputId,) {
     for (i = 0; i < array.length; i++) {
         let newValue = array[i];
@@ -125,6 +124,7 @@ function showList(inputId, uLId) {
     ul.style.display = 'block';
 }
 
+
 function filterQuery() {
 
     const soldToQuery = document.getElementById("buyerQuery").value;
@@ -162,6 +162,7 @@ function filterQuery() {
 }
 
 function resetInputs() {
+    document.getElementById("geocoding-search").value = "";
     document.getElementById("buyerQuery").value = "";
     document.getElementById("conceededByQuery").value = "";
     document.getElementById("originalAQuery").value = "";
