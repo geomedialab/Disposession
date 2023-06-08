@@ -39,16 +39,3 @@ function placeMapMarker(newValue) {
     }
     pointInPoly(geocodedMarker)
 }
-
-const langSwitch = new I18NSwitch(
-    "i18n-switch",
-    {
-      flag: CountryFlags.UNITED_STATES,
-      language: english
-    },
-    {
-      flag: CountryFlags.SPAIN,
-      language: spain
-    },
-    general
-);

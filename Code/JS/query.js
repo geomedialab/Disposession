@@ -97,7 +97,7 @@ function createPElementsForSearch(array, ulId, inputId,) {
 }
 
 function showSelectableFields(inputId, ulId) {
-    
+
     // Declare variables
     var input, filter, ul, i, txtValue;
     input = document.getElementById(inputId);
@@ -141,14 +141,15 @@ function filterQuery() {
     for (i = 0; i < data.length; i++) {
         var featureData = data[i].properties
 
-        // This is the magic that is the actual filtering of whether the filter is wanted & if it is to filter it.
-        if ((!soldToQuery || (featureData.SOLD_TO || featureData.CONCEDED_T) == soldToQuery) //
+        // This is the magic that is the actual filtering of whether the filter is wanted & filter it if it is.
+        if (
+            (!soldToQuery || (featureData.SOLD_TO || featureData.CONCEDED_T) == soldToQuery) //
             && (!conceededByQuery || featureData.CONCEDED_B == conceededByQuery)//
             && (!yearQuery || featureData.year == yearQuery)//
             && (!originalAQuery || featureData.ORIGINAL_A == originalAQuery)//
             && (!numEnregiQuery || featureData.NUM_ENREGI == numEnregiQuery)//
-            && (!lotNumberQuery || featureData.LOT_NUMBER == lotNumberQuery))//
-        {
+            && (!lotNumberQuery || featureData.LOT_NUMBER == lotNumberQuery)
+        ) {
             queryResults.push(data[i]);
         }
     }

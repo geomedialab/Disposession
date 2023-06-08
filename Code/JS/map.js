@@ -18,11 +18,21 @@ var map = L.map('map',
         fullScreenControl: false,
     });
 
-// Initialize Basemap
+// Initialize Basemaps
 const Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
     maxZoom: 20,
     attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 }).addTo(map);
+
+const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});;
+
+const basemaps = {
+    "Stadia Dark": Stadia_AlidadeSmoothDark,
+    "Esri Satellite": Esri_WorldImagery
+}
+var basemapControl = L.control.layers(basemaps).addTo(map);
 
 
 // Styling parameters
@@ -62,22 +72,28 @@ const kanehsatakeStyle = {
     "opacity": 1,
 }
 
+const mergedStyle = {
+    "color": purpleColor,
+    "fillOpacity": 0.05,
+    "weight": 1,
+    "opacity": 1,
+}
+
 function addMerged() {
-    fetch('../../Data/GEOJSON/mergedCadaster.geojson')
+    fetch('../../../Data/GEOJSON/mergedCadaster.geojson')
         .then((response) => response.json())
         .then((data) => mergedData = data)
         .then(() => {
-            console.log(mergedData)
             mergedLayer = L.geoJSON(
                 mergedData,
                 setOptions = {
-                    style: kanehsatakeStyle,
+                    style: mergedStyle,
                 }).addTo(map);
         })
 }
 
 async function addCadaster() {
-    fetch('../../Data/GEOJSON/Full_Cadaster.geojson')
+    fetch('../../../Data/GEOJSON/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -116,7 +132,7 @@ function pointInPoly(marker) {
 }
 
 function addKanehsatake() {
-    fetch('../../Data/GEOJSON/kanehsatake.geojson')
+    fetch('../../../Data/GEOJSON/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
@@ -130,11 +146,10 @@ function addKanehsatake() {
 }
 
 const cadasterLegend = L.control({ position: 'topleft' });
-
 cadasterLegend.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
     labels = [],
-        categories = [{ name: 'White settlement', color: cadasterColor }, { name: 'Kahnesatake', color: purpleColor }];
+        categories = [{ name: 'White settlement', color: cadasterColor }, { name: 'Kanehsatà:ke', color: purpleColor }];
     // Seignerie du Lac des Deux Montagnes
     for (var i = 0; i < categories.length; i++) {
 
@@ -196,28 +211,40 @@ function timeDisplay(data, previousYear, liveYear) {
     if (liveYear <= 1960) {
         setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
     } else {
+
+        // Add back map elements
         document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
         document.getElementsByClassName('info legend year-legend leaflet-control')[0].style.display = 'none';
         document.getElementsByClassName("leaflet-bottom")[0].style.display = 'block';
+        basemapControl.addTo(map);
+
+        // Set map state to base form
         map.addLayer(kanehsatakeLayer);
         map.removeLayer(mergedLayer)
+
         console.log('Timeline Completed')
     }
 }
 
-function startTimeDisplay() {
-    map.fitBounds(cadasterLayer.getBounds());
+function resetLayers () {
     map.eachLayer(function (layer) {
         if (layer != Stadia_AlidadeSmoothDark) {
+            if (layer != Esri_WorldImagery) {
             map.removeLayer(layer);
+            }
         }
     });
+}
 
-    // document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'none';
+function startTimeDisplay() {
+    map.fitBounds(cadasterLayer.getBounds());
+    resetLayers();
+
     document.getElementsByClassName("leaflet-bottom")[0].style.display = 'none';
+    basemapControl.remove(map);
     addMerged();
 
-    fetch('../../Data/GEOJSON/Full_Cadaster.geojson')
+    fetch('../../../Data/GEOJSON/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800));
@@ -225,12 +252,7 @@ function startTimeDisplay() {
 
 
 function resetMap() {
-    map.eachLayer(function (layer) {
-        if (layer != Stadia_AlidadeSmoothDark) {
-            map.removeLayer(layer);
-        }
-    });
-
+    resetLayers();
     resetInputs();
     resetUls();
     addKanehsatake();

@@ -8,7 +8,7 @@
 
 #wampum {
     background: url("../../Assets/wampum.png") no-repeat center;
-    height: 15vh;
+    height: 13vh;
     width: 100%;
     background-size: contain;
     background-repeat: no-repeat;
@@ -26,12 +26,12 @@
     text-shadow: 3px 3px 10px #000000;
 }
 
-#subtitle-text {
+.subtitle {
     color: var(--subtitle-color);
     font-size: 1.2rem;
 }
 
-#bottom-text {
+.text {
     position: relative;
     display: flex;
     align-items: start;

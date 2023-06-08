@@ -9,15 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/6680fa8d52.js" crossorigin="anonymous"></script>
 
 
     <!-- CSS Imports -->
-    <link rel="stylesheet" href="../CSS/main.css">
-    <link rel="stylesheet" href="../CSS/map.css">
-    <link rel="stylesheet" href="../CSS/query.css">
-    <link rel="stylesheet" href="../CSS/landing.css">
-    <link rel="stylesheet" href="../CSS/timeline.css">
+    <link rel="stylesheet" href="../../CSS/main.css">
+    <link rel="stylesheet" href="../../CSS/map.css">
+    <link rel="stylesheet" href="../../CSS/query.css">
+    <link rel="stylesheet" href="../../CSS/landing.css">
+    <link rel="stylesheet" href="../../CSS/timeline.css">
 
     <!-- Leaflet Imports -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -26,35 +25,40 @@
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
 
-    <link rel="stylesheet" href="style/I18NSwitch.css" />
-    <script src="script/I18NSwitch.js"></script>
-
     <title>Disposession</title>
 </head>
 
 <body>
-    <script src="../JS/query.js"></script>
-    <script src="../JS/geocoding.js"></script>
+    <script src="../../JS/query.js"></script>
+    <script src="../../JS/geocoding.js"></script>
 
     <nav>
-        <a href="#">About</a>
-        <a href="#">Research</a>
-        <a href="#">Contribute</a>
-        <div id="i18n-switch"></div>
+        <a href="../English/index.html">About</a>
+        <a href="../English/research.html">Research</a>
+        <a href="../English/sources.html">Sources</a>
+        <a href="../English/acknowledgements.html">Acknowledgements</a>
+        <a href="../English/contribute.html">Contribute</a>
+        <div class="switch">
+            <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox">
+            <label for="language-toggle"></label>
+            <span class="on">EN</span>
+            <span class="off">FR</span>
+          </div>
     </nav>
 
     <main>
         <!-- Landing Intro -->
         <div id="landing">
             <div id="top-text">Mapping Archives: Mohawk Land Dispossession by Sulpician Priests</div>
-            <div id="subtitle-text">Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke
-                (hereafter the Kanehsata'keró:non) over the course of 200 years. </div>
+            <div class="subtitle">Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke
+                over the course of 200 years.</div>
             <div class="dividing-line" id="landing-line"></div>
             <div id="wampum" alt="Two dog wampum"></div>
-            <div id="bottom-text">This map was made as a testimony to the Two Dog Wampum. Wampum are chains of
+            <div class="text">This map was made as a testimony to the Two Dog Wampum. Wampum are chains of
                 friendship binding groups around specific responsibilities and obligations. They need to be regularly
                 polished to renew and confirm commitments and keep communications channels open. This is a process used
-                by the Kanehsata'keró:non to preserve peace with other nations, including the British Crown and the
+                by the this is a process used by the Mohawk of Kanehsatà:ke (hearafter the Kanehsata'kehró:non) to
+                preserve peace with other nations, including the British Crown and the
                 Seminary of St Sulpice. Although the Kanehsata'keró:non repeatedly delivered this Two Dog Wampum to
                 British officials to honour their promise and protect the land from white settlement, the British upheld
                 the claim of the Sulpician priests. The fact that the people of Kanehsatà: ke were never recognized as
@@ -75,8 +79,7 @@
         <!-- Geocoding -->
         <div class="decoration">
             <div id="address">
-                <p>Question your own property rights by entering your address to uncover the origins of the lot
-                    <br>where your house is located and understand its connection to the process of colonization.
+                <p>Question your property rights by entering your address and examining its ties to colonization.
                 </p>
                 <div id="query-decorator">
                     <input type="search" placeholder="Enter your address" id="geocoding-search">
@@ -107,7 +110,7 @@
                         </ul>
                     </div>
                     <div id="query-decorator">
-                        <p>Conceeded by</p>
+                        <p>Sulpician Priests</p>
                         <input type="search" id="conceededByQuery"
                             oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
                             onclick="showList('conceededByQuery','conceededByUL')"
@@ -124,9 +127,9 @@
                         </ul>
                     </div>
                     <div id="query-decorator">
-                        <p>Year sold</p>
+                        <p>Year</p>
                         <input type="search" id="yearQuery" oninput="showSelectableFields('yearQuery', 'yearUL')"
-                            onclick="showList('yearQuery','yearUL')" placeholder="Search by year sold">
+                            onclick="showList('yearQuery','yearUL')" placeholder="Search by year">
                         <ul class="queryList" id="yearUL">
                         </ul>
                     </div>
@@ -161,7 +164,7 @@
     </main>
 
     <!-- Map Script Import -->
-    <script src="../JS/map.js"></script>
+    <script src="../../JS/map.js"></script>
 </body>
 
 </html>
