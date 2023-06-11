@@ -1,0 +1,10 @@
+Omit sale Only part of the lot in timeline
+
+Contribute - <iframe> into website
+
+geocoding multiple points
+
+FOR NEXT WEEK:
+refine button (make it pretty)
+zoom in on satelite layer and change styling
+year with sliding scale 

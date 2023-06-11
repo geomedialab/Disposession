@@ -1,14 +1,25 @@
 function callNominatim() {
-    var address = document.getElementById("geocoding-search").value
+    var address = document.getElementById("geocoding-search").value;
     document.getElementById("no-address").style.display = "none";
     document.getElementById("not-in-polygon").style.display = "none";
 
-    fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=10&q=${address}&viewbox=-73.94872447814616,45.800160073566694,-74.2476919394601,
+    // Show loading UI
+    var loading = document.getElementById("loading");
+    var submit = document.getElementById("submit-query");
+    submit.innerText = "";
+    loading.style.display = "block";
+
+    fetch(`https://nominatim.openstreetmap.org/?format=json&limit=10&q=${address}&viewbox=-73.94872447814616,45.800160073566694,-74.2476919394601,
     45.458188453350466&bounded=1`)
         .then((response) => response.json())
         .then((data) => addressData = data)
         .then(() => {
-            
+
+            // Remove loading UI
+            loading.style.display = "none";
+            submit.innerText = "Submit Address";
+            submit.appendChild(loading);
+
             const indexData = []
             for (i = 0; i < addressData.length; i++) {
                 indexData.push(addressData[i].display_name)

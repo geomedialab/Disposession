@@ -4,7 +4,7 @@ var center = [45.627687, -74.073016];
 var control;
 
 // Variables for timeline
-const interval = 1000;
+const interval = 900;
 const earliestDate = 1760;
 const range = 10;
 
@@ -25,7 +25,7 @@ const Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles
 }).addTo(map);
 
 const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });;
 
 const basemaps = {
@@ -61,7 +61,7 @@ const queryStyle = {
 const timelineStyle = {
     "color": cadasterColor,
     "fillColor": cadasterColor,
-    "weight": 0.2,
+    "weight": 0.5,
     "opacity": 0.5,
     "fillOpacity": 1
 }
@@ -103,8 +103,7 @@ async function addCadaster() {
             createSoldToIndex("buyerQuery")
             createConceededByIndex("conceededByQuery")
             createorigAIndex("originalAQuery")
-            createYearSoldIndex("yearQuery");
-            createLotNumberIndex("lotNumberQuery");
+            // createYearSoldIndex("yearQuery");
             createNumEnregiIndex("numEnregiQuery");
 
 
@@ -118,17 +117,22 @@ async function addCadaster() {
         });
 }
 
+// Georeferencing check for where to place marker if it's within the polygon
 function pointInPoly(marker) {
     const latLng = marker.getLatLng();
+    var numberOfLots = 0
     cadasterLayer.eachLayer(function (indivLot) {
         if (indivLot.contains(latLng)) {
             displayQueryResults(indivLot.feature)
+            numberOfLots += 1
             marker.addTo(map);
         }
-        else {
-            document.getElementById("not-in-polygon").style.display = "block";
-        }
     })
+    if (numberOfLots == 0) {
+        document.getElementById("not-in-polygon").style.display = "block";
+    } else {
+        document.getElementById("not-in-polygon").style.display = "none";
+    }
 }
 
 function addKanehsatake() {
@@ -163,16 +167,7 @@ cadasterLegend.onAdd = function () {
     return div;
 };
 
-const timelinePlayControl = L.control({ position: 'bottomleft' });
-timelinePlayControl.onAdd = function () {
-    const div = L.DomUtil.create('div', 'info legend');
-
-    div.innerHTML = 'Experience disposession through time\
-    <button class="button play" onclick="startTimeDisplay()"></button>'
-    return div
-}
-timelinePlayControl.addTo(map);
-
+// Meat and potatoes of the timeline function
 function timeDisplay(data, previousYear, liveYear) {
 
     var elements = document.getElementsByClassName('info legend year-legend leaflet-control');
@@ -195,8 +190,13 @@ function timeDisplay(data, previousYear, liveYear) {
         const correctArray = [];
         const featureTime = data.features[i].properties.year;
 
+        // Correct time check
         if ((featureTime > previousYear) && (featureTime <= (previousYear + range))) {
-            correctArray.push(data.features[i])
+            // Don't include only part of the sale lot (inclusion by Lea May 15th)
+            // These lots more or less line up with Kanehsatake today
+            if (data.features[i].properties.ORIGINAL_A != "Only part of the lot") {
+                correctArray.push(data.features[i])
+            }
         }
         // show layer with array of correct conditions 
         timelineLayer = L.geoJSON(
@@ -226,11 +226,11 @@ function timeDisplay(data, previousYear, liveYear) {
     }
 }
 
-function resetLayers () {
+function resetLayers() {
     map.eachLayer(function (layer) {
         if (layer != Stadia_AlidadeSmoothDark) {
             if (layer != Esri_WorldImagery) {
-            map.removeLayer(layer);
+                map.removeLayer(layer);
             }
         }
     });
@@ -262,23 +262,15 @@ function resetMap() {
     document.getElementById("no-address").style.display = "none";
     document.getElementById("not-in-polygon").style.display = "none";
 
+    document.getElementById("omit-year-query").checked = true;
+    document.getElementById("greyed-out").style.zIndex = 9999;
+
     document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
     map.fitBounds(cadasterLayer.getBounds());
 }
 
-
-
-var queryLayer = L.geoJSON();
-var cadasterLayer = L.geoJSON();
-var timelineLayer = L.geoJSON();
-var kanehsatakeLayer = L.geoJSON();
-
 function displayQueryResults(queryResults) {
-    map.eachLayer(function (layer) {
-        if (layer != Stadia_AlidadeSmoothDark) {
-            map.removeLayer(layer);
-        }
-    });
+    resetLayers();
 
     queryLayer = L.geoJSON(
         queryResults,
@@ -292,6 +284,7 @@ function displayQueryResults(queryResults) {
     map.fitBounds(queryLayer.getBounds());
 }
 
+// Build popup and tooltips
 var onEachFeature = function (feature, layer) {
     // Capitalize the first word of original deed sale variable
     const word = feature.properties.ORIGINAL_A
@@ -328,5 +321,50 @@ var onEachFeature = function (feature, layer) {
      <h2>Lot number ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
 }
+
+// Change styling based on zoom (essentially like breakpoints)
+map.on("zoomend", checkAndChangeStylingParameters);
+map.on("baselayerchange", checkAndChangeStylingParameters);
+
+function checkAndChangeStylingParameters() {
+    var zoomLevel = map.getZoom();
+    if (map.hasLayer(Esri_WorldImagery) && map.hasLayer(cadasterLayer)) {
+        console.log('World imagery basemap selected');
+        console.log("Cadaster layer present")
+        if (zoomLevel == 12) {
+            console.log("Changing styling params")
+            cadasterLayer.setStyle(
+                {
+                    "weight": 1.5
+                }
+            )
+
+        } if (zoomLevel >= 12) {
+            console.log("Changing styling params")
+            cadasterLayer.setStyle(
+                {
+                    "weight": 2
+                }
+            )
+
+        } else {
+            cadasterLayer.setStyle(
+                {
+                    "weight": 0.5
+                }
+            )
+
+        }
+        // Reset them
+    } else {
+        cadasterLayer.setStyle(
+            {
+                "weight": 0.5
+            }
+        )
+
+    }
+}
+
 addKanehsatake();
 addCadaster();

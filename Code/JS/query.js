@@ -4,7 +4,7 @@ function createSoldToIndex(inputId) {
         obj1 = cadasterData.features[i].properties.SOLD_TO
         obj2 = cadasterData.features[i].properties.CONCEDED_T
         index.push(obj1);
-        index.push(obj2)
+        index.push(obj2);
     }
     var uniq = [...new Set(index)];
     createPElementsForSearch(uniq, 'buyerUL', inputId)
@@ -41,17 +41,6 @@ function createYearSoldIndex(inputId) {
     let uniqYears = [...new Set(index)];
 
     createPElementsForSearch(uniqYears, 'yearUL', inputId)
-}
-
-function createLotNumberIndex(inputId) {
-    var index = []
-    for (var i = 0; i < cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.LOT_NUMBER
-        index.push(obj);
-    }
-    var uniq = [...new Set(index)];
-
-    createPElementsForSearch(uniq, 'lotNumberUL', inputId)
 }
 
 function createNumEnregiIndex(inputId) {
@@ -124,13 +113,20 @@ function showList(inputId, uLId) {
     ul.style.display = 'block';
 }
 
-
 function filterQuery() {
+
+    var checked = document.getElementById("omit-year-query").checked;
+
+    if (checked) {
+        var startYearQuery = 1760;
+        var endYearQuery = 1960
+    } else {
+        var startYearQuery = Number(document.getElementById("min-slider").value);
+        var endYearQuery = Number(document.getElementById("max-slider").value);
+    }
 
     const soldToQuery = document.getElementById("buyerQuery").value;
     const conceededByQuery = document.getElementById("conceededByQuery").value;
-    const lotNumberQuery = document.getElementById("lotNumberQuery").value;
-    const yearQuery = document.getElementById("yearQuery").value;
     const numEnregiQuery = document.getElementById("numEnregiQuery").value;
     const originalAQuery = document.getElementById("originalAQuery").value;
 
@@ -144,11 +140,10 @@ function filterQuery() {
         // This is the magic that is the actual filtering of whether the filter is wanted & filter it if it is.
         if (
             (!soldToQuery || (featureData.SOLD_TO || featureData.CONCEDED_T) == soldToQuery) //
-            && (!conceededByQuery || featureData.CONCEDED_B == conceededByQuery)//
-            && (!yearQuery || featureData.year == yearQuery)//
+            && (!conceededByQuery || (featureData.CONCEDED_B || featureData.SOLD_BY) == conceededByQuery)//
+            && (featureData.year >= startYearQuery && featureData.year <= endYearQuery)//
             && (!originalAQuery || featureData.ORIGINAL_A == originalAQuery)//
             && (!numEnregiQuery || featureData.NUM_ENREGI == numEnregiQuery)//
-            && (!lotNumberQuery || featureData.LOT_NUMBER == lotNumberQuery)
         ) {
             queryResults.push(data[i]);
         }
@@ -167,16 +162,34 @@ function resetInputs() {
     document.getElementById("buyerQuery").value = "";
     document.getElementById("conceededByQuery").value = "";
     document.getElementById("originalAQuery").value = "";
-    document.getElementById("lotNumberQuery").value = "";
     document.getElementById("numEnregiQuery").value = "";
-    document.getElementById("yearQuery").value = "";
+
+    document.getElementById("min-slider").value = "1810";
+    document.getElementById("minRangeValue").innerHTML = "1810";
+
+    document.getElementById("max-slider").value = "1930";
+    document.getElementById("maxRangeValue").innerHTML = "1930";
 }
 
 function resetUls() {
     document.getElementById("buyerUL").innerHTML = "";
     document.getElementById("conceededByUL").innerHTML = "";
-    document.getElementById("lotNumberUL").innerHTML = "";
-    document.getElementById("yearUL").innerHTML = "";
     document.getElementById("numEnregiUL").innerHTML = "";
     document.getElementById("originalAUL").innerHTML = "";
+}
+
+function changeYearDisplay() {
+
+    var checked = document.getElementById("omit-year-query").checked;
+    var greyedOut = document.getElementById("greyed-out");
+
+    // Lock out user if all years is checked
+    if (checked) {
+        greyedOut.style["z-index"] = 9999
+
+    } else {
+        greyedOut.style["z-index"] = -9999
+    }
+
+    console.log(greyedOut)
 }
