@@ -137,7 +137,7 @@ function pointInPoly(marker) {
 }
 
 function addKanehsatake() {
-    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/kanehsatake.geojson')
+    fetch('https://github.com/SpencerMartel/Disposession/blob/1a89ef61424c3d11ad7889dfc077d645be923e31/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
