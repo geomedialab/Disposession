@@ -81,7 +81,7 @@ const mergedStyle = {
 }
 
 function addMerged() {
-    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/mergedCadaster.geojson')
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/mergedCadaster.geojson')
         .then((response) => response.json())
         .then((data) => mergedData = data)
         .then(() => {
@@ -94,7 +94,7 @@ function addMerged() {
 }
 
 async function addCadaster() {
-    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/Full_Cadaster.geojson')
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -137,7 +137,7 @@ function pointInPoly(marker) {
 }
 
 function addKanehsatake() {
-    fetch('https://github.com/SpencerMartel/Disposession/blob/1a89ef61424c3d11ad7889dfc077d645be923e31/data/geojson/kanehsatake.geojson')
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
@@ -245,7 +245,7 @@ function startTimeDisplay() {
     basemapControl.remove(map);
     addMerged();
 
-    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/Full_Cadaster.geojson')
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800));
