@@ -81,7 +81,7 @@ const mergedStyle = {
 }
 
 function addMerged() {
-    fetch('../../../Data/GEOJSON/mergedCadaster.geojson')
+    fetch('../../../data/geojson/mergedCadaster.geojson')
         .then((response) => response.json())
         .then((data) => mergedData = data)
         .then(() => {
@@ -94,7 +94,7 @@ function addMerged() {
 }
 
 async function addCadaster() {
-    fetch('../../../Data/GEOJSON/Full_Cadaster.geojson')
+    fetch('../../../data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -137,7 +137,7 @@ function pointInPoly(marker) {
 }
 
 function addKanehsatake() {
-    fetch('../../../Data/GEOJSON/kanehsatake.geojson')
+    fetch('../../../data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
@@ -245,7 +245,7 @@ function startTimeDisplay() {
     basemapControl.remove(map);
     addMerged();
 
-    fetch('../../../Data/GEOJSON/Full_Cadaster.geojson')
+    fetch('../../../data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800));
