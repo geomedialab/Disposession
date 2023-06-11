@@ -39,6 +39,7 @@
     gap: 1rem;
     padding: 0 0.5%;
     background-color: var(--background-color);
+    height: 90vh;
 
     align-items: self-start;
     flex: 0 0 10%;

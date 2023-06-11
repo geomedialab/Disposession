@@ -13,6 +13,7 @@ html {
   line-height: 2.2rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  overflow-y: scroll;
 }
 
 html::-webkit-scrollbar {
@@ -67,6 +68,7 @@ main {
   overflow-y: scroll;
   z-index: 1;
   margin-top: 8vh;
+  margin-bottom: 1vh;
 }
 
 nav {

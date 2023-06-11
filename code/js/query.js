@@ -190,6 +190,4 @@ function changeYearDisplay() {
     } else {
         greyedOut.style["z-index"] = -9999
     }
-
-    console.log(greyedOut)
 }

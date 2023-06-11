@@ -30,8 +30,8 @@ const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
 });;
 
 const basemaps = {
-    "Stadia Dark": darkBasemap,
-    "Esri Satellite": Esri_WorldImagery
+    "Carto Dark Basemap": darkBasemap,
+    "Esri Satellite Basemap": Esri_WorldImagery
 }
 var basemapControl = L.control.layers(basemaps).addTo(map);
 
@@ -340,7 +340,7 @@ function checkAndChangeStylingParameters() {
                 }
             )
 
-        } if (zoomLevel >= 12) {
+        } if (zoomLevel > 12) {
             console.log("Changing styling params")
             cadasterLayer.setStyle(
                 {
