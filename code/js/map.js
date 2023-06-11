@@ -81,7 +81,7 @@ const mergedStyle = {
 }
 
 function addMerged() {
-    fetch('data/geojson/mergedCadaster.geojson')
+    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/mergedCadaster.geojson')
         .then((response) => response.json())
         .then((data) => mergedData = data)
         .then(() => {
@@ -94,7 +94,7 @@ function addMerged() {
 }
 
 async function addCadaster() {
-    fetch('data/geojson/Full_Cadaster.geojson')
+    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -137,7 +137,7 @@ function pointInPoly(marker) {
 }
 
 function addKanehsatake() {
-    fetch('/data/geojson/kanehsatake.geojson')
+    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
