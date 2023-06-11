@@ -7,7 +7,7 @@
 }
 
 #wampum {
-    background: url("../../Assets/wampum.png") no-repeat center;
+    background: url("../../assets/wampum.png") no-repeat center;
     height: 13vh;
     width: 100%;
     background-size: contain;
