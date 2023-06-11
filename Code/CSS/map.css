@@ -1,6 +1,5 @@
 #map {
     flex: 1;
-    border-radius: calc(var(--radius) - 4px) 0 0 calc(var(--radius) - 4px);
 }
 
 path:focus {

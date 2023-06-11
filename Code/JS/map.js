@@ -19,9 +19,10 @@ var map = L.map('map',
     });
 
 // Initialize Basemaps
-const Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
 }).addTo(map);
 
 const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -29,7 +30,7 @@ const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
 });;
 
 const basemaps = {
-    "Stadia Dark": Stadia_AlidadeSmoothDark,
+    "Stadia Dark": darkBasemap,
     "Esri Satellite": Esri_WorldImagery
 }
 var basemapControl = L.control.layers(basemaps).addTo(map);
@@ -228,7 +229,7 @@ function timeDisplay(data, previousYear, liveYear) {
 
 function resetLayers() {
     map.eachLayer(function (layer) {
-        if (layer != Stadia_AlidadeSmoothDark) {
+        if (layer != darkBasemap) {
             if (layer != Esri_WorldImagery) {
                 map.removeLayer(layer);
             }
