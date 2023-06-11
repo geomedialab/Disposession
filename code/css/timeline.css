@@ -36,17 +36,18 @@
 #start-timeline {
     display: flex;
     width: fit-content;
-    height: 40px;
+
     padding-left: 10px;
     padding-right: 8px;
     padding-top: 2px;
+    margin-bottom: 1vw;
+    margin-left: 1vw;
     background-color: var(--white-color);
     border-radius: 4px;
     align-items: baseline;
+    bottom: 0;
 
-    position: relative;
-    top: 56px;
-    left: 20px;
+    position: absolute;
     z-index: 99999;
 }
 

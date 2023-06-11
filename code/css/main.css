@@ -106,7 +106,6 @@ nav>div:last-of-type {
 #content {
   display: flex;
   border-radius: var(--radius);
-  height: 800px;
 }
 
 .dividing-line {
