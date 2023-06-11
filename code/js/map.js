@@ -137,7 +137,7 @@ function pointInPoly(marker) {
 }
 
 function addKanehsatake() {
-    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/kanehsatake.geojson')
+    fetch('https://github.com/SpencerMartel/Disposession/blob/f4b82af01815d46154c7ce54154550afb25888c4/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
@@ -245,7 +245,7 @@ function startTimeDisplay() {
     basemapControl.remove(map);
     addMerged();
 
-    fetch('../../../data/geojson/Full_Cadaster.geojson')
+    fetch('https://github.com/SpencerMartel/Disposession/blob/main/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800));
