@@ -20,9 +20,9 @@ var map = L.map('map',
 
 // Initialize Basemaps
 var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	subdomains: 'abcd',
-	maxZoom: 20
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
 }).addTo(map);
 
 const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -80,6 +80,8 @@ const mergedStyle = {
     "opacity": 1,
 }
 
+
+// Adding the layers
 function addMerged() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/mergedCadaster.geojson')
         .then((response) => response.json())
@@ -118,6 +120,21 @@ async function addCadaster() {
         });
 }
 
+function addKanehsatake() {
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
+        .then((response) => response.json())
+        .then((r) => kanehsatakeData = r)
+        .then(() => {
+            kanehsatakeLayer = L.geoJSON(
+                kanehsatakeData,
+                setStyle = {
+                    style: kanehsatakeStyle
+                }
+            ).addTo(map);
+        });
+}
+
+
 // Georeferencing check for where to place marker if it's within the polygon
 function pointInPoly(marker) {
     const latLng = marker.getLatLng();
@@ -134,20 +151,6 @@ function pointInPoly(marker) {
     } else {
         document.getElementById("not-in-polygon").style.display = "none";
     }
-}
-
-function addKanehsatake() {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
-        .then((response) => response.json())
-        .then((r) => kanehsatakeData = r)
-        .then(() => {
-            kanehsatakeLayer = L.geoJSON(
-                kanehsatakeData,
-                setStyle = {
-                    style: kanehsatakeStyle
-                }
-            ).addTo(map);
-        });
 }
 
 const cadasterLegend = L.control({ position: 'topleft' });
@@ -220,8 +223,10 @@ function timeDisplay(data, previousYear, liveYear) {
         basemapControl.addTo(map);
 
         // Set map state to base form
+        resetLayers();
+
         map.addLayer(kanehsatakeLayer);
-        map.removeLayer(mergedLayer)
+        map.addLayer(cadasterLayer);
 
         console.log('Timeline Completed')
     }
