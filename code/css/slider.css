@@ -15,8 +15,6 @@
 }
 
 #slider-value p {
-    /* margin-left: 10px;
-    margin-right: 30px; */
     margin-bottom: 5px;
 }
 
@@ -82,4 +80,8 @@ input[type="range"] {
 #min-slider {
     height: 0;
     z-index: 1;
+}
+
+.leaflet-control-layers{
+    opacity: 0.8;
 }

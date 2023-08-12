@@ -157,7 +157,7 @@ const cadasterLegend = L.control({ position: 'topleft' });
 cadasterLegend.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
     labels = [],
-        categories = [{ name: 'White settlement', color: cadasterColor }, { name: 'Kanehsatà:ke', color: purpleColor }];
+        categories = [{ name: 'Historic White settlement', color: cadasterColor }, { name: 'Kanehsatà:ke Today', color: purpleColor }];
     // Seignerie du Lac des Deux Montagnes
     for (var i = 0; i < categories.length; i++) {
 
@@ -174,12 +174,13 @@ cadasterLegend.onAdd = function () {
 // Meat and potatoes of the timeline function
 function timeDisplay(data, previousYear, liveYear) {
 
+    // Remove top right eyar range if it exists
     var elements = document.getElementsByClassName('info legend year-legend leaflet-control');
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
     }
 
-
+    // Create and add Years to top right
     var yearLegend = L.control({ position: 'topright' });
     yearLegend.onAdd = function () {
         const div = L.DomUtil.create('div', 'info legend year-legend');
@@ -215,8 +216,8 @@ function timeDisplay(data, previousYear, liveYear) {
     if (liveYear <= 1960) {
         setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
     } else {
+        // The timeline is over, reset the map
 
-        // Add back map elements
         document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
         document.getElementsByClassName('info legend year-legend leaflet-control')[0].style.display = 'none';
         document.getElementsByClassName("leaflet-bottom")[0].style.display = 'block';
@@ -298,33 +299,46 @@ var onEachFeature = function (feature, layer) {
         word.charAt(0)
         + word.slice(1).toLowerCase()
 
+    // if (feature.properties.)
+
     if (feature.properties.CONCEDED_T != null) {
-        var wayOfSale = 'Conceeded'
-        var soldOrConceeded = `<br>Conceeded by: ${feature.properties.CONCEDED_B}
-                           <br>Conceeded to: ${feature.properties.CONCEDED_T}`
+        var wayOfSale = 'Conceded'
+        var soldOrConceeded = `${wayOfSale} by: ${feature.properties.CONCEDED_B}
+                               <br>${wayOfSale} to: ${feature.properties.CONCEDED_T}`
     } else {
         var wayOfSale = 'Sold'
-        var soldOrConceeded = `<br><br>Sold by: ${feature.properties.SOLD_BY}
-        <br>Sold to: ${feature.properties.SOLD_TO}`
+        var soldOrConceeded = `${wayOfSale} by: ${feature.properties.SOLD_BY}
+                               <br>${wayOfSale} to: ${feature.properties.SOLD_TO}`
+    }
+    if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
+        var partOfLotString = 'Part of Lot number'
+    }
+    else {
+        var partOfLotString = 'Lot number'
     }
 
 
     layer.bindPopup(
-        `<center><h2>Lot number ${feature.properties.LOT_NUMBER}</h2><h3>` + wayOfSale + ` ${feature.properties.DATE_MM_DD}</center></h3>`
-        + soldOrConceeded +
-        `<br><br>Registration number: ${feature.properties.NUM_ENREGI}
+        `<center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
+
+        // Correct order
+        `<br>First ${wayOfSale} on: ${feature.properties.DATE_MM_DD}<br>${soldOrConceeded}<br>Lot size: ${(feature.properties.Area_new_1 / 247.105).toFixed(2)} acres<br></b><br>` +
+
+        '<i>Information from the Land Registry of Quebec.</i><br>' +
+
+        `Lot registration number: ${feature.properties.NUM_ENREGI}
                      <br>Found original sale: ${capitalized}
-                     <br>Acreage: ${(feature.properties.Area_new_1 / 247.105).toFixed(2)} acres
-                     <br><br>Notes: ${feature.properties.NOTES}`,
+                     <br>Notes: ${feature.properties.NOTES}`,
         // Styling tooltip Options
         {
-            sticky: true,
+            sticky: false,
             opacity: 0.8,
+            closeButton: true
         }
     );
     layer.bindTooltip(`
      <center>
-     <h2>Lot number ${feature.properties.LOT_NUMBER}</h2>
+     <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
 }
 

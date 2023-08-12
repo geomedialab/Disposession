@@ -21,6 +21,7 @@
 #top-text {
     position: relative;
     font-size: 3rem;
+    font-weight: 900;
     color: var(--primary-color);
     line-height: 5rem;
     text-shadow: 3px 3px 10px #000000;
@@ -31,17 +32,20 @@
     font-size: 1.2rem;
 }
 
-.text {
-    position: relative;
-    display: flex;
-    align-items: start;
-    color: var(--white-color);
-    text-align: justify;
-    flex-grow: 1;
-    padding-right: 3rem;
+.acknowledgements {
+    padding: 2rem 25rem;
 }
 
-#address > #query-decorator > input {
+.text {
+    position: relative;
+    align-items: start;
+    color: var(--white-color);
+    float: left;
+    padding: 0rem 25rem;
+}
+
+
+#address>#query-decorator>input {
     width: 30vw;
 }
 
@@ -56,14 +60,80 @@
     gap: 1rem;
 }
 
-#address > #query-decorator {
+#address>#query-decorator {
     flex-direction: row;
     gap: 1em
 }
 
-#address > #query-decorator > ul {
+#address>#query-decorator>ul {
     top: 38px;
     width: 30vw;
     height: 20vh;
     z-index: 9999;
+}
+
+#data-table {
+    margin: auto;
+    table-layout: fixed;
+    width: 70%;
+    text-align: center;
+}
+
+tr:first-of-type {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    text-shadow: 3px 3px 10px #000000;
+}
+
+tr:last-of-type {
+    text-shadow: 3px 3px 10px #000000;
+}
+
+figure {
+    margin: 2rem -4rem 1rem 3rem;
+    float: right;
+}
+
+figure>img {
+    max-height: 300px;
+    float: right;
+    margin-bottom: 1em;
+}
+
+figcaption {
+    width: min-content;
+    min-width: 120%;
+    margin-left: -1rem;
+    font-size: .7rem;
+    line-height: 1.5;
+}
+
+.quote {
+    margin: 0 5em;
+    text-align: center;
+}
+
+.left-leaning {
+    margin-left: -3rem;
+}
+
+.right-leaning {
+    margin-left: 3rem;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li::before {
+    content: "\2022";
+    color: var(--primary-color);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+ul li:hover {
+    background-color: transparent;
 }

@@ -86,6 +86,7 @@ nav {
 
 nav>a:hover {
   background-position: bottom;
+  text-decoration: none;
 }
 
 nav>a {
@@ -231,4 +232,12 @@ input.check-toggle-round-flat+label:after {
 
 input.check-toggle-round-flat:checked+label:after {
   margin-left: 45%;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.french {
+  display: none;
 }
