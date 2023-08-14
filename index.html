@@ -51,7 +51,6 @@
             <span class="off">FR</span>
         </div>
     </nav>
-
     <main>
         <!-- Landing Intro -->
         <div id="landing">
@@ -62,13 +61,13 @@
             <div class="spacer"></div>
             <br>
             <table id="data-table">
-                <tr>
-                    <td id="land-granted">0  km<sup>2</sup></td>
+                <tr class="fadeIn">
+                    <td id="land-granted">0 km<sup>2</sup></td>
                     <td id="parcels-distributed">0</td>
                     <td id="years-table">0</td>
                     <td id="land-remains">100%</td>
                 </tr>
-                <tr class="subtitle">
+                <tr class="subtitle fadeIn">
                     <td>
                         <div class="english">Indigenous land granted</div>
                         <div class="french">Terre autochtone concédée</div>
@@ -143,7 +142,7 @@
                     having a fixed property of our own induced us to comply, and we accordingly set out
                     and took possession of the Land assigned to us, and as was the custom of our
                     Forefather, we immediately set about making a Belt (which we now deliver to you)”</div>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- Mohawk Chief Aughneetha, Montreal Feb. 8, 1787.
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- Mohawk Chief Aughneetha, Montreal Feb. 8, 1787.
                 <div class="spacer"></div>
             </div>
             <div class="text french">French text.
@@ -206,11 +205,12 @@
             </div>
         </div>
         <!-- Main Map content -->
+        <a class="anchor" id="map-anchor"></a>
         <div id="content">
-            <div id="start-timeline">Experience disposession through time&nbsp;
+            <!-- <div id="start-timeline">Experience disposession through time&nbsp;
                 <i class="fa-regular fa-circle-play small-button" style="color: #d14e49; position: relative; top: 11%;"
                     onclick="startTimeDisplay()"></i>
-            </div>
+            </div> -->
             <div id="map"></div>
             <!-- Query -->
             <div id="cadaster-query">
@@ -301,22 +301,22 @@
             <div class="right-leaning">
                 <ul>
                     <li>Between 1790 and 1824, Quebecois historian Christian Dessureault (1979) estimates
-                    that the Sulpicians made 290 027 livres (4 818 907 $ in 2023) collecting taxes (le
-                    champart, les banalités, les droits casuels , les cens et rentes).</li>
+                        that the Sulpicians made 290 027 livres (4 818 907 $ in 2023) collecting taxes (le
+                        champart, les banalités, les droits casuels , les cens et rentes).</li>
                     <li>In 1859, The Canadian federal government payed a first installment of 157 413 CA$
-                    (when the seigneurial system was abolished in 1854.)</li>
+                        (when the seigneurial system was abolished in 1854.)</li>
                     <li>Despite the abolition of the seigneurial regime 80% of the censitaires (the settlers
-                    paying to use the land) ended up paying “rentes constituées“ for the next 80 years.
+                        paying to use the land) ended up paying “rentes constituées“ for the next 80 years.
                     <li>The abolition of the seigneurial regime granted the seigneurs full possession of
-                    domain lands in the municipality of Oka, to which were added the unconceded spaces
-                    in the Seigneury. This provision of the law testifies to the legislator's very favorable
-                    attitude towards the seigneurs and his desire to preserve their property rights at all
-                    costs, even if it meant depriving the Kanehsatakeró:non of even more land.</li>
+                        domain lands in the municipality of Oka, to which were added the unconceded spaces
+                        in the Seigneury. This provision of the law testifies to the legislator's very favorable
+                        attitude towards the seigneurs and his desire to preserve their property rights at all
+                        costs, even if it meant depriving the Kanehsatakeró:non of even more land.</li>
                     <li>In 1935, the National Commission for the Repurchase of Seigneurial Rents (SNRRS)
-                    paid 51 835 CA$ (1 131 730 CA$ in 2023) the trustees of the commercial property of
-                    Saint-Sulpice. This money served to redress the Sulpicians finances in a moment
-                    where a series of bad investments had placed them under governmental trusteeship
-                    from 1937 to 1960.</li>
+                        paid 51 835 CA$ (1 131 730 CA$ in 2023) the trustees of the commercial property of
+                        Saint-Sulpice. This money served to redress the Sulpicians finances in a moment
+                        where a series of bad investments had placed them under governmental trusteeship
+                        from 1937 to 1960.</li>
                 </ul>
             </div>
             <div class="spacer"></div>
@@ -331,6 +331,7 @@
             button, which will allow you to see the changes dynamically on the map.
 
         </div>
+        <div class="height-bottom"></div>
     </main>
 
     <!-- Map & slider script Import -->

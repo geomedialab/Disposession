@@ -12,10 +12,34 @@
 html {
   line-height: 2.2rem;
   -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  overflow: hidden;
+  -ms-overflow-style: none;
   scrollbar-width: none;
-  overflow-y: scroll;
 }
 
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display: none;
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--cadaster-color);
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: white;
+}
 html::-webkit-scrollbar {
   display: none;
 }
@@ -42,19 +66,25 @@ p {
   text-decoration: none;
 }
 
-strong {
-  font-weight: bold;
+a.anchor {
+  display: block;
+  position: relative;
+  top: -7.5vh;
+  visibility: hidden;
+}
+.fixedElement {
+  background-color: #c0c0c0;
+  position:fixed;
+  top:8vh;
+  z-index: 10000;;
 }
 
 body {
   background-color: var(--background-color);
-}
-
-
-main::-webkit-scrollbar {
-  display: none;
+  overflow: overlay;
+  height: 100vh;
+  overflow: hidden;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
 }
 
@@ -63,12 +93,11 @@ main {
   scrollbar-width: none;
   scroll-behavior: smooth;
   position: relative;
-  height: 100%;
-  width: 100%;
+  height: 90%;
   overflow-y: scroll;
-  z-index: 1;
-  margin-top: 8vh;
-  margin-bottom: 1vh;
+  margin-top: 7vh;
+  margin-bottom: 2vh;
+  padding-bottom: 500px;
 }
 
 nav {
