@@ -8,7 +8,7 @@
 
 #wampum {
     background: url("../../assets/wampum.png") no-repeat center;
-    height: 13vh;
+    height: 19vh;
     width: 100%;
     background-size: contain;
     background-repeat: no-repeat;
@@ -41,7 +41,7 @@
     align-items: start;
     color: var(--white-color);
     float: left;
-    padding: 0rem 25rem;
+    padding: 0rem 7vw;
 }
 
 
@@ -131,7 +131,7 @@ figure {
 }
 
 figure>img {
-    max-height: 300px;
+    max-height: 500px;
     float: right;
     margin-bottom: 1em;
 }
@@ -146,7 +146,7 @@ figcaption {
 
 .quote {
     margin: 0 5em;
-    text-align: center;
+    text-align: justify;
 }
 
 .left-leaning {

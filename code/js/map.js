@@ -303,15 +303,15 @@ var onEachFeature = function (feature, layer) {
 
     if (feature.properties.CONCEDED_T != null) {
         var wayOfSale = 'Conceded'
-        var soldOrConceeded = `${wayOfSale} by: ${feature.properties.CONCEDED_B}
-                               <br>${wayOfSale} to: ${feature.properties.CONCEDED_T}`
+        var soldOrConceeded = `<br>By: ${feature.properties.CONCEDED_B}
+                                 <br>To: ${feature.properties.CONCEDED_T}`
     } else {
         var wayOfSale = 'Sold'
-        var soldOrConceeded = `${wayOfSale} by: ${feature.properties.SOLD_BY}
-                               <br>${wayOfSale} to: ${feature.properties.SOLD_TO}`
+        var soldOrConceeded = `<br>By ${feature.properties.SOLD_BY}
+                                <br>To: ${feature.properties.SOLD_TO}`
     }
     if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
-        var partOfLotString = 'Part of Lot number'
+        var partOfLotString = 'Part of lot number'
     }
     else {
         var partOfLotString = 'Lot number'
@@ -322,7 +322,7 @@ var onEachFeature = function (feature, layer) {
         `<center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
 
         // Correct order
-        `<br>First ${wayOfSale} on: ${feature.properties.DATE_MM_DD}<br>${soldOrConceeded}<br>Lot size: ${(feature.properties.Area_new_1 / 247.105).toFixed(2)} acres<br></b><br>` +
+        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}.<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
 
         '<i>Information from the Land Registry of Quebec.</i><br>' +
 
