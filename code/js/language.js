@@ -23,4 +23,5 @@ function changeLanguage() {
             frenchDivs[i].style.display = "none";
         }
     }
+    document.getElementById("no-data").style.display = "none";
 }

@@ -116,8 +116,9 @@ async function addCadaster() {
                 cadasterData,
                 setOptions = {
                     style: fullCadasterStyle,
-                    onEachFeature: onEachFeature
-                }).addTo(map);
+                    onEachFeature: onEachFeatureCadaster,
+                }
+            ).addTo(map);
         });
 }
 
@@ -125,6 +126,7 @@ async function addCadaster() {
 function addPhaseLayer(phaseLayerName) {
     resetTimeline();
     resetLayers();
+    document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
     fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
         .then((response) => response.json())
         .then((r) => phaseLayerData = r)
@@ -137,7 +139,12 @@ function addPhaseLayer(phaseLayerName) {
                 }
             ).addTo(map);
         });
-    document.getElementById("content").scrollIntoView({behavior:"smooth", block:"start"});
+    map.fitBounds(cadasterLayer.getBounds());
+    scrollToMap();
+}
+
+function scrollToMap() {
+    document.getElementById("content").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function addKanehsatake() {
@@ -265,6 +272,8 @@ function resetLayers() {
 
 
 function startTimeDisplay() {
+    resetTimeline();
+    scrollToMap();
     map.fitBounds(cadasterLayer.getBounds());
     resetLayers();
 
@@ -298,6 +307,7 @@ function resetTimeline() {
 
 
 function resetMap() {
+    resetTimeline();
     resetLayers();
     resetInputs();
     resetUls();
@@ -312,6 +322,7 @@ function resetMap() {
     document.getElementById("greyed-out").style.zIndex = 9999;
 
     document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
+    scrollToMap();
     map.fitBounds(cadasterLayer.getBounds());
 }
 
@@ -324,8 +335,8 @@ function displayQueryResults(queryResults) {
             style: queryStyle,
             onEachFeature: onEachFeature
         });
-    map.removeLayer(cadasterLayer);
-    map.removeLayer(kanehsatakeLayer);
+    resetTimeline();
+    resetLayers();
     map.addLayer(queryLayer);
     map.fitBounds(queryLayer.getBounds());
 }
@@ -338,7 +349,68 @@ var onEachFeature = function (feature, layer) {
         word.charAt(0)
         + word.slice(1).toLowerCase()
 
-    // if (feature.properties.)
+
+    if (feature.properties.CONCEDED_T != null) {
+        var wayOfSale = 'Conceded'
+        var soldOrConceeded = `<br>By: ${feature.properties.CONCEDED_B}
+                                 <br>To: ${feature.properties.CONCEDED_T}`
+    } else {
+        var wayOfSale = 'Sold'
+        var soldOrConceeded = `<br>By ${feature.properties.SOLD_BY}
+                                <br>To: ${feature.properties.SOLD_TO}`
+    }
+    if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
+        var partOfLotString = 'Part of lot number'
+    }
+    else {
+        var partOfLotString = 'Lot number'
+    }
+
+
+    layer.bindPopup(
+        `<center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
+
+        // Correct order
+        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}.<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
+
+        '<i>Information from the Land Registry of Quebec.</i><br>' +
+
+        `Lot registration number: ${feature.properties.NUM_ENREGI}
+                     <br>Found original sale: ${capitalized}
+                     <br>Notes: ${feature.properties.NOTES}`,
+        // Styling tooltip Options
+        {
+            sticky: false,
+            opacity: 0.8,
+            closeButton: true
+        }
+    );
+    layer.bindTooltip(`
+     <center>
+     <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>
+     </center>`);
+}
+
+// Build popup and tooltips
+var onEachFeatureCadaster = function (feature, layer) {
+    // Capitalize the first word of original deed sale variable
+    const word = feature.properties.ORIGINAL_A
+    const capitalized =
+        word.charAt(0)
+        + word.slice(1).toLowerCase()
+
+    layer.on('mouseover', function () {
+        this.setStyle({
+            'fillColor': queryColor,
+            'color': queryColor,
+        });
+    });
+    layer.on('mouseout', function () {
+        this.setStyle({
+            'fillColor': cadasterColor,
+            'color': cadasterColor,
+        });
+    });
 
     if (feature.properties.CONCEDED_T != null) {
         var wayOfSale = 'Conceded'
