@@ -125,7 +125,6 @@ async function addCadaster() {
 function addPhaseLayer(phaseLayerName) {
     resetTimeline();
     resetLayers();
-    https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson
     fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
         .then((response) => response.json())
         .then((r) => phaseLayerData = r)
