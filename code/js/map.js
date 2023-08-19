@@ -7,6 +7,8 @@ var control;
 const interval = 900;
 const earliestDate = 1760;
 const range = 10;
+// Used to cancel timeline animation if Reset Map is pressed
+var timer = null;
 
 // Initialize map
 var map = L.map('map',
@@ -30,8 +32,8 @@ const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
 });;
 
 const basemaps = {
-    "Carto Dark Basemap": darkBasemap,
-    "Esri Satellite Basemap": Esri_WorldImagery
+    "Dark Basemap": darkBasemap,
+    "Satellite Basemap": Esri_WorldImagery
 }
 var basemapControl = L.control.layers(basemaps).addTo(map);
 
@@ -118,6 +120,25 @@ async function addCadaster() {
                     onEachFeature: onEachFeature
                 }).addTo(map);
         });
+}
+
+
+function addPhaseLayer(phaseLayerName) {
+    resetTimeline();
+    resetLayers();
+    fetch(`../../data/geojson/${phaseLayerName}`)
+        .then((response) => response.json())
+        .then((r) => phaseLayerData = r)
+        .then(() => {
+            L.geoJSON(
+                phaseLayerData,
+                setOptions = {
+                    style: queryStyle,
+                    onEachFeature: onEachFeature
+                }
+            ).addTo(map);
+        });
+    document.getElementById("content").scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 function addKanehsatake() {
@@ -214,7 +235,7 @@ function timeDisplay(data, previousYear, liveYear) {
 
     // Recursive call 
     if (liveYear <= 1960) {
-        setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
+        timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
     } else {
         // The timeline is over, reset the map
 
@@ -243,6 +264,7 @@ function resetLayers() {
     });
 }
 
+
 function startTimeDisplay() {
     map.fitBounds(cadasterLayer.getBounds());
     resetLayers();
@@ -254,7 +276,25 @@ function startTimeDisplay() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
-        .then(() => setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800));
+        .then(() => {
+            // Start the timeline animation
+            setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800);
+
+            // If Reset Map is clicked during animation, end timeout
+            document.getElementById("reset-map").addEventListener("click", function () {
+                resetTimeline();
+            });
+        }
+        );
+}
+
+function resetTimeline() {
+    clearTimeout(timer);
+    var elements = document.getElementsByClassName("info legend year-legend leaflet-control")
+    console.log
+    while (elements.length > 0) {
+        elements[0].parentNode.removeChild(elements[0]);
+    }
 }
 
 

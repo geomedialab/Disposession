@@ -36,6 +36,7 @@
     <script src="code/js/query.js"></script>
     <script src="code/js/geocoding.js"></script>
     <script src="code/js/utils.js"></script>
+    <script src="code/js/language.js"></script>
 
     <nav>
         <a href="index.html">About</a>
@@ -58,9 +59,10 @@
             <div class="subtitle">Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke
                 over the course of 200 years.</div>
             <div class="dividing-line" id="landing-line"></div>
-            <div class="spacer"></div>
             <br>
-            <table id="data-table">
+            <br>
+            <!-- Numbers table -->
+            <table class="data-table" id="numbers-table">
                 <tr class="fadeIn">
                     <td id="land-granted">0 km<sup>2</sup></td>
                     <td id="parcels-distributed">0</td>
@@ -88,72 +90,78 @@
                 </tr>
             </table>
             <br>
-            <div class="spacer"></div>
-            <div class="text english">Approximately 540 square kilometers of Indigenous territory, comprising around
-                1830
-                individual parcels, were gradually allocated to European settlers over a span of two centuries.
+            <br>
+            <div class="text english">
+                Approximately 540 square kilometers of Indigenous territory, comprising around
+                1830 individual parcels, were gradually allocated to European settlers over a span of two centuries.
                 Today, a mere fraction, less than 2% of the original land, remains for the Mohawk of
                 Kanehsatà:ke. This stark reality sheds light on the somber consequences of settler colonialism
                 in the historical Seigneurie du Lac-des-Deux-Montagnes, situated within the present-day
                 Deux-Montagnes Regional County Municipality in the Laurentides administrative region of
                 Quebec, Canada.<br><br>
-                The area gained significant notoriety during the Oka Crisis, or the siege of Kanehsatà:ke,
-                when the Mohawk people confronted the Sureté Quebec (SQ), the Royal Canadian Mounted
-                Police (RCMP), and the Canadian Army. This bold stand aimed to protect their sacred lands
-                from being transformed into a golf course for Oka residents. This intense 78-day military
-                standoff not only shook the nation but laid bare the persistent and deeply unjust structures
-                at the core of land based conflicts today.
-                But the Oka crisis was just the tip of the iceberg. The roots of this conflict stretch back nearly
-                three centuries.<br><br>
-                <figure>
-                    <img src="assets/sulpician.png">
-                    <figcaption>Crédit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
-                        Copyright : © Bibliothèque et Archives Canada<br>
-                        Source : Bibliothèque et Archives Canada, no. d’acquisition 1933-188-1, C-000182</figcaption>
-                </figure>
-                In Quebec, the seigneurial system governed and distributed land from the 16th to the 19th
-                century. The “seigneurs” were often French nobles, merchants or religious congregations,
-                who had been granted large pieces of the land by the French Crown. The Sulpicians, a French
-                society of diocesan priests, are often described as wealthy educated elites, academics and
-                missionaries, they were first and foremost powerful and influential landowners. They were the
-                Seigneurs of the island of Montreal for almost 200 years (1663 to 1854) in addition to the
-                Seigneurie they administered in the Lac-des-Deux-Montagnes and the Seigneurie de SaintSulpice.
-                In the early 1700s, the Sulpicians were granted around 540 km2
-                of land by the King of France.
-                The purpose was to establish the Seigneurie du Lac-des-Deux-Montagnes and displace a
-                Mohawk group (Kanien’kehá:ka) that had converted to Catholicism, known as the "Mission
-                Indians," to distance them from burgeoning settler towns on the island of Montreal. Yet,
-                <a href="https://www.kanehsatakevoices.com/at-the-woods-edge/" , target="none">Kanien’kehá:ka oral
-                    traditions and archaeological evidence</a> point to another faction of
-                Kanien’kehá:ka (Kanehsatakeró:non) having inhabited the land long before the Sulpicians'
-                arrival, and the French land grant.<br><br>
+                <div>
+                    <figure>
+                        <img class="image-shadow" src="assets/sulpician.png">
+                        <figcaption>Crédit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
+                            Copyright : © Bibliothèque et Archives Canada<br>
+                            Source : Bibliothèque et Archives Canada, no. d’acquisition 1933-188-1, C-000182
+                        </figcaption>
+                    </figure>
+                    The area gained significant notoriety during the Oka Crisis, or the siege of Kanehsatà:ke,
+                    when the Mohawk people confronted the Sureté Quebec (SQ), the Royal Canadian Mounted
+                    Police (RCMP), and the Canadian Army. This bold stand aimed to protect their sacred lands
+                    from being transformed into a golf course for Oka residents. This intense 78-day military
+                    standoff not only shook the nation but laid bare the persistent and deeply unjust structures
+                    at the core of land based conflicts today.
+                    But the Oka crisis was just the tip of the iceberg. The roots of this conflict stretch back nearly
+                    three centuries.<br><br>
+                    In Quebec, the seigneurial system governed and distributed land from the 16th to the 19th
+                    century. The “seigneurs” were often French nobles, merchants or religious congregations,
+                    who had been granted large pieces of the land by the French Crown. The Sulpicians, a French
+                    society of diocesan priests, are often described as wealthy educated elites, academics and
+                    missionaries, they were first and foremost powerful and influential landowners. They were the
+                    Seigneurs of the island of Montreal for almost 200 years (1663 to 1854) in addition to the
+                    Seigneurie they administered in the Lac-des-Deux-Montagnes and the Seigneurie de SaintSulpice.
+                    In the early 1700s, the Sulpicians were granted around 540 km2
+                    of land by the King of France.
+                    The purpose was to establish the Seigneurie du Lac-des-Deux-Montagnes and displace a
+                    Mohawk group (Kanien’kehá:ka) that had converted to Catholicism, known as the "Mission
+                    Indians," to distance them from burgeoning settler towns on the island of Montreal. Yet,
+                    <a href="https://www.kanehsatakevoices.com/at-the-woods-edge/" , target="none">Kanien’kehá:ka oral
+                        traditions and archaeological evidence</a> point to another faction of
+                    Kanien’kehá:ka (Kanehsatakeró:non) having inhabited the land long before the Sulpicians'
+                    arrival, and the French land grant.<br><br>
+                </div>
                 The Sulpicians and the British assured the Mohawk that the land in the Seigneurie du
                 Lacdes-Deux-Montagnes was theirs to live on. In 1721 the Mohawk made the Two Dog
                 Wampum as a chain of friendship to confirm this commitment and bind the Sulpicians to
-                their responsibilities and obligations.<div class="spacer"></div>
-                <div class="quote subtitle">“our Priest (in conjunction with the Clergy of the Seminary of Montreal)
-                    told us we
-                    should remove once more with our Families, for that it was no longer proper that any
-                    Indians should live on this Island, and that if we would consent to go and settle at the
-                    Lake of Two Mountains we should have a large tract of land for which we should have
-                    a Deed from the King of France as our property, to be vested in us and our Heirs
-                    forever, and that we should not be molested again in our habitations. Altho’ it was
-                    very inconvenient to us to be quitting our houses and small clearings, yet the desire of
-                    having a fixed property of our own induced us to comply, and we accordingly set out
-                    and took possession of the Land assigned to us, and as was the custom of our
-                    Forefather, we immediately set about making a Belt (which we now deliver to you)”</div>
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- Mohawk Chief Aughneetha, Montreal Feb. 8, 1787.
+                their responsibilities and obligations.
                 <div class="spacer"></div>
-            </div>
-            <div class="text french">French text.
-            </div>
+                <br>
+                <br>
 
-            <br>
-            <div id="wampum" alt="Two dog wampum"></div>
-            <br>
-            <div class="spacer"></div>
+                <div class="quote">
+                    <div class="subtitle">“our Priest (in conjunction with the Clergy of the Seminary of Montreal)
+                        told us we
+                        should remove once more with our Families, for that it was no longer proper that any
+                        Indians should live on this Island, and that if we would consent to go and settle at the
+                        Lake of Two Mountains we should have a large tract of land for which we should have
+                        a Deed from the King of France as our property, to be vested in us and our Heirs
+                        forever, and that we should not be molested again in our habitations. Altho’ it was
+                        very inconvenient to us to be quitting our houses and small clearings, yet the desire of
+                        having a fixed property of our own induced us to comply, and we accordingly set out
+                        and took possession of the Land assigned to us, and as was the custom of our
+                        Forefather, we immediately set about making a Belt (which we now deliver to you)”</div>
+                    - Mohawk Chief Aughneetha, Montreal Feb. 8, 1787.
+                </div>
+                <div class="spacer"></div>
 
-            <div class="text english">Although the Kanehsata'keró:non repeatedly delivered this Two Dog Wampum to
+                <br>
+                <div id="wampum" alt="Two dog wampum"></div>
+                <br>
+                <div class="spacer"></div>
+
+                Although the Kanehsata'keró:non repeatedly delivered this Two Dog Wampum to
                 British
                 officials to honor their promise and protect the land from white settlement, the
                 British upheld that the Sulpician priests were the sole owners of the land. As the
@@ -162,7 +170,8 @@
                 Sulpicians broke their obligations and sold 98% of the land to settlers, the descendants of
                 whom still live on the land and celebrate the Sulpican’s heritage today.
                 <div class="spacer"></div><br>
-                <div class="subtitle left-leaning">How was contractually promised land was taken from the Mohawk of
+
+                <div class="subtitle">How was contractually promised land was taken from the Mohawk of
                     Kanehsatà:ke?
                 </div>
                 After a Seigneurie was granted, the “seigneur” or lord had a surveyor map the lots to be
@@ -171,54 +180,74 @@
                 The seigneur sometimes added the details of the taxation (called cens and rents) in the
                 “censier.” In their land registries the Sulpicians painstakingly recorded every property
                 transaction they made with settlers for more than 200 years.
-                <div class="spacer"></div>
-                <div class="subtitle left-leaning">The scale of dispossession
+                <center><img class="image-shadow" src="assets/Lake_of_two_mountains.png" style="max-width: 70%;">
+                </center>
+                <br>
+                By reconstructing the historical cadaster of the Seigneurie du Lac-des-Deux-Montagnes and
+                locating the initial deeds of sale and concession for each individual lot, we can analyze and
+                understand the rhythm, geographical distribution, and spatial dynamics of these transactions.
+                This information provides valuable insights into the colonization process and its significant
+                impact on the people of Kanehsatà:ke.
+                <br>
+                <div class="spacer"></div><br>
+
+                <div class="subtitle">The scale of dispossession
                 </div>
                 Land was not distributed evenly over time. Settlement seemed to happen through sharp 10
                 to 30-year bursts. These bursts happened around three phases.
-                <div class="subtitle left-leaning">The rhythm of dispossession</div>
+                <div class="spacer"></div><br>
+                <div class="subtitle">The rhythm of dispossession</div>
                 The first settlement phase from 1780 to 1809 (with a significant peak from 1790 to 1780)
                 comprises primarily French farmers. They settle in the fertile lands around the côte St-Joseph,
                 côte de la Baie, and les Eblouis and extend northwards. These areas constitute "la mouvance,"
                 where the Sulpicians collect feudal taxes (cens and rentes) according to their affirmed title to
                 the land.<br><br>
-                This map documents the history of land dispossession in the Seigneurie du Lac-des-DeuxMontagnes from 1780 to
+                The second phase of settlement was brief but intense, 28 000 acres granted in the span of 10
+                years from 1820 to 1829, the equivalent of 21 200 football fields, slightly larger than the
+                entire municipality of Oka today. This data spike corresponds to the Sulpicians’
+                implementation of the British monarchy's plan to settle British immigrants in the Seigneurie
+                du Lac-des-Deux-Montagnes. The British immigrants settled in the north/west of the
+                seigneury. The North River ("La Rivière-du-Nord ") provided a buffer between the British and
+                the French settlements.<br><br>
+                The third phase of settlement happened between 1860 and 1889 and is notable because it
+                marked the end of the seignorial regime in 1858. The lots granted in this period will be the
+                first legal land sales in the Seigneurie, where the settler could purchase lots and gain full title
+                of the land or purchase the lot they had previously been leasing (at the value of seventeen
+                years of annual taxes). The upsurge in acres granted could also be due to the large number of
+                Algonquin families that moved to Miniwaki from Kanehsatà:ke between 1858 and 1870, and
+                Kanehsatakeró:non families to Gibson in 1881 freeing up more land (Gabriel-Doxtater & Van
+                den Hende, 1995).
+                <br><br>
+                <table class="data-table">
+                    <tr class="image-shadow">
+                        <td><img src="assets/Rhythm1.png" style="max-width: 80%;" onclick="addPhaseLayer('First_phase.geojson');"></td>
+                        <td><img src="assets/Rhythm2.png" style="max-width: 80%;" onclick="addPhaseLayer('Second_phase.geojson');"></td>
+                        <td><img src="assets/Rhythm3.png" style="max-width: 80%;" onclick="addPhaseLayer('Third_phase.geojson');"></td>
+                    </tr>
+                    <tr style="margin-top: 20px;">
+                        <td class="subtitle">First phase: 1780 - 1809</td>
+                        <td class="subtitle">Second phase: 1820 - 1829</td>
+                        <td class="subtitle">Third phase: 1860 - 1889</td>
+                    </tr>
+                </table>
+                <br>
+                This map documents the history of land dispossession in the Seigneurie du Lac-des-DeuxMontagnes from
+                1780 to
                 1960. It records for each parcel of land (in white) the dates they were
                 taken from the Mohawk through sale or concession, identifies the Sulpicians responsible for
                 these actions (when possible), and lists the names of the settlers who received these parcels of
-                land.<br>
+                land.<br><br>
                 To navigate through the information, you can use the panel on the right-hand side. You have
                 the option to search through the database or directly enter a specific address. If you want to
-                visually experience the process of dispossession unfolding over time, you can click the "[]"
-                button, which will allow you to see the changes dynamically on the map.
+                visually experience the process of dispossession unfolding over time, you can click the
+                <i class="fa-solid fa-play" style="color: #d14e49; margin-left: 5px; font-size: 1.1rem;"></i>
+                &ensp;button, which will allow you to see the changes dynamically on the map.
             </div>
+            <div class="text french">French text.</div>
 
             <div class="spacer"></div>
 
         </div>
-        <!-- Geocoding -->
-        <div class="decoration">
-            <div id="address">
-                <p>Question your property rights by entering your address and examining its ties to colonization.
-                </p>
-                <div id="query-decorator">
-                    <input type="search" placeholder="Enter your address" id="geocoding-search">
-                    <ul class="queryList" id="geocodingUL"></ul>
-                    <div id="button-decorators">
-                        <button id="submit-query" class="button" onclick="callNominatim()">Submit Address
-                            <i class="fa fa-circle-o-notch fa-spin" id="loading"></i></button>
-                    </div>
-                </div>
-                <div id="no-address">Address not found.</div>
-                <div id="not-in-polygon">Location is not within research area.</div>
-            </div>
-        </div>
-        <!-- Main Map content -->
-        <a class="anchor" id="map-anchor"></a>
-        <!-- <div id="start-timeline">Experience disposession through time&nbsp;
-            <i class="fa-regular fa-circle-play small-button" style="color: #d14e49; position: relative; top: 11%;"
-                onclick="startTimeDisplay()"></i>
-        </div> -->
         <div id="content">
             <div id="map"></div>
             <!-- Query -->
@@ -255,12 +284,12 @@
                             <input type="checkbox" checked="checked" id="omit-year-query" name="omit-year-query"
                                 oninput="changeYearDisplay()">
                             <label for="omit-year-query">
-                                <p>&ensp;Display all years</p>
+                                <p class="english">&ensp;Display all years</p>
                             </label></span>
                         </div>
                     </div>
                     <div id="query-decorator">
-                        <p>Sulpician Priests</p>
+                        <p class="english">Sulpician Priests</p>
                         <input type="search" id="conceededByQuery"
                             oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
                             onclick="showList('conceededByQuery','conceededByUL')"
@@ -269,14 +298,14 @@
                         </ul>
                     </div>
                     <div id="query-decorator">
-                        <p>Sold or Conceded to</p>
+                        <p class="english">Sold or Conceded to</p>
                         <input type="search" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')"
                             onclick="showList('buyerQuery', 'buyerUL')" placeholder="Search by lot acquirer">
                         <ul class="queryList" id="buyerUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
-                        <p>Registration Number</p>
+                        <p class="english">Registration Number</p>
                         <input type="search" id="numEnregiQuery"
                             oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
                             onclick="showList('numEnregiQuery','numEnregiUL')"
@@ -285,15 +314,22 @@
                         </ul>
                     </div>
                     <div id="query-decorator">
-                        <p>With origininal deed of sale</p>
+                        <p class="english">With origininal deed of sale</p>
                         <input type="search" id="originalAQuery"
                             oninput="showSelectableFields('originalAQuery', 'originalAUL')"
                             onclick="showList('originalAQuery', 'originalAUL')" placeholder="Original deed of sale">
                         <ul class="queryList" id="originalAUL">
                         </ul>
                     </div>
+                    <div id="query-decorator">
+                        <div id="start-timeline" class="english">
+                            <center><i class="fa-solid fa-play" style="color: #d14e49; font-size: 1.5rem; margin-right: 10px; margin-top: 5px;"
+                                    onclick="startTimeDisplay()"></i></center>
+                            <p class="english">Experience disposession through time &nbsp</p>
+                        </div>
+                    </div>
                 </div>
-                <div id="no-data">No lots in the cadaster match your query.</div>
+                <div id="no-data" class="english">No lots in the cadaster match your query.</div>
                 <div id="button-container">
                     <div id="button-decorators">
                         <button id="submit-query" class="button" onclick="filterQuery()">Search</button>
@@ -302,8 +338,24 @@
                 </div>
             </div>
         </div>
+        <div class="decoration">
+            <div id="address">
+                <p>Question your property rights by entering your address and examining its ties to colonization.
+                </p>
+                <div id="query-decorator">
+                    <input type="search" placeholder="Enter your address" id="geocoding-search">
+                    <ul class="queryList" id="geocodingUL"></ul>
+                    <div id="button-decorators">
+                        <button id="submit-query" class="button" onclick="callNominatim()">Submit Address
+                            <i class="fa fa-circle-o-notch fa-spin" id="loading"></i></button>
+                    </div>
+                </div>
+                <div id="no-address">Address not found.</div>
+                <div id="not-in-polygon">Location is not within research area.</div>
+            </div>
+        </div>
         <div class="spacer"></div><br>
-        <div class="text english">
+        <div class="text english" style="margin-bottom: 10vh;">
             <div class="subtitle">Profits generated</div>
             It’s hard to say how much was made because land sale amounts were not consistently
             recorded. What we do know is:
@@ -330,7 +382,7 @@
             </div>
             <div class="spacer"></div>
         </div>
-        <div class="height-bottom"></div>
+        <br><br>
     </main>
 
     <!-- Map & slider script Import -->

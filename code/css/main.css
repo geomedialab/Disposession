@@ -16,6 +16,7 @@ html {
   overflow: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  height:100%;
 }
 
 
@@ -49,6 +50,7 @@ html::-webkit-scrollbar {
   font-family: 'Mulish', sans-serif;
   margin: 0;
   padding: 0;
+  scroll-margin-top: 7vh;
 }
 
 input:focus,
@@ -56,6 +58,10 @@ select:focus,
 textarea:focus,
 button:focus {
   outline: none;
+}
+
+.image-shadow{
+  filter: drop-shadow(1px 7px 16px rgb(22, 21, 21));
 }
 
 h1,
@@ -72,6 +78,7 @@ a.anchor {
   top: -7.5vh;
   visibility: hidden;
 }
+
 .fixedElement {
   background-color: #c0c0c0;
   position:fixed;
@@ -82,22 +89,24 @@ a.anchor {
 body {
   background-color: var(--background-color);
   overflow: overlay;
-  height: 100vh;
-  overflow: hidden;
+  overflow-y: scroll;
+  position: absolute;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding: 0;
+  min-height: 100%;
 }
 
+main::-webkit-scrollbar {
+  display: none;
+}
 main {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   scroll-behavior: smooth;
   position: relative;
-  height: 90%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: 100vh;
   overflow-y: scroll;
-  margin-top: 7vh;
-  margin-bottom: 2vh;
-  padding-bottom: 500px;
 }
 
 nav {

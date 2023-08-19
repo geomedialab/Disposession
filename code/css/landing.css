@@ -1,5 +1,6 @@
 #landing {
     margin-bottom: 2rem;
+    margin-top: 7vh;
     display: flex;
     flex-direction: column;
     padding-left: 3rem;
@@ -33,7 +34,7 @@
 }
 
 .acknowledgements {
-    padding: 2rem 25rem;
+    padding: 0.5rem 7vw;
 }
 
 .text {
@@ -72,29 +73,43 @@
     z-index: 9999;
 }
 
-#data-table {
+.data-table {
     margin: auto;
     table-layout: fixed;
-    width: 70%;
+    width: 100%;
     text-align: center;
+}
+
+td>img {
+    transition: transform 0.3s ease;
+}
+
+
+td>img:hover {
+    transform: scale(1.15);
+    cursor: pointer;
 }
 
 .fadeIn {
     animation: 3s ease-out fadeIn;
 }
 
-#data-table td:nth-child(1) {
+#numbers-table td:nth-child(1) {
     animation: 1s ease-out 0s 1 slideDown;
 }
-#data-table td:nth-child(2) {
+
+#numbers-table td:nth-child(2) {
     animation: 2s ease-out 0s 1 slideDown;
 }
-#data-table td:nth-child(3) {
+
+#numbers-table td:nth-child(3) {
     animation: 4s ease-out 0s 1 slideDown;
 }
-#data-table td:nth-child(4) {
+
+#numbers-table td:nth-child(4) {
     animation: 4.5s ease-out 0s 1 slideDown;
 }
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -126,26 +141,26 @@ tr:last-of-type {
 }
 
 figure {
-    margin: 2rem -4rem 1rem 3rem;
+    margin: 0rem -3rem 0rem 5rem;
     float: right;
+    height: 100%;
 }
 
 figure>img {
-    max-height: 500px;
     float: right;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
+    height: 80%;
 }
 
 figcaption {
     width: min-content;
     min-width: 120%;
-    margin-left: -1rem;
     font-size: .7rem;
     line-height: 1.5;
 }
 
 .quote {
-    margin: 0 5em;
+    margin: 0 10vw;
     text-align: justify;
 }
 
@@ -155,6 +170,10 @@ figcaption {
 
 .right-leaning {
     margin-left: 3rem;
+}
+
+.right-leaning>ul {
+    margin-bottom: 5vh;
 }
 
 ul {
@@ -172,4 +191,13 @@ ul li::before {
 
 ul li:hover {
     background-color: transparent;
+}
+
+.fa-play:nth-child(1) {
+    transition: all 0.2s ease;
+}
+
+.fa-play:nth-child(1):hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
