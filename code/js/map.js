@@ -108,7 +108,6 @@ async function addCadaster() {
             createSoldToIndex("buyerQuery")
             createConceededByIndex("conceededByQuery")
             createorigAIndex("originalAQuery")
-            // createYearSoldIndex("yearQuery");
             createNumEnregiIndex("numEnregiQuery");
 
 
@@ -126,7 +125,7 @@ async function addCadaster() {
 function addPhaseLayer(phaseLayerName) {
     resetTimeline();
     resetLayers();
-    fetch(`../../data/geojson/${phaseLayerName}`)
+    fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
         .then((response) => response.json())
         .then((r) => phaseLayerData = r)
         .then(() => {
