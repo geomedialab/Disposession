@@ -102,7 +102,7 @@
                 <div>
                     <figure>
                         <img class="image-shadow" src="assets/sulpician.png">
-                        <figcaption>Crédit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
+                        <figcaption>Credit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
                             Copyright : © Bibliothèque et Archives Canada<br>
                             Source : Bibliothèque et Archives Canada, no. d’acquisition 1933-188-1, C-000182
                         </figcaption>
@@ -220,9 +220,12 @@
                 <br><br>
                 <table class="data-table">
                     <tr class="image-shadow">
-                        <td><img src="assets/Rhythm1.png" style="max-width: 80%;" onclick="addPhaseLayer('First_Phase.geojson');"></td>
-                        <td><img src="assets/Rhythm2.png" style="max-width: 80%;" onclick="addPhaseLayer('Second_Phase.geojson');"></td>
-                        <td><img src="assets/Rhythm3.png" style="max-width: 80%;" onclick="addPhaseLayer('Third_Phase.geojson');"></td>
+                        <td><img src="assets/Rhythm1.png" style="max-width: 80%;"
+                                onclick="addPhaseLayer('First_Phase.geojson');"></td>
+                        <td><img src="assets/Rhythm2.png" style="max-width: 80%;"
+                                onclick="addPhaseLayer('Second_Phase.geojson');"></td>
+                        <td><img src="assets/Rhythm3.png" style="max-width: 80%;"
+                                onclick="addPhaseLayer('Third_Phase.geojson');"></td>
                     </tr>
                     <tr style="margin-top: 20px;">
                         <td class="subtitle">First phase: 1780 - 1809</td>
@@ -243,7 +246,35 @@
                 <i class="fa-solid fa-play" style="color: #d14e49; margin-left: 5px; font-size: 1.1rem;"></i>
                 &ensp;button, which will allow you to see the changes dynamically on the map.
             </div>
-            <div class="text french">French text.</div>
+
+            <!-- French text -->
+            <div class="text french">French text.
+                <figure>
+                    <img class="image-shadow" src="assets/sulpician.png">
+                    <figcaption>Crédit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
+                        Copyright : © Bibliothèque et Archives Canada<br>
+                        Source : Bibliothèque et Archives Canada, no. d’acquisition 1933-188-1, C-000182
+                    </figcaption>
+                </figure>
+                <center><img class="image-shadow" src="assets/Lake_of_two_mountains.png" style="max-width: 70%;">
+                    <div id="wampum" alt="Two dog wampum"></div>
+                </center>
+                <table class="data-table">
+                    <tr class="image-shadow">
+                        <td><img src="assets/Rhythm1.png" style="max-width: 80%;"
+                                onclick="addPhaseLayer('First_Phase.geojson');"></td>
+                        <td><img src="assets/Rhythm2.png" style="max-width: 80%;"
+                                onclick="addPhaseLayer('Second_Phase.geojson');"></td>
+                        <td><img src="assets/Rhythm3.png" style="max-width: 80%;"
+                                onclick="addPhaseLayer('Third_Phase.geojson');"></td>
+                    </tr>
+                    <tr style="margin-top: 20px;">
+                        <td class="subtitle">Première phase: 1780 - 1809</td>
+                        <td class="subtitle">Seconde phase: 1820 - 1829</td>
+                        <td class="subtitle">Troisième phase: 1860 - 1889</td>
+                    </tr>
+                </table>
+            </div>
 
             <div class="spacer"></div>
 
@@ -259,10 +290,11 @@
                     </div>
                     <div class="dividing-line"></div>
                     <div id="how-to">
-                        <p>Search the database by</p>
+                        <p class="english">Search the database by</p>
                     </div>
                     <div id="query-decorator">
-                        <p>Years</p>
+                        <p class="english">Years</p>
+                        <p class="french">Années</p>
                         <div id="slider">
                             <div id="greyed-out"></div>
                             <div id="slider-value">
@@ -285,45 +317,65 @@
                                 oninput="changeYearDisplay()">
                             <label for="omit-year-query">
                                 <p class="english">&ensp;Display all years</p>
+                                <p class="french">&ensp;Afficher toutes les années</p>
                             </label></span>
                         </div>
                     </div>
                     <div id="query-decorator">
                         <p class="english">Sulpician Priests</p>
+                        <p class="french">French text.</p>
                         <input type="search" id="conceededByQuery"
                             oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
-                            onclick="showList('conceededByQuery','conceededByUL')"
-                            placeholder="Search by Sulpician name">
+                            onclick="showList('conceededByQuery','conceededByUL')">
+                        <label for="conceededByQuery" class="query-label" id="conceededByQuery-label">
+                            <div class="english">Search by Sulpician name</div>
+                            <div class="french">French text.</div>
+                        </label>
                         <ul class="queryList" id="conceededByUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
                         <p class="english">Sold or Conceded to</p>
+                        <p class="french">French text.</p>
                         <input type="search" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')"
-                            onclick="showList('buyerQuery', 'buyerUL')" placeholder="Search by lot acquirer">
+                            onclick="showList('buyerQuery', 'buyerUL')">
+                        <label for="buyerQuery" class="query-label" id="buyerQuery-label">
+                            <div class="english">Search by lot acquirer</div>
+                            <div class="french">French text</div>
+                        </label>
                         <ul class="queryList" id="buyerUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
                         <p class="english">Registration Number</p>
+                        <p class="french">French text.</p>
                         <input type="search" id="numEnregiQuery"
                             oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
-                            onclick="showList('numEnregiQuery','numEnregiUL')"
-                            placeholder="Search by registration number">
+                            onclick="showList('numEnregiQuery','numEnregiUL')">
+                        <label for="numEnregiQuery" class="query-label" id="numEnregiQuery-label">
+                            <div class="english">Search by registration number</div>
+                            <div class="french">French text</div>
+                        </label>
                         <ul class="queryList" id="numEnregiUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
                         <p class="english">With origininal deed of sale</p>
+                        <p class="french">French text.</p>
                         <input type="search" id="originalAQuery"
                             oninput="showSelectableFields('originalAQuery', 'originalAUL')"
-                            onclick="showList('originalAQuery', 'originalAUL')" placeholder="Original deed of sale">
+                            onclick="showList('originalAQuery', 'originalAUL')">
+                        <label for="originalAQuery" class="query-label" id="originalAQuery-label">
+                            <div class="english">Search by registration number</div>
+                            <div class="french">French text</div>
+                        </label>
                         <ul class="queryList" id="originalAUL">
                         </ul>
                     </div>
                     <div id="query-decorator">
                         <div id="start-timeline">
-                            <center><i class="fa-solid fa-play" style="color: #d14e49; font-size: 1.5rem; margin-right: 10px; margin-top: 5px;"
+                            <center><i class="fa-solid fa-play"
+                                    style="color: #d14e49; font-size: 1.5rem; margin-right: 10px; margin-top: 5px;"
                                     onclick="startTimeDisplay()"></i></center>
                             <p class="english">Experience disposession through time</p>
                             <p class="french">French text</p>
@@ -333,7 +385,7 @@
                 <div id="no-data" class="english">No lots in the cadaster match your query.</div>
                 <div id="button-container">
                     <div id="button-decorators">
-                        <button id="submit-query" class="button" onclick="filterQuery()">Search</button>
+                        <button class="submit-query button" onclick="filterQuery()">Search</button>
                         <button id="reset-map" class="button" onclick="resetMap()">Reset Map</button>
                     </div>
                 </div>
@@ -347,7 +399,7 @@
                     <input type="search" placeholder="Enter your address" id="geocoding-search">
                     <ul class="queryList" id="geocodingUL"></ul>
                     <div id="button-decorators">
-                        <button id="submit-query" class="button" onclick="callNominatim()">Submit Address
+                        <button class="submit-query button" id="submit-address" onclick="callNominatim()">Submit Address
                             <i class="fa fa-circle-o-notch fa-spin" id="loading"></i></button>
                     </div>
                 </div>

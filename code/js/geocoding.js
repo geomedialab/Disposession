@@ -5,7 +5,7 @@ function callNominatim() {
 
     // Show loading UI
     var loading = document.getElementById("loading");
-    var submit = document.getElementById("submit-query");
+    var submit = document.getElementById("submit-address");
     submit.innerText = "";
     loading.style.display = "block";
 

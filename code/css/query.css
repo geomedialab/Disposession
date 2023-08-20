@@ -141,7 +141,7 @@ button:hover {
     transform: scale(1.03);
 }
 
-#submit-query {
+.submit-query {
     background-color: var(--primary-color);
     border: var(--white-color);
     color: white;
@@ -185,10 +185,23 @@ button:hover {
     flex-direction: row;
 }
 
-label > p {
+label>p {
     user-select: none;
 }
 
 #loading {
     display: none;
+}
+
+#slider-value {
+    user-select: none;
+}
+
+.query-label {
+    color: #999;
+    position: absolute;
+    top: 35px ;
+    left: 10px;
+    /* transform: translate(0.7rem, -2.3rem); */
+    /* transition: all 0.2s ease-out; */
 }

@@ -1,19 +1,17 @@
 // Initialize Leaflet map
 var zoom = 11;
 var center = [45.627687, -74.073016];
-var control;
 
 // Variables for timeline
 const interval = 900;
 const earliestDate = 1760;
 const range = 10;
-// Used to cancel timeline animation if Reset Map is pressed
+// Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
 var timer = null;
 
 // Initialize map
 var map = L.map('map',
     {
-        minZoom: 10,
         center: center,
         zoom: zoom,
         zoomControl: false,
@@ -97,7 +95,7 @@ function addMerged() {
         })
 }
 
-async function addCadaster() {
+function addCadaster() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
@@ -123,30 +121,6 @@ async function addCadaster() {
 }
 
 
-function addPhaseLayer(phaseLayerName) {
-    resetTimeline();
-    resetLayers();
-    document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
-    fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
-        .then((response) => response.json())
-        .then((r) => phaseLayerData = r)
-        .then(() => {
-            L.geoJSON(
-                phaseLayerData,
-                setOptions = {
-                    style: queryStyle,
-                    onEachFeature: onEachFeature
-                }
-            ).addTo(map);
-        });
-    map.fitBounds(cadasterLayer.getBounds());
-    scrollToMap();
-}
-
-function scrollToMap() {
-    document.getElementById("content").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 function addKanehsatake() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
@@ -161,6 +135,81 @@ function addKanehsatake() {
         });
 }
 
+function addPhaseLayer(phaseLayerName) {
+    resetTimeline();
+    resetLayers();
+    document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
+
+    phaseNumber = phaseLayerName.split("_")[0]
+    basemapControl.remove(map);
+
+    var minSliderTextValue = document.getElementById("minRangeValue")
+    var maxSliderTextValue = document.getElementById("maxRangeValue")
+    var minSliderValue = document.getElementById("min-slider")
+    var maxSliderValue = document.getElementById("max-slider")
+
+    var yearLegend = L.control({ position: 'topright' });
+    yearLegend.onAdd = function () {
+        const div = L.DomUtil.create('div', 'info legend year-legend');
+        if (phaseNumber == "First") {
+            startDate = 1780
+            endDate = 1809
+            // Having the french english divs gets complicated, maybe just show the years the user knows which phase they clicked
+            div.innerHTML = `<div class="english" style="font-size:2.5rem;">First Phase</div><div class="french" style="font-size:2.5rem;">Première Phase</div><div style="font-size:2rem; text-align:right;">${startDate} - ${endDate}</div>`
+        } else if (phaseNumber == "Second") {
+            startDate = 1820
+            endDate = 1829
+            div.innerHTML = `<div class="english" style="font-size:2.5rem;">Second Phase</div><div class="french" style="font-size:2.5rem;">Seconde Phase</div><div style="font-size:2rem;  text-align:right;">${startDate} - ${endDate}</div>`
+        } else if (phaseNumber == "Third") {
+            startDate = 1860
+            endDate = 1889
+            div.innerHTML = `<div class=""english" style="font-size:2.5rem;">Third Phase</div><div class="french" style="font-size:2.5rem;">Troisième Phase</div><div style="font-size:2rem;  text-align:right;">${startDate} - ${endDate}</div>`
+        }
+
+        document.getElementById("greyed-out").style["z-index"] = -9999;
+        document.getElementById("omit-year-query").checked = false;
+        minSliderTextValue.innerHTML = startDate
+        maxSliderTextValue.innerHTML = endDate
+        minSliderValue.value = startDate
+        maxSliderValue.value = endDate
+        return div
+    }
+    yearLegend.addTo(map);
+
+    fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
+        .then((response) => response.json())
+        .then((r) => phaseLayerData = r)
+        .then(() => {
+            L.geoJSON(
+                phaseLayerData,
+                setOptions = {
+                    style: queryStyle,
+                    onEachFeature: onEachFeature
+                }
+            ).addTo(map);
+        });
+    map.fitBounds(cadasterLayer.getBounds());
+    scrollToMap();
+    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
+}
+
+function addIndigLands() {
+    fetch("../data/geojson/Indig_lands_clipped.geojson")
+        .then((response) => response.json())
+        .then((r) => indigLandsData = r)
+        .then(() => {
+            indigLandsLayer = L.geoJSON(
+                indigLandsData,
+                setOptions = {
+                    onEachFeature: onEachFeatureIndigLands,
+                }
+            ).addTo(map);
+        });
+}
+
+function scrollToMap() {
+    document.getElementById("content").scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 // Georeferencing check for where to place marker if it's within the polygon
 function pointInPoly(marker) {
@@ -180,28 +229,38 @@ function pointInPoly(marker) {
     }
 }
 
+// Top left legend details
 const cadasterLegend = L.control({ position: 'topleft' });
 cadasterLegend.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
     labels = [],
-        categories = [{ name: 'Historic White settlement', color: cadasterColor }, { name: 'Kanehsatà:ke Today', color: purpleColor }];
+        categories = [
+            { name: '<div class="english">Historic White settlement</div><div class="french">French text</div>', color: cadasterColor },
+            { name: '<div class="english">Kanehsatà:ke Today</div><div class="french">French text</div>', color: purpleColor },
+            { name: '<div class="english">Indigenous Territories</div><div class="french">French text</div>', color: "#00000" }
+        ];
     // Seignerie du Lac des Deux Montagnes
     for (var i = 0; i < categories.length; i++) {
-
-        div.innerHTML +=
-            labels.push(
-                '<i class="circle" style="background:' + categories[i].color + '"></i> ' +
-                (categories[i].name));
+        if (categories[i].name != '<div class="english">Indigenous Territories</div><div class="french">French text</div>') {
+            div.innerHTML +=
+                labels.push(
+                    '<i class="circle" style="background:' + categories[i].color + '"></i>' +
+                    (categories[i].name));
+        } else {
+            div.innerHTML +=
+                labels.push(
+                    `<i class="dotted"></i>${categories[i].name}`);
+        }
 
     }
-    div.innerHTML = labels.join('<br>');
+    div.innerHTML = labels.join("");
     return div;
-};
+}
 
 // Meat and potatoes of the timeline function
 function timeDisplay(data, previousYear, liveYear) {
 
-    // Remove top right eyar range if it exists
+    // Remove top right year range if it exists
     var elements = document.getElementsByClassName('info legend year-legend leaflet-control');
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
@@ -243,19 +302,19 @@ function timeDisplay(data, previousYear, liveYear) {
     if (liveYear <= 1960) {
         timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
     } else {
+        map.flyTo(cadasterLayer.getBounds().getCenter(), 7.5);
         // The timeline is over, reset the map
 
-        document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
+        document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
         document.getElementsByClassName('info legend year-legend leaflet-control')[0].style.display = 'none';
         document.getElementsByClassName("leaflet-bottom")[0].style.display = 'block';
         basemapControl.addTo(map);
 
         // Set map state to base form
         resetLayers();
-
+        map.addLayer(indigLandsLayer);
         map.addLayer(kanehsatakeLayer);
         map.addLayer(cadasterLayer);
-
         console.log('Timeline Completed')
     }
 }
@@ -270,14 +329,12 @@ function resetLayers() {
     });
 }
 
-
 function startTimeDisplay() {
     resetTimeline();
     scrollToMap();
     map.fitBounds(cadasterLayer.getBounds());
     resetLayers();
-
-    document.getElementsByClassName("leaflet-bottom")[0].style.display = 'none';
+    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
     basemapControl.remove(map);
     addMerged();
 
@@ -307,12 +364,15 @@ function resetTimeline() {
 
 
 function resetMap() {
+    // Remove stuff
     resetTimeline();
     resetLayers();
     resetInputs();
-    resetUls();
-    addKanehsatake();
-    addCadaster();
+
+    // Re-add stuff
+    map.addLayer(indigLandsLayer);
+    map.addLayer(kanehsatakeLayer);
+    map.addLayer(cadasterLayer);
 
     document.getElementById("no-data").style.display = "none";
     document.getElementById("no-address").style.display = "none";
@@ -321,13 +381,18 @@ function resetMap() {
     document.getElementById("omit-year-query").checked = true;
     document.getElementById("greyed-out").style.zIndex = 9999;
 
-    document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
+    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
     scrollToMap();
-    map.fitBounds(cadasterLayer.getBounds());
+    map.fitBounds(cadasterLayer.getBounds())
 }
 
 function displayQueryResults(queryResults) {
+    // Remove General Legend
+    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
+    // Build new legend
     resetLayers();
+
+
 
     queryLayer = L.geoJSON(
         queryResults,
@@ -340,6 +405,7 @@ function displayQueryResults(queryResults) {
     map.addLayer(queryLayer);
     map.fitBounds(queryLayer.getBounds());
 }
+
 
 // Build popup and tooltips
 var onEachFeature = function (feature, layer) {
@@ -391,7 +457,7 @@ var onEachFeature = function (feature, layer) {
      </center>`);
 }
 
-// Build popup and tooltips
+// Build popup and tooltips specific to Cadaster layer
 var onEachFeatureCadaster = function (feature, layer) {
     // Capitalize the first word of original deed sale variable
     const word = feature.properties.ORIGINAL_A
@@ -414,12 +480,12 @@ var onEachFeatureCadaster = function (feature, layer) {
 
     if (feature.properties.CONCEDED_T != null) {
         var wayOfSale = 'Conceded'
-        var soldOrConceeded = `<br>By: ${feature.properties.CONCEDED_B}
-                                 <br>To: ${feature.properties.CONCEDED_T}`
+        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.CONCEDED_B}
+                                 <br>To: ${feature.properties.CONCEDED_T}</div>`
     } else {
         var wayOfSale = 'Sold'
-        var soldOrConceeded = `<br>By ${feature.properties.SOLD_BY}
-                                <br>To: ${feature.properties.SOLD_TO}`
+        var soldOrConceeded = `<div class="english"><br>By ${feature.properties.SOLD_BY}
+                                <br>To: ${feature.properties.SOLD_TO}</div>`
     }
     if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
         var partOfLotString = 'Part of lot number'
@@ -433,7 +499,7 @@ var onEachFeatureCadaster = function (feature, layer) {
         `<center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
 
         // Correct order
-        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}.<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
+        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
 
         '<i>Information from the Land Registry of Quebec.</i><br>' +
 
@@ -453,17 +519,53 @@ var onEachFeatureCadaster = function (feature, layer) {
      </center>`);
 }
 
+
+var onEachFeatureIndigLands = function (feature, layer) {
+    layer.setStyle({
+        "color": feature.properties.color,
+        "fillOpacity": 0.,
+        "weight": 1,
+        "opacity": 0.5,
+        'dashArray': '5'
+    })
+    // Trying to add labels to markers to show indig names on map, REALLY affects performance
+    // var bounds = layer.getBounds();
+    // var latLng = bounds.getCenter();
+    // var marker = new L.marker([latLng.lat, latLng.lng], { opacity: 0})
+    // marker.bindTooltip(feature.properties.Name, { permanent: true, direction: "center", className: "IndigLandLabel", offset: [0, 0] });
+    // marker.addTo(map);
+
+    // Hover Tooltiups are much less demanding computationally
+    layer.bindTooltip(`
+    <center>
+    <h2>${feature.properties.Name}</h2>
+    </center>`,
+        {
+            sticky: true,
+            opacity: 0.8,
+            closeButton: true
+        });
+
+
+}
+
 // Change styling based on zoom (essentially like breakpoints)
 map.on("zoomend", checkAndChangeStylingParameters);
 map.on("baselayerchange", checkAndChangeStylingParameters);
 
 function checkAndChangeStylingParameters() {
     var zoomLevel = map.getZoom();
+    if (map.hasLayer(cadasterLayer)) {
+        if (zoomLevel <= 7) {
+            cadasterLayer.setStyle(
+                {
+                    "weight": 0
+                }
+            )
+        }
+    }
     if (map.hasLayer(Esri_WorldImagery) && map.hasLayer(cadasterLayer)) {
-        console.log('World imagery basemap selected');
-        console.log("Cadaster layer present")
         if (zoomLevel == 12) {
-            console.log("Changing styling params")
             cadasterLayer.setStyle(
                 {
                     "weight": 1.5
@@ -471,7 +573,6 @@ function checkAndChangeStylingParameters() {
             )
 
         } if (zoomLevel > 12) {
-            console.log("Changing styling params")
             cadasterLayer.setStyle(
                 {
                     "weight": 2
@@ -497,5 +598,7 @@ function checkAndChangeStylingParameters() {
     }
 }
 
+// Initialize the map with data, The order added affects which is on top of the other
+addIndigLands();
 addKanehsatake();
 addCadaster();

@@ -1,3 +1,13 @@
+function createConceededByIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
+        obj = cadasterData.features[i].properties.CONCEDED_B
+        index.push(obj);
+    }
+    var uniq = [...new Set(index)];
+    createPElementsForSearch(uniq, 'conceededByUL', inputId, "conceededByQuery-label")
+}
+
 function createSoldToIndex(inputId) {
     var index = []
     for (var i = 0; i < cadasterData.features.length; i++) {
@@ -7,40 +17,7 @@ function createSoldToIndex(inputId) {
         index.push(obj2);
     }
     var uniq = [...new Set(index)];
-    createPElementsForSearch(uniq, 'buyerUL', inputId)
-}
-
-function createConceededByIndex(inputId) {
-    var index = []
-    for (var i = 0; i < cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.CONCEDED_B
-        index.push(obj);
-    }
-    var uniq = [...new Set(index)];
-    createPElementsForSearch(uniq, 'conceededByUL', inputId)
-}
-
-function createorigAIndex(inputId) {
-    var index = []
-    for (var i = 0; i < cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.ORIGINAL_A
-        index.push(obj);
-    }
-    var uniq = [...new Set(index)];
-    createPElementsForSearch(uniq, 'originalAUL', inputId)
-}
-
-function createYearSoldIndex(inputId) {
-    var index = []
-    for (var i = 0; i < cadasterData.features.length; i++) {
-        obj = cadasterData.features[i].properties.year
-        index.push(obj);
-    }
-    index.sort()
-
-    let uniqYears = [...new Set(index)];
-
-    createPElementsForSearch(uniqYears, 'yearUL', inputId)
+    createPElementsForSearch(uniq, 'buyerUL', inputId, "buyerQuery-label")
 }
 
 function createNumEnregiIndex(inputId) {
@@ -52,16 +29,27 @@ function createNumEnregiIndex(inputId) {
     index.sort()
     var uniq = [...new Set(index)];
 
-    createPElementsForSearch(uniq, 'numEnregiUL', inputId)
+    createPElementsForSearch(uniq, 'numEnregiUL', inputId, "numEnregiQuery-label")
 }
 
-function createPElementsForSearch(array, ulId, inputId,) {
+function createorigAIndex(inputId) {
+    var index = []
+    for (var i = 0; i < cadasterData.features.length; i++) {
+        obj = cadasterData.features[i].properties.ORIGINAL_A
+        index.push(obj);
+    }
+    var uniq = [...new Set(index)];
+    createPElementsForSearch(uniq, 'originalAUL', inputId, "originalAQuery-label")
+}
+
+function createPElementsForSearch(array, ulId, inputId, labelId) {
     for (i = 0; i < array.length; i++) {
         let newValue = array[i];
         const spanElement = document.createElement("span");
         const pElement = document.createElement("p");
         const ulElement = document.getElementById(ulId);
         const inputElement = document.getElementById(inputId);
+        const parentLabel = document.getElementById(labelId);
 
         pElement.innerHTML = newValue;
 
@@ -71,6 +59,8 @@ function createPElementsForSearch(array, ulId, inputId,) {
                 placeMapMarker(newValue);
             }
             ulElement.style.display = 'none';
+            inputElement.style.borderRadius = "calc(var(--radius) - 5px)";
+            parentLabel.style.display = 'none'
         })
 
         const container = document.getElementById(ulId)
@@ -86,7 +76,6 @@ function createPElementsForSearch(array, ulId, inputId,) {
 }
 
 function showSelectableFields(inputId, ulId) {
-
     // Declare variables
     var input, filter, ul, i, txtValue;
     input = document.getElementById(inputId);
@@ -151,7 +140,6 @@ function filterQuery() {
 
     if (queryResults.length != 0) {
         displayQueryResults(queryResults)
-        document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'none';
     } else {
         document.getElementById("no-data").style.display = "block"
     }
@@ -169,13 +157,10 @@ function resetInputs() {
 
     document.getElementById("max-slider").value = "1930";
     document.getElementById("maxRangeValue").innerHTML = "1930";
-}
-
-function resetUls() {
-    document.getElementById("buyerUL").innerHTML = "";
-    document.getElementById("conceededByUL").innerHTML = "";
-    document.getElementById("numEnregiUL").innerHTML = "";
-    document.getElementById("originalAUL").innerHTML = "";
+    var queryLabels = document.getElementsByClassName("query-label");
+    for(i = 0; i < queryLabels.length; i++) {
+        queryLabels[i].style.display = 'block';
+      }
 }
 
 function changeYearDisplay() {

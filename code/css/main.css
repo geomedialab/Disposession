@@ -276,6 +276,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.english {
+  margin: 0;
+}
 .french {
   display: none;
+  margin: 0;
 }

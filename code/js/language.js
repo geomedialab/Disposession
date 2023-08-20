@@ -1,11 +1,6 @@
 function changeLanguage() {
-    console.log("button pressed")
     const englishDivs = document.getElementsByClassName("english");
     const frenchDivs = document.getElementsByClassName("french");
-
-    console.log(englishDivs);
-    console.log(frenchDivs);
-
     // Check if we're in english already
     if (englishDivs[0].style.display != "none") {
         for (i = 0; i < englishDivs.length; i++) {
