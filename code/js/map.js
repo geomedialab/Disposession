@@ -194,7 +194,7 @@ function addPhaseLayer(phaseLayerName) {
 }
 
 function addIndigLands() {
-    fetch("/Disposession/data/geojson/Indig_lands_clipped.geojson")
+    fetch("https://spencermartel.github.io/Disposession/data/geojson/Indig_lands_clipped.geojson")
         .then((response) => response.json())
         .then((r) => indigLandsData = r)
         .then(() => {
