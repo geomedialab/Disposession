@@ -208,10 +208,11 @@
                 implementation of the British monarchy's plan to settle British immigrants in the Seigneurie
                 du Lac-des-Deux-Montagnes. The British immigrants settled in the north/west of the
                 seigneury. The North River ("La Rivière-du-Nord ") provided a buffer between the British and
-                the French settlements.<br><br>
+                    the French settlements.<br><br></p>
                 The third phase of settlement happened between 1860 and 1889 and is notable because it
                 marked the end of the seignorial regime in 1858. The lots granted in this period will be the
-                first legal land sales in the Seigneurie, where the settler could purchase lots and gain full title
+                first legal land sales in the Seigneurie, where the settler could purchase lots and gain full
+                title
                 of the land or purchase the lot they had previously been leasing (at the value of seventeen
                 years of annual taxes). The upsurge in acres granted could also be due to the large number of
                 Algonquin families that moved to Miniwaki from Kanehsatà:ke between 1858 and 1870, and
@@ -220,12 +221,16 @@
                 <br><br>
                 <table class="data-table">
                     <tr class="image-shadow">
-                        <td><img src="assets/Rhythm1.png" style="max-width: 80%;"
-                                onclick="addPhaseLayer('First_Phase.geojson');"></td>
-                        <td><img src="assets/Rhythm2.png" style="max-width: 80%;"
-                                onclick="addPhaseLayer('Second_Phase.geojson');"></td>
+                        <td>
+                            <img src="assets/Rhythm1.png" style=" position: relative; max-width: 80%; z-index: 10;"
+                                onclick="addPhaseLayer('First_Phase.geojson');">
+                        </td>
+                        <td><img src="assets/Rhythm2.png" style="max-width: 80%; z-index: 1;"
+                                onclick="addPhaseLayer('Second_Phase.geojson');">
+                        </td>
                         <td><img src="assets/Rhythm3.png" style="max-width: 80%;"
-                                onclick="addPhaseLayer('Third_Phase.geojson');"></td>
+                                onclick="addPhaseLayer('Third_Phase.geojson');">
+                        </td>
                     </tr>
                     <tr style="margin-top: 20px;">
                         <td class="subtitle">First phase: 1780 - 1809</td>
@@ -234,7 +239,8 @@
                     </tr>
                 </table>
                 <br>
-                This map documents the history of land dispossession in the Seigneurie du Lac-des-DeuxMontagnes from
+                This map documents the history of land dispossession in the Seigneurie du Lac-des-DeuxMontagnes
+                from
                 1780 to
                 1960. It records for each parcel of land (in white) the dates they were
                 taken from the Mohawk through sale or concession, identifies the Sulpicians responsible for
@@ -261,8 +267,10 @@
                 </center>
                 <table class="data-table">
                     <tr class="image-shadow">
-                        <td><img src="assets/Rhythm1.png" style="max-width: 80%;"
-                                onclick="addPhaseLayer('First_Phase.geojson');"></td>
+                        <td>
+                            <img src="assets/Rhythm1.png" style="max-width: 80%;"
+                                onclick="addPhaseLayer('First_Phase.geojson');">
+                        </td>
                         <td><img src="assets/Rhythm2.png" style="max-width: 80%;"
                                 onclick="addPhaseLayer('Second_Phase.geojson');"></td>
                         <td><img src="assets/Rhythm3.png" style="max-width: 80%;"
@@ -279,6 +287,7 @@
             <div class="spacer"></div>
 
         </div>
+        <!-- Main Map Content -->
         <div id="content">
             <div id="map"></div>
             <!-- Query -->
@@ -292,6 +301,7 @@
                     <div id="how-to">
                         <p class="english">Search the database by</p>
                     </div>
+                    <!-- Year slider -->
                     <div id="query-decorator">
                         <p class="english">Years</p>
                         <p class="french">Années</p>
@@ -321,57 +331,62 @@
                             </label></span>
                         </div>
                     </div>
-                    <div id="query-decorator">
-                        <p class="english">Sulpician Priests</p>
-                        <p class="french">French text.</p>
-                        <input type="search" id="conceededByQuery"
-                            oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
-                            onclick="showList('conceededByQuery','conceededByUL')">
-                        <label for="conceededByQuery" class="query-label" id="conceededByQuery-label">
-                            <div class="english">Search by Sulpician name</div>
-                            <div class="french">French text.</div>
-                        </label>
-                        <ul class="queryList" id="conceededByUL">
-                        </ul>
+                    <!-- Rest of queries -->
+                    <div>
+                        <div id="query-decorator">
+                            <p class="english">Sulpician Priests</p>
+                            <p class="french">French text.</p>
+                            <input class="mainQuery" type="search" id="conceededByQuery"
+                                oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
+                                onclick="showList('conceededByQuery','conceededByUL')">
+                            <label for="conceededByQuery" class="query-label" id="conceededByQuery-label">
+                                <div class="english">Search by Sulpician name</div>
+                                <div class="french">French text.</div>
+                            </label>
+                            <ul class="queryList" id="conceededByUL">
+                            </ul>
+                        </div>
+                        <div id="query-decorator">
+                            <p class="english">Sold or Conceded to</p>
+                            <p class="french">French text.</p>
+                            <input class="mainQuery" type="search" id="buyerQuery"
+                                oninput="showSelectableFields('buyerQuery', 'buyerUL')"
+                                onclick="showList('buyerQuery', 'buyerUL')">
+                            <label for="buyerQuery" class="query-label" id="buyerQuery-label">
+                                <div class="english">Search by lot acquirer</div>
+                                <div class="french">French text</div>
+                            </label>
+                            <ul class="queryList" id="buyerUL">
+                            </ul>
+                        </div>
+                        <div id="query-decorator">
+                            <p class="english">Registration Number</p>
+                            <p class="french">French text.</p>
+                            <input class="mainQuery" type="search" id="numEnregiQuery"
+                                oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
+                                onclick="showList('numEnregiQuery','numEnregiUL')">
+                            <label for="numEnregiQuery" class="query-label" id="numEnregiQuery-label">
+                                <div class="english">Search by registration number</div>
+                                <div class="french">French text</div>
+                            </label>
+                            <ul class="queryList" id="numEnregiUL">
+                            </ul>
+                        </div>
+                        <div id="query-decorator">
+                            <p class="english">With origininal deed of sale</p>
+                            <p class="french">French text.</p>
+                            <input class="mainQuery" type="search" id="originalAQuery"
+                                oninput="showSelectableFields('originalAQuery', 'originalAUL')"
+                                onclick="showList('originalAQuery', 'originalAUL')">
+                            <label for="originalAQuery" class="query-label" id="originalAQuery-label">
+                                <div class="english">Search by registration number</div>
+                                <div class="french">French text</div>
+                            </label>
+                            <ul class="queryList" id="originalAUL">
+                            </ul>
+                        </div>
                     </div>
-                    <div id="query-decorator">
-                        <p class="english">Sold or Conceded to</p>
-                        <p class="french">French text.</p>
-                        <input type="search" id="buyerQuery" oninput="showSelectableFields('buyerQuery', 'buyerUL')"
-                            onclick="showList('buyerQuery', 'buyerUL')">
-                        <label for="buyerQuery" class="query-label" id="buyerQuery-label">
-                            <div class="english">Search by lot acquirer</div>
-                            <div class="french">French text</div>
-                        </label>
-                        <ul class="queryList" id="buyerUL">
-                        </ul>
-                    </div>
-                    <div id="query-decorator">
-                        <p class="english">Registration Number</p>
-                        <p class="french">French text.</p>
-                        <input type="search" id="numEnregiQuery"
-                            oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
-                            onclick="showList('numEnregiQuery','numEnregiUL')">
-                        <label for="numEnregiQuery" class="query-label" id="numEnregiQuery-label">
-                            <div class="english">Search by registration number</div>
-                            <div class="french">French text</div>
-                        </label>
-                        <ul class="queryList" id="numEnregiUL">
-                        </ul>
-                    </div>
-                    <div id="query-decorator">
-                        <p class="english">With origininal deed of sale</p>
-                        <p class="french">French text.</p>
-                        <input type="search" id="originalAQuery"
-                            oninput="showSelectableFields('originalAQuery', 'originalAUL')"
-                            onclick="showList('originalAQuery', 'originalAUL')">
-                        <label for="originalAQuery" class="query-label" id="originalAQuery-label">
-                            <div class="english">Search by registration number</div>
-                            <div class="french">French text</div>
-                        </label>
-                        <ul class="queryList" id="originalAUL">
-                        </ul>
-                    </div>
+                    <!-- Start timeline -->
                     <div id="query-decorator">
                         <div id="start-timeline">
                             <center><i class="fa-solid fa-play"
@@ -438,7 +453,6 @@
         <br><br>
     </main>
 
-    <!-- Map & slider script Import -->
     <script src="code/js/map.js"></script>
     <script src="code/js/slider.js"></script>
 </body>

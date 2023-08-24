@@ -81,12 +81,13 @@
 }
 
 td>img {
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
+    width: auto;
 }
 
 
 td>img:hover {
-    transform: scale(1.1);
+    transform: scale(0.95);
     cursor: pointer;
 }
 
@@ -200,4 +201,10 @@ ul li:hover {
 .fa-play:nth-child(1):hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+
+.image-in-text {
+    margin-left: 1vw;
+    margin-right: 1vw;
 }

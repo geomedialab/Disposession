@@ -53,6 +53,10 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
 
         pElement.innerHTML = newValue;
 
+        inputElement.addEventListener("keydown", function () {
+            parentLabel.style.display = 'none';
+        });
+
         spanElement.addEventListener("click", function () {
             inputElement.value = newValue;
             if (inputId == 'geocoding-search') {
@@ -61,7 +65,7 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
             ulElement.style.display = 'none';
             inputElement.style.borderRadius = "calc(var(--radius) - 5px)";
             parentLabel.style.display = 'none'
-        })
+        });
 
         const container = document.getElementById(ulId)
         document.addEventListener("mouseup", function (e) {
@@ -69,7 +73,7 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
                 ulElement.style.display = "none";
                 inputElement.style.borderRadius = "calc(var(--radius) - 5px)";
             }
-        })
+        });
         container.appendChild(spanElement);
         spanElement.appendChild(pElement);
     }
@@ -158,9 +162,9 @@ function resetInputs() {
     document.getElementById("max-slider").value = "1930";
     document.getElementById("maxRangeValue").innerHTML = "1930";
     var queryLabels = document.getElementsByClassName("query-label");
-    for(i = 0; i < queryLabels.length; i++) {
+    for (i = 0; i < queryLabels.length; i++) {
         queryLabels[i].style.display = 'block';
-      }
+    }
 }
 
 function changeYearDisplay() {

@@ -3,7 +3,7 @@ var zoom = 11;
 var center = [45.627687, -74.073016];
 
 // Variables for timeline
-const interval = 900;
+const interval = 1000;
 const earliestDate = 1760;
 const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
@@ -24,7 +24,6 @@ var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x
     subdomains: 'abcd',
     maxZoom: 20
 }).addTo(map);
-
 const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });;
@@ -52,6 +51,13 @@ const fullCadasterStyle = {
     "opacity": 0.5,
 };
 
+const timelinerStyle = {
+    "color": cadasterColor,
+    "weight": 0.5,
+    "opacity": 0,
+    "fillOpacity": 0,
+};
+
 const queryStyle = {
     "color": queryColor,
     "fillColor": queryColor,
@@ -63,8 +69,8 @@ const timelineStyle = {
     "color": cadasterColor,
     "fillColor": cadasterColor,
     "weight": 0.5,
-    "opacity": 0.5,
-    "fillOpacity": 1
+    "opacity": 0,
+    "fillOpacity": 0
 }
 
 const kanehsatakeStyle = {
@@ -235,13 +241,13 @@ cadasterLegend.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
     labels = [],
         categories = [
-            { name: '<div class="english">Historic White settlement</div><div class="french">French text</div>', color: cadasterColor },
-            { name: '<div class="english">Kanehsatà:ke Today</div><div class="french">French text</div>', color: purpleColor },
-            { name: '<div class="english">Indigenous Territories</div><div class="french">French text</div>', color: "#00000" }
+            { name: '<div class="english">Historic white settlement</div><div class="french">French text</div>', color: cadasterColor },
+            { name: '<div class="english">Kanehsatà:ke today</div><div class="french">French text</div>', color: purpleColor },
+            { name: '<div class="english">Indigenous territories</div><div class="french">French text</div>', color: "#00000" }
         ];
     // Seignerie du Lac des Deux Montagnes
     for (var i = 0; i < categories.length; i++) {
-        if (categories[i].name != '<div class="english">Indigenous Territories</div><div class="french">French text</div>') {
+        if (categories[i].name != '<div class="english">Indigenous territories</div><div class="french">French text</div>') {
             div.innerHTML +=
                 labels.push(
                     '<i class="circle" style="background:' + categories[i].color + '"></i>' +
@@ -275,10 +281,9 @@ function timeDisplay(data, previousYear, liveYear) {
         return div
     }
     yearLegend.addTo(map);
-
+    const correctArray = [];
     // Check conditions, add to array
     for (var i = 0; i < data.features.length; i++) {
-        const correctArray = [];
         const featureTime = data.features[i].properties.year;
 
         // Correct time check
@@ -289,20 +294,25 @@ function timeDisplay(data, previousYear, liveYear) {
                 correctArray.push(data.features[i])
             }
         }
-        // show layer with array of correct conditions 
-        timelineLayer = L.geoJSON(
-            correctArray,
-            setOptions = {
-                style: fullCadasterStyle,
-                onEachFeature: onEachFeature
-            }).addTo(map);
     }
+    // Define layer with correct array as data
+    timelineLayer = L.geoJSON(
+        correctArray,
+        {
+            opacity: 0,
+            fillOpacity: 0,
+            color: cadasterColor,
+            weight: 0.5
+        }
+    ).addTo(map);
+    // Fade that layer onto map over time
+    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, fullCadasterStyle.opacity, 0.01, 10)
 
     // Recursive call 
     if (liveYear <= 1960) {
         timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
     } else {
-        map.flyTo(cadasterLayer.getBounds().getCenter(), 7.5);
+        map.fitBounds(cadasterLayer.getBounds());
         // The timeline is over, reset the map
 
         document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
@@ -317,6 +327,22 @@ function timeDisplay(data, previousYear, liveYear) {
         map.addLayer(cadasterLayer);
         console.log('Timeline Completed')
     }
+}
+
+
+// Shout out this guy: https://codepen.io/maptastik/pen/MZprRJ
+function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay) {
+    let opacity = startOpacity;
+    let timer = setTimeout(function changeOpacity() {
+        if (opacity < finalOpacity) {
+            lyr.setStyle({
+                opacity: opacity,
+            });
+            opacity = opacity + opacityStep
+        }
+
+        timer = setTimeout(changeOpacity, delay);
+    }, delay)
 }
 
 function resetLayers() {
@@ -343,7 +369,7 @@ function startTimeDisplay() {
         .then((data) => cadasterData = data)
         .then(() => {
             // Start the timeline animation
-            setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, 800);
+            setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, interval);
 
             // If Reset Map is clicked during animation, end timeout
             document.getElementById("reset-map").addEventListener("click", function () {
@@ -382,6 +408,8 @@ function resetMap() {
     document.getElementById("greyed-out").style.zIndex = 9999;
 
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
+    console.log(document.getElementsByClassName("leaflet-control-layers leaflet-control"))
+    document.getElementsByClassName("leaflet-top leaflet-right")[0].style.display = 'block';
     scrollToMap();
     map.fitBounds(cadasterLayer.getBounds())
 }
@@ -523,11 +551,12 @@ var onEachFeatureCadaster = function (feature, layer) {
 var onEachFeatureIndigLands = function (feature, layer) {
     layer.setStyle({
         "color": feature.properties.color,
-        "fillOpacity": 0.,
+        "fillOpacity": 0,
         "weight": 1,
         "opacity": 0.5,
         'dashArray': '5'
     })
+
     // Trying to add labels to markers to show indig names on map, REALLY affects performance
     // var bounds = layer.getBounds();
     // var latLng = bounds.getCenter();
