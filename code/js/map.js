@@ -47,7 +47,7 @@ function addIndigLands() {
                 "Satellite Basemap": Esri_WorldImagery,
             }
             const overlays = {
-                "Indigenous lands": indigLandsLayer
+                "North American Indigenous lands": indigLandsLayer
             }
 
             L.control.layers(basemaps, overlays).addTo(map);
@@ -406,7 +406,7 @@ function resetMap() {
     console.log(document.getElementsByClassName("leaflet-control-layers leaflet-control"))
     document.getElementsByClassName("leaflet-top leaflet-right")[0].style.display = 'block';
     document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'block';
-    
+
     scrollToMap();
     map.fitBounds(cadasterLayer.getBounds())
 }
