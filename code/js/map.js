@@ -24,16 +24,35 @@ var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x
     subdomains: 'abcd',
     maxZoom: 20
 }).addTo(map);
+
 const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });;
 
-const basemaps = {
-    "Dark Basemap": darkBasemap,
-    "Satellite Basemap": Esri_WorldImagery
-}
-var basemapControl = L.control.layers(basemaps).addTo(map);
+// This is a convoluted function that adds IndigLandsLayer to the basemaps but is also in charge of creating the basemap control features
+// It's not great coding but it works
+function addIndigLands() {
+    fetch("https://spencermartel.github.io/Disposession/data/geojson/Indig_lands_clipped.geojson")
+        .then((response) => response.json())
+        .then((r) => indigLandsData = r)
+        .then(() => {
+            indigLandsLayer = L.geoJSON(
+                indigLandsData,
+                setOptions = {
+                    onEachFeature: onEachFeatureIndigLands,
+                }
+            );
+            const basemaps = {
+                "Dark Basemap": darkBasemap,
+                "Satellite Basemap": Esri_WorldImagery,
+            }
+            const overlays = {
+                "Indigenous lands": indigLandsLayer
+            }
 
+            L.control.layers(basemaps, overlays).addTo(map);
+        });
+}
 
 // Styling parameters
 var cadasterColor = getComputedStyle(document.documentElement)
@@ -145,9 +164,9 @@ function addPhaseLayer(phaseLayerName) {
     resetTimeline();
     resetLayers();
     document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
+    document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'none';
 
     phaseNumber = phaseLayerName.split("_")[0]
-    basemapControl.remove(map);
 
     var minSliderTextValue = document.getElementById("minRangeValue")
     var maxSliderTextValue = document.getElementById("maxRangeValue")
@@ -199,20 +218,6 @@ function addPhaseLayer(phaseLayerName) {
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
 }
 
-function addIndigLands() {
-    fetch("https://spencermartel.github.io/Disposession/data/geojson/Indig_lands_clipped.geojson")
-        .then((response) => response.json())
-        .then((r) => indigLandsData = r)
-        .then(() => {
-            indigLandsLayer = L.geoJSON(
-                indigLandsData,
-                setOptions = {
-                    onEachFeature: onEachFeatureIndigLands,
-                }
-            ).addTo(map);
-        });
-}
-
 function scrollToMap() {
     document.getElementById("content").scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -243,21 +248,13 @@ cadasterLegend.onAdd = function () {
         categories = [
             { name: '<div class="english">Historic white settlement</div><div class="french">French text</div>', color: cadasterColor },
             { name: '<div class="english">Kanehsatà:ke today</div><div class="french">French text</div>', color: purpleColor },
-            { name: '<div class="english">Indigenous territories</div><div class="french">French text</div>', color: "#00000" }
         ];
     // Seignerie du Lac des Deux Montagnes
     for (var i = 0; i < categories.length; i++) {
-        if (categories[i].name != '<div class="english">Indigenous territories</div><div class="french">French text</div>') {
-            div.innerHTML +=
-                labels.push(
-                    '<i class="circle" style="background:' + categories[i].color + '"></i>' +
-                    (categories[i].name));
-        } else {
-            div.innerHTML +=
-                labels.push(
-                    `<i class="dotted"></i>${categories[i].name}`);
-        }
-
+        div.innerHTML +=
+            labels.push(
+                '<i class="circle" style="background:' + categories[i].color + '"></i>' +
+                (categories[i].name));
     }
     div.innerHTML = labels.join("");
     return div;
@@ -318,11 +315,10 @@ function timeDisplay(data, previousYear, liveYear) {
         document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
         document.getElementsByClassName('info legend year-legend leaflet-control')[0].style.display = 'none';
         document.getElementsByClassName("leaflet-bottom")[0].style.display = 'block';
-        basemapControl.addTo(map);
+        document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'block';
 
         // Set map state to base form
         resetLayers();
-        map.addLayer(indigLandsLayer);
         map.addLayer(kanehsatakeLayer);
         map.addLayer(cadasterLayer);
         console.log('Timeline Completed')
@@ -361,7 +357,7 @@ function startTimeDisplay() {
     map.fitBounds(cadasterLayer.getBounds());
     resetLayers();
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
-    basemapControl.remove(map);
+    document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'none';
     addMerged();
 
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
@@ -396,7 +392,6 @@ function resetMap() {
     resetInputs();
 
     // Re-add stuff
-    map.addLayer(indigLandsLayer);
     map.addLayer(kanehsatakeLayer);
     map.addLayer(cadasterLayer);
 
@@ -410,6 +405,8 @@ function resetMap() {
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
     console.log(document.getElementsByClassName("leaflet-control-layers leaflet-control"))
     document.getElementsByClassName("leaflet-top leaflet-right")[0].style.display = 'block';
+    document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'block';
+    
     scrollToMap();
     map.fitBounds(cadasterLayer.getBounds())
 }
@@ -429,7 +426,6 @@ function displayQueryResults(queryResults) {
             onEachFeature: onEachFeature
         });
     resetTimeline();
-    resetLayers();
     map.addLayer(queryLayer);
     map.fitBounds(queryLayer.getBounds());
 }

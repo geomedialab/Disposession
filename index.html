@@ -100,7 +100,7 @@
                 Deux-Montagnes Regional County Municipality in the Laurentides administrative region of
                 Quebec, Canada.<br><br>
                 <div>
-                    <figure>
+                    <figure class="right">
                         <img class="image-shadow" src="assets/sulpician.png">
                         <figcaption>Credit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
                             Copyright : © Bibliothèque et Archives Canada<br>
@@ -156,8 +156,7 @@
                 </div>
                 <div class="spacer"></div>
 
-                <br>
-                <div id="wampum" alt="Two dog wampum"></div>
+                <img src="assets/wampum.png" id="wampum"></img>
                 <br>
                 <div class="spacer"></div>
 
@@ -170,18 +169,33 @@
                 Sulpicians broke their obligations and sold 98% of the land to settlers, the descendants of
                 whom still live on the land and celebrate the Sulpican’s heritage today.
                 <div class="spacer"></div><br>
+                <figure class="left">
+                    <div style="position: relative;">
+                        <img class="image-shadow effect" src="assets/cadaster_map.png" id="base-image">
+                        <img class="image-shadow effect" src="assets/act_of_concession.png" id="overlay-image">
+                    </div>
+                    <figcaption class="fig-cap-centered">The Seigneurie du Lac-des-Deux-Montagnes, initially a small
+                        mission, evolved into a
+                        tool
+                        of colonization as the Sulpicians, acting as land developers, distributed cleared land to
+                        settlers to enhance their wealth. To manage their land holdings effectively, they
+                        commissioned
+                        Louis Guy, the general surveyor, to create the first cadaster in 1798, greatly improving tax
+                        collection and administration.
+                    </figcaption>
+                </figure>
+
 
                 <div class="subtitle">How was contractually promised land was taken from the Mohawk of
                     Kanehsatà:ke?
                 </div>
-                After a Seigneurie was granted, the “seigneur” or lord had a surveyor map the lots to be
-                conceded (the cadaster). In a registry (the “terrier”), each lot was recorded along with the
-                name of the “censitaire” (the settler paying to use the land) and the subsequent transactions.
-                The seigneur sometimes added the details of the taxation (called cens and rents) in the
-                “censier.” In their land registries the Sulpicians painstakingly recorded every property
-                transaction they made with settlers for more than 200 years.
-                <center><img class="image-shadow" src="assets/Lake_of_two_mountains.png" style="max-width: 70%;">
-                </center>
+                <div>After a Seigneurie was granted, the “seigneur” or lord had a surveyor map the
+                    lots to be
+                    conceded (the cadaster). In a registry (the “terrier”), each lot was recorded along with the
+                    name of the “censitaire” (the settler paying to use the land) and the subsequent transactions.
+                    The seigneur sometimes added the details of the taxation (called cens and rents) in the
+                    “censier.” In their land registries the Sulpicians painstakingly recorded every property
+                    transaction they made with settlers for more than 200 years.</div>
                 <br>
                 By reconstructing the historical cadaster of the Seigneurie du Lac-des-Deux-Montagnes and
                 locating the initial deeds of sale and concession for each individual lot, we can analyze and
@@ -195,6 +209,26 @@
                 </div>
                 Land was not distributed evenly over time. Settlement seemed to happen through sharp 10
                 to 30-year bursts. These bursts happened around three phases.
+                <div class="spacer"></div>
+                <div style="display: flex; flex-direction: row; gap: 1rem; position: relative;">
+                    <figure style="position: relative;">
+                        <img class="effect image-shadow" src="assets/Figure 7_1[5779].png"
+                            style="max-width: 100%; filter: brightness(90%);">
+                        <figcaption>Number of acres granted in thousands. This shows us that most of the land was
+                            granted to
+                            settlers between 1780 and 1829 with a peak at 35 000 acres between 1790 and 1799.
+                        </figcaption>
+                    </figure>
+                    <figure style="position: relative;">
+                        <img class="effect effect-right image-shadow" src="assets/Figure 8.png" id="overlay-table"
+                            style="max-width: 100%; filter: brightness(90%);">
+
+                        <figcaption>Average lot size per time period (1780-1960). This shows us the transition between
+                            the concession lots meant for agricultural purposes (averaging 76 acres) and the lots sold
+                            after the end of the seigneurial regime (averaging 36 acres). Most of these are for urban
+                            purposes to develop the Municipality of Oka.</figcaption>
+                    </figure>
+                </div>
                 <div class="spacer"></div><br>
                 <div class="subtitle">The rhythm of dispossession</div>
                 The first settlement phase from 1780 to 1809 (with a significant peak from 1790 to 1780)
@@ -208,7 +242,7 @@
                 implementation of the British monarchy's plan to settle British immigrants in the Seigneurie
                 du Lac-des-Deux-Montagnes. The British immigrants settled in the north/west of the
                 seigneury. The North River ("La Rivière-du-Nord ") provided a buffer between the British and
-                    the French settlements.<br><br></p>
+                the French settlements.<br><br>
                 The third phase of settlement happened between 1860 and 1889 and is notable because it
                 marked the end of the seignorial regime in 1858. The lots granted in this period will be the
                 first legal land sales in the Seigneurie, where the settler could purchase lots and gain full
@@ -218,17 +252,19 @@
                 Algonquin families that moved to Miniwaki from Kanehsatà:ke between 1858 and 1870, and
                 Kanehsatakeró:non families to Gibson in 1881 freeing up more land (Gabriel-Doxtater & Van
                 den Hende, 1995).
-                <br><br>
+                <br>
+                <br>
                 <table class="data-table">
-                    <tr class="image-shadow">
+                    <tr>
                         <td>
-                            <img src="assets/Rhythm1.png" style=" position: relative; max-width: 80%; z-index: 10;"
+                            <img class="image-shadow" src="assets/Rhythm1.png"
+                                style=" position: relative; max-width: 80%; z-index: 10;"
                                 onclick="addPhaseLayer('First_Phase.geojson');">
                         </td>
-                        <td><img src="assets/Rhythm2.png" style="max-width: 80%; z-index: 1;"
+                        <td><img class="image-shadow" src="assets/Rhythm2.png" style="max-width: 80%; z-index: 1;"
                                 onclick="addPhaseLayer('Second_Phase.geojson');">
                         </td>
-                        <td><img src="assets/Rhythm3.png" style="max-width: 80%;"
+                        <td><img class="image-shadow" src="assets/Rhythm3.png" style="max-width: 80%;"
                                 onclick="addPhaseLayer('Third_Phase.geojson');">
                         </td>
                     </tr>
@@ -245,7 +281,7 @@
                 1960. It records for each parcel of land (in white) the dates they were
                 taken from the Mohawk through sale or concession, identifies the Sulpicians responsible for
                 these actions (when possible), and lists the names of the settlers who received these parcels of
-                land.<br><br>
+                land.<br>
                 To navigate through the information, you can use the panel on the right-hand side. You have
                 the option to search through the database or directly enter a specific address. If you want to
                 visually experience the process of dispossession unfolding over time, you can click the

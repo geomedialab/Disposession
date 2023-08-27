@@ -8,15 +8,14 @@
 }
 
 #wampum {
-    background: url("../../assets/wampum.png") no-repeat center;
-    height: 19vh;
     width: 100%;
     background-size: contain;
     background-repeat: no-repeat;
     margin: 0;
     margin: auto;
     padding: 1rem 0;
-    filter: grayscale(01);
+    filter: grayscale(100%) drop-shadow(1px 7px 16px rgb(22, 21, 21));
+    ;
 }
 
 #top-text {
@@ -111,6 +110,16 @@ td>img:hover {
     animation: 4.5s ease-out 0s 1 slideDown;
 }
 
+#overlay-image {
+    max-width: 400px;
+    position: absolute;
+    left: 63px;
+    top: 49%;
+    margin-right: 10px;
+    filter: brightness(80%);
+}
+
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -142,22 +151,75 @@ tr:last-of-type {
 }
 
 figure {
-    margin: 0rem -3rem 0rem 5rem;
-    float: right;
     height: 100%;
 }
 
-figure>img {
+.right {
+    margin: 0rem -3rem 0rem 5rem;
     float: right;
-    margin-bottom: 10px;
+}
+
+.left {
+    margin: 1rem 10rem 2rem 1rem;
+    float: left;
+}
+
+.effect {
+    position: inherit;
+    transition: 0.8s ease;
+    z-index: 1;
+}
+
+
+.effect:hover {
+    transform: scale(1.2) translateX(15%) translateY(5%);
+    opacity: 100%;
+    z-index: 4;
+    filter: brightness(100%);
+}
+
+.effect:hover~#overlay-image {
+    transform: scale(0.90) translateY(-12%);
+    z-index: 5;
+    opacity: 0%;
+}
+
+
+
+.effect-right:hover {
+    transform: translateX(-15%) scale(1.2);
+}
+
+#base-image {
+    filter: brightness(90%);
+}
+
+#overlay-image:hover {
+    filter: brightness(90%);
+    transform: scale(1.2) translateY(-30%);
+}
+
+figure>img {
+    border-radius: 10px;
+    margin-bottom: 5px;
+    max-height: 500px;
+    min-height: 300px;
     height: 80%;
+}
+
+figure>div>img {
+    border-radius: 10px;
 }
 
 figcaption {
     width: min-content;
-    min-width: 120%;
+    min-width: 100%;
     font-size: .7rem;
     line-height: 1.5;
+}
+
+.fig-cap-centered {
+    margin-left: 15%;
 }
 
 .quote {
@@ -201,10 +263,4 @@ ul li:hover {
 .fa-play:nth-child(1):hover {
     transform: scale(1.1);
     cursor: pointer;
-}
-
-
-.image-in-text {
-    margin-left: 1vw;
-    margin-right: 1vw;
 }

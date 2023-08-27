@@ -34,15 +34,16 @@
 
 #cadaster-query {
     display: flex;
-    position: relative;
     flex-direction: column;
     gap: 1rem;
     padding: 0 0.5%;
     background-color: var(--background-color);
-    height: 90vh;
-
+    height: 93vh;
     align-items: self-start;
     flex: 0 0 10%;
+    max-height: 100%;
+    overflow-x: scroll;
+    min-width: min-content;
 }
 
 #cadaster-query>div:last-of-type {
@@ -200,7 +201,7 @@ label>p {
 .query-label {
     color: #999;
     position: absolute;
-    top: 35px ;
+    top: 35px;
     left: 10px;
     /* transform: translate(0.7rem, -2.3rem); */
     /* transition: all 0.2s ease-out; */
