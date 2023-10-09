@@ -9,6 +9,52 @@ const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
 var timer = null;
 
+function scrollToTop() {
+    main = document.querySelector("main")
+    main.scrollTo(0, 0);
+}
+
+
+function viewFullMap() {
+    scrollToTop();
+    var introBox = document.querySelector("#intro-box")
+    var queryBox = document.querySelector("#query-box");
+
+    state = document.querySelector("#view-full-map").innerHTML;
+
+    // Show Query Map
+    if (state == "VIEW FULL MAP") {
+        resetTimeline();
+        timelineMap.flyTo([45.631550, -73.709463], 10.5);
+        addCadasterToTimeline();
+        addKanehsatakeToTimeline();
+
+        introBox.style.opacity = 0;
+        queryBox.style.opacity = 100;
+
+        introBox.style.display = 'none';
+        queryBox.style.display = 'block';
+        document.querySelector("#view-full-map").innerHTML = "VIEW TIMELINE"
+
+    // Show Timeline
+    } else if (state == "VIEW TIMELINE") {
+        console.log(state);
+        startTimeDisplay();
+
+        introBox.style.opacity = 100;
+        queryBox.style.opacity = 0;
+        introBox.style.display = 'block';
+        queryBox.style.display = 'none';
+        introBox.style.display = 'block';
+
+        timelineMap.flyTo([45.631550, -73.709463], 10.5);
+        document.querySelector("#view-full-map").innerHTML = "VIEW FULL MAP"
+    }
+    resetTimeline();
+    resetLayersTimeline();
+
+
+}
 // Initialize map
 var map = L.map('map',
     {
@@ -17,6 +63,25 @@ var map = L.map('map',
         zoomControl: false,
         fullScreenControl: false,
     });
+
+var timelineMap = L.map('timeline-map',
+    {
+        center: [45.631550, -73.709463],
+        zoom: 11,
+        zoomControl: false,
+        fullScreenControl: false,
+        attributionControl: false
+    });
+
+// Not sure whether to have this or not QOL thing
+// timelineMap.scrollWheelZoom.disable();
+
+
+var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
+}).addTo(timelineMap);
 
 // Initialize Basemaps
 var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -50,7 +115,7 @@ function addIndigLands() {
                 "North American Indigenous lands": indigLandsLayer
             }
 
-            L.control.layers(basemaps, overlays).addTo(map);
+            L.control.layers(basemaps, overlays, {position: 'topleft'}).addTo(timelineMap);
         });
 }
 
@@ -85,9 +150,9 @@ const queryStyle = {
 }
 
 const timelineStyle = {
-    "color": cadasterColor,
-    "fillColor": cadasterColor,
-    "weight": 0.5,
+    "color": getComputedStyle(document.documentElement)
+        .getPropertyValue('--white-color'),
+    "weight": 1,
     "opacity": 0,
     "fillOpacity": 0
 }
@@ -145,8 +210,33 @@ function addCadaster() {
         });
 }
 
+function addCadasterToTimeline() {
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+        .then((response) => response.json())
+        .then((data) => cadasterData = data)
+        .then(() => {
+            cadasterLegend.addTo(map);
+            // Dynamically build selection options for queries
+            // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
+            createSoldToIndex("buyerQuery")
+            createConceededByIndex("conceededByQuery")
+            createorigAIndex("originalAQuery")
+            createNumEnregiIndex("numEnregiQuery");
 
-function addKanehsatake() {
+
+            // Create the popups
+            cadasterLayer = L.geoJSON(
+                cadasterData,
+                setOptions = {
+                    style: fullCadasterStyle,
+                    onEachFeature: onEachFeatureCadaster,
+                }
+            ).addTo(timelineMap);
+        });
+}
+
+
+function addKanehsatakeToMain() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
@@ -157,6 +247,20 @@ function addKanehsatake() {
                     style: kanehsatakeStyle
                 }
             ).addTo(map);
+        });
+}
+
+function addKanehsatakeToTimeline() {
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
+        .then((response) => response.json())
+        .then((r) => kanehsatakeData = r)
+        .then(() => {
+            kanehsatakeLayer = L.geoJSON(
+                kanehsatakeData,
+                setStyle = {
+                    style: kanehsatakeStyle
+                }
+            ).addTo(timelineMap);
         });
 }
 
@@ -214,12 +318,7 @@ function addPhaseLayer(phaseLayerName) {
             ).addTo(map);
         });
     map.fitBounds(cadasterLayer.getBounds());
-    scrollToMap();
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
-}
-
-function scrollToMap() {
-    document.getElementById("content").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // Georeferencing check for where to place marker if it's within the polygon
@@ -243,7 +342,8 @@ function pointInPoly(marker) {
 // Top left legend details
 const cadasterLegend = L.control({ position: 'topleft' });
 cadasterLegend.onAdd = function () {
-    const div = L.DomUtil.create('div', 'info legend');
+    const div = L.DomUtil.create('div');
+    div.style.zIndex = 3
     labels = [],
         categories = [
             { name: '<div class="english">Historic white settlement</div><div class="french">French text</div>', color: cadasterColor },
@@ -260,24 +360,25 @@ cadasterLegend.onAdd = function () {
     return div;
 }
 
+cadasterLegend.addTo(timelineMap);
+
 // Meat and potatoes of the timeline function
 function timeDisplay(data, previousYear, liveYear) {
 
-    // Remove top right year range if it exists
+    // Remove bottom left year range if it exists
     var elements = document.getElementsByClassName('info legend year-legend leaflet-control');
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
     }
-
     // Create and add Years to top right
-    var yearLegend = L.control({ position: 'topright' });
+    var yearLegend = L.control({ position: 'bottomleft' });
     yearLegend.onAdd = function () {
         const div = L.DomUtil.create('div', 'info legend year-legend');
 
         div.innerHTML = '' + previousYear + ' - ' + liveYear
         return div
     }
-    yearLegend.addTo(map);
+    yearLegend.addTo(timelineMap);
     const correctArray = [];
     // Check conditions, add to array
     for (var i = 0; i < data.features.length; i++) {
@@ -295,13 +396,8 @@ function timeDisplay(data, previousYear, liveYear) {
     // Define layer with correct array as data
     timelineLayer = L.geoJSON(
         correctArray,
-        {
-            opacity: 0,
-            fillOpacity: 0,
-            color: cadasterColor,
-            weight: 0.5
-        }
-    ).addTo(map);
+        timelineStyle
+    ).addTo(timelineMap);
     // Fade that layer onto map over time
     fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, fullCadasterStyle.opacity, 0.01, 10)
 
@@ -309,19 +405,16 @@ function timeDisplay(data, previousYear, liveYear) {
     if (liveYear <= 1960) {
         timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
     } else {
-        map.fitBounds(cadasterLayer.getBounds());
-        // The timeline is over, reset the map
+        // Create and add Years to top right
+        var yearLegend = L.control({ position: 'bottomleft' });
+        yearLegend.onAdd = function () {
+            const div = L.DomUtil.create('div', 'info legend year-legend');
 
-        document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
-        document.getElementsByClassName('info legend year-legend leaflet-control')[0].style.display = 'none';
-        document.getElementsByClassName("leaflet-bottom")[0].style.display = 'block';
-        document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'block';
-
-        // Set map state to base form
-        resetLayers();
-        map.addLayer(kanehsatakeLayer);
-        map.addLayer(cadasterLayer);
-        console.log('Timeline Completed')
+            div.innerHTML = 'Hello'
+            return div
+        }
+        resetLayersTimeline();
+        startTimeDisplay();
     }
 }
 
@@ -345,27 +438,31 @@ function resetLayers() {
     map.eachLayer(function (layer) {
         if (layer != darkBasemap) {
             if (layer != Esri_WorldImagery) {
-                map.removeLayer(layer);
+                timelineMap.removeLayer(layer);
+            }
+        }
+    });
+}
+function resetLayersTimeline() {
+    timelineMap.eachLayer(function (layer) {
+        // layer_id is 28 for some reason for the dark basemap
+        if (layer._leaflet_id != 28) {
+            if (layer != Esri_WorldImagery) {
+                timelineMap.removeLayer(layer);
             }
         }
     });
 }
 
 function startTimeDisplay() {
-    resetTimeline();
-    scrollToMap();
-    map.fitBounds(cadasterLayer.getBounds());
-    resetLayers();
-    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
-    document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'none';
-    addMerged();
-
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
+            map.fitBounds(cadasterLayer.getBounds())
+
             // Start the timeline animation
-            setTimeout(() => { timeDisplay(cadasterData, earliestDate, (earliestDate + range)); }, interval);
+            timeDisplay(cadasterData, earliestDate, (earliestDate + range));
 
             // If Reset Map is clicked during animation, end timeout
             document.getElementById("reset-map").addEventListener("click", function () {
@@ -378,7 +475,6 @@ function startTimeDisplay() {
 function resetTimeline() {
     clearTimeout(timer);
     var elements = document.getElementsByClassName("info legend year-legend leaflet-control")
-    console.log
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
     }
@@ -387,13 +483,12 @@ function resetTimeline() {
 
 function resetMap() {
     // Remove stuff
-    resetTimeline();
-    resetLayers();
+    resetLayersTimeline();
     resetInputs();
 
     // Re-add stuff
-    map.addLayer(kanehsatakeLayer);
-    map.addLayer(cadasterLayer);
+    timelineMap.addLayer(kanehsatakeLayer);
+    timelineMap.addLayer(cadasterLayer);
 
     document.getElementById("no-data").style.display = "none";
     document.getElementById("no-address").style.display = "none";
@@ -403,19 +498,18 @@ function resetMap() {
     document.getElementById("greyed-out").style.zIndex = 9999;
 
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
-    console.log(document.getElementsByClassName("leaflet-control-layers leaflet-control"))
     document.getElementsByClassName("leaflet-top leaflet-right")[0].style.display = 'block';
     document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'block';
 
-    scrollToMap();
-    map.fitBounds(cadasterLayer.getBounds())
+    scrollToTop();
+    timelineMap.fitBounds(cadasterLayer.getBounds())
 }
 
 function displayQueryResults(queryResults) {
     // Remove General Legend
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
     // Build new legend
-    resetLayers();
+    resetLayersTimeline();
 
 
 
@@ -426,8 +520,12 @@ function displayQueryResults(queryResults) {
             onEachFeature: onEachFeature
         });
     resetTimeline();
-    map.addLayer(queryLayer);
-    map.fitBounds(queryLayer.getBounds());
+    timelineMap.addLayer(queryLayer);
+    
+    var lat = queryLayer.getBounds().getCenter().lat
+    var lon = queryLayer.getBounds().getCenter().lng
+    console.log(queryLayer.getBounds().getCenter())
+    timelineMap.flyTo([lat,lon + 0.1], 11);
 }
 
 
@@ -575,12 +673,13 @@ var onEachFeatureIndigLands = function (feature, layer) {
 }
 
 // Change styling based on zoom (essentially like breakpoints)
-map.on("zoomend", checkAndChangeStylingParameters);
-map.on("baselayerchange", checkAndChangeStylingParameters);
+// timelineMap.on("zoomend", checkAndChangeStylingParameters());
+// timelineMap.on("baselayerchange", checkAndChangeStylingParameters());
 
 function checkAndChangeStylingParameters() {
     var zoomLevel = map.getZoom();
-    if (map.hasLayer(cadasterLayer)) {
+    
+    if (timelineMap.hasLayer(cadasterLayer)) {
         if (zoomLevel <= 7) {
             cadasterLayer.setStyle(
                 {
@@ -589,7 +688,7 @@ function checkAndChangeStylingParameters() {
             )
         }
     }
-    if (map.hasLayer(Esri_WorldImagery) && map.hasLayer(cadasterLayer)) {
+    if (timelineMap.hasLayer(Esri_WorldImagery) && timelineMap.hasLayer(cadasterLayer)) {
         if (zoomLevel == 12) {
             cadasterLayer.setStyle(
                 {
@@ -598,9 +697,10 @@ function checkAndChangeStylingParameters() {
             )
 
         } if (zoomLevel > 12) {
+            console.log("zoom > 12");
             cadasterLayer.setStyle(
                 {
-                    "weight": 2
+                    "weight": 5
                 }
             )
 
@@ -625,5 +725,6 @@ function checkAndChangeStylingParameters() {
 
 // Initialize the map with data, The order added affects which is on top of the other
 addIndigLands();
-addKanehsatake();
+addKanehsatakeToMain();
 addCadaster();
+$(document).ready(function () { startTimeDisplay(); })

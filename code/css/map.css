@@ -1,6 +1,13 @@
 #map {
-    flex: 1;
-    height: 93vh;
+    height: 83vh;
+    margin-top: 7vh;
+    z-index: 0;
+}
+
+#timeline-map {
+    height: 83vh;
+    margin-top: 7vh;
+    z-index: 1;
 }
 
 path:focus {
@@ -64,4 +71,8 @@ path:focus {
     position: relative;
     border-top: 2.5px dotted rgb(0, 0, 0);
     top: 11px;
+}
+
+.leaflet-control-layers {
+    opacity: 0.5;
 }

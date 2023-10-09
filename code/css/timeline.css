@@ -27,9 +27,10 @@
     height: 257px !important;
 }
 
-.leaflet-right > .legend{
+.leaflet-left > .legend{
     background-color: transparent;
-    font-size: 3.5rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 39px;
     color: var(--white-color);
 }
 

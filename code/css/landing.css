@@ -1,10 +1,158 @@
-#landing {
-    margin-bottom: 2rem;
-    margin-top: 7vh;
+#intro-box {
+    position: absolute;
+    z-index: 2;
+
     display: flex;
     flex-direction: column;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    justify-content: space-between;
+
+    width: fit-content;
+    height: min-content;
+    right: 10vw;
+    top: 20%;
+
+
+    background-color: var(--black-color);
+    outline: 2px solid #444444;
+    border-radius: var(--radius);
+
+    transition: 0.5s all ease;
+}
+
+#query-box {
+    position: absolute;
+    z-index: 2;
+
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: fit-content;
+    max-height: 72vh;
+    right: 5vw;
+    top: 10%;
+
+
+    background-color: var(--black-color);
+    outline: 2px solid #444444;
+    border-radius: var(--radius);
+}
+
+#intro-content>h1 {
+    font-size: 2.5rem;
+    font-family: Neue-Machina;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white-color);
+}
+
+#intro-content>h2 {
+    font-size: 1.5rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    color: var(--white-color);
+}
+
+#intro-content {
+    padding: 20px;
+    height: 100%;
+}
+
+#intro-table {
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    border-spacing: 10px;
+}
+
+#intro-table tr:first-of-type {
+    font-size: 2.7rem;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--white-color);
+}
+
+tr:last-of-type {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-family: 'Hanken Grotesk', sans-serif;
+    color: var(--white-color);
+    vertical-align: top;
+}
+
+
+#view-full-map {
+    outline: 2px solid var(--black-color);
+    vertical-align: middle;
+    text-align: center;
+    position: fixed;
+    z-index: 10;
+    border: 2px;
+
+    right: 5vw;
+    bottom: 7.5vh;
+
+
+    background-color: var(--purple-color);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 0.4rem;
+    border-radius: var(--radius);
+}
+
+.grow {
+    transition: all 0.2s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.grow-no-pointer {
+    transition: all 0.5s ease-in-out;
+}
+
+.grow-no-pointer:hover {
+    transform: scale(1.02);
+}
+
+
+#landing {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    z-index: 1;
+}
+
+#landing>p {
+    color: var(--black-color);
+}
+
+.title {
+    color: var(--black-color);
+    font-family: Neue-Machina;
+    font-size: 2.5rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.introduction-text {
+    width: 800px;
+    color: var(--black-color);
+
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 20px;
+    align-self: center;
+}
+
+.introduction-text>i {
+    width: 800px;
+    color: var(--black-color);
+
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 20px;
+    align-self: center;
 }
 
 #wampum {
@@ -15,7 +163,57 @@
     margin: auto;
     padding: 1rem 0;
     filter: grayscale(100%) drop-shadow(1px 7px 16px rgb(22, 21, 21));
-    ;
+}
+
+#contractual-land {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    position: relative;
+
+    z-index: 2;
+    top: -285px;
+}
+
+#profit-generated {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    background-color: var(--white-color);
+    color: var(--black-color);
+    position: relative;
+
+    z-index: 2;
+    top: -285px;
+}
+
+#profits-generated-text {
+    width: 800px;
+    color: var(--black-color);
+
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 20px;
+    align-self: center;
+}
+
+#contractual-land-text {
+    width: 800px;
+    color: var(--white-color);
+
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 20px;
+    align-self: center;
+}
+
+#rhythm-table {
+    border-spacing: 20px;
+    align-items: center;
+}
+
+#rhythm-table>img {
+    border: 1px solid var(--white-color);
 }
 
 #top-text {
@@ -79,37 +277,6 @@
     text-align: center;
 }
 
-td>img {
-    transition: transform 0.5s ease;
-    width: auto;
-}
-
-
-td>img:hover {
-    transform: scale(0.95);
-    cursor: pointer;
-}
-
-.fadeIn {
-    animation: 3s ease-out fadeIn;
-}
-
-#numbers-table td:nth-child(1) {
-    animation: 1s ease-out 0s 1 slideDown;
-}
-
-#numbers-table td:nth-child(2) {
-    animation: 2s ease-out 0s 1 slideDown;
-}
-
-#numbers-table td:nth-child(3) {
-    animation: 4s ease-out 0s 1 slideDown;
-}
-
-#numbers-table td:nth-child(4) {
-    animation: 4.5s ease-out 0s 1 slideDown;
-}
-
 #overlay-image {
     max-width: 400px;
     position: absolute;
@@ -140,18 +307,20 @@ td>img:hover {
     }
 }
 
-tr:first-of-type {
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    text-shadow: 3px 3px 10px #000000;
-}
-
-tr:last-of-type {
-    text-shadow: 3px 3px 10px #000000;
-}
-
 figure {
     height: 100%;
+}
+
+.caption {
+    color: var(--light-grey-color);
+    font-size: 0.8rem;
+}
+
+.fun-figure {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .right {
@@ -168,6 +337,23 @@ figure {
     position: inherit;
     transition: 0.8s ease;
     z-index: 1;
+}
+
+#average-lots {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+td>img {
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
+    text-align: center;
+}
+
+#average-lots>td {
+    text-align: center;
 }
 
 
@@ -254,13 +440,4 @@ ul li::before {
 
 ul li:hover {
     background-color: transparent;
-}
-
-.fa-play:nth-child(1) {
-    transition: all 0.2s ease;
-}
-
-.fa-play:nth-child(1):hover {
-    transform: scale(1.1);
-    cursor: pointer;
 }

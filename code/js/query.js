@@ -51,6 +51,7 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
         const inputElement = document.getElementById(inputId);
         const parentLabel = document.getElementById(labelId);
 
+        pElement.classList.add("machina");
         pElement.innerHTML = newValue;
 
         inputElement.addEventListener("keydown", function () {
