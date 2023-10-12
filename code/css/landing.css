@@ -71,7 +71,7 @@
     color: var(--white-color);
 }
 
-tr:last-of-type {
+#average-lots>tbody>tr:last-of-type {
     font-size: 1.2rem;
     line-height: 1.5;
     font-family: 'Hanken Grotesk', sans-serif;
@@ -210,6 +210,12 @@ tr:last-of-type {
 #rhythm-table {
     border-spacing: 20px;
     align-items: center;
+}
+
+#rhythm-table>tbody>tr>td {
+    font-size: 1.1rem;
+    vertical-align: middle;
+    line-height: 1.7;
 }
 
 #rhythm-table>img {

@@ -151,7 +151,7 @@ function filterQuery() {
 }
 
 function resetInputs() {
-    document.getElementById("geocoding-search").value = "";
+    // document.getElementById("geocoding-search").value = "";
     document.getElementById("buyerQuery").value = "";
     document.getElementById("conceededByQuery").value = "";
     document.getElementById("originalAQuery").value = "";

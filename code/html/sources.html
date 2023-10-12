@@ -14,6 +14,7 @@
     <!-- CSS Imports -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/landing.css">
+    <link rel="stylesheet" href="../css/evidence.css">
 
     <title>Disposession</title>
 
@@ -22,11 +23,21 @@
 <body>
     <script src="../js/language.js"></script>
     <nav>
-        <a href="../../index.html"><p class="underline">ABOUT</p></a>
-        <a href="research.html"><p class="underline">RESEARCH METHODOLOGY</p></a>
-        <a href="sources.html"><p class="underline">EVIDENCE</p></a>
-        <a href="acknowledgements.html"><p class="underline">TEAM</p></a>
-        <a href="contribute.html"><p class="underline">GET INVOLVED</p></a>
+        <a href="../../index.html">
+            <p class="underline">ABOUT</p>
+        </a>
+        <a href="research.html">
+            <p class="underline">RESEARCH METHODOLOGY</p>
+        </a>
+        <a href="sources.html">
+            <p class="underline">EVIDENCE</p>
+        </a>
+        <a href="acknowledgements.html">
+            <p class="underline">TEAM</p>
+        </a>
+        <a href="contribute.html">
+            <p class="underline">GET INVOLVED</p>
+        </a>
         <!-- Language switch, not yet implemented -->
         <!-- <div class="switch">
             <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox"
@@ -38,6 +49,118 @@
     </nav>
 
     <main>
+        <div id="evidence">
+            <div class="spacer"></div>
+            <h1 class="title" style="color: var(--white-color)">EVIDENCE</h1>
+            <div class="spacer"></div>
+            <div class="introduction-text">
+                <p style="color: var(--white-color);">This table organizes archival
+                    documents used for this research by
+                    <br>provenance, type of information, degree
+                    of precision, and ease of access.
+                </p>
+            </div>
+            <div class="spacer"></div>
+            <div class="spacer"></div>
+
+            <table id="evidence-table" class="border-none">
+                <!-- Title row -->
+                <tr>
+                    <th>SOURCE OF DATA</th>
+                    <th>NAME</th>
+                    <th>TYPE OF DOCUMENT</th>
+                    <th>PRECISION</th>
+                    <th>ACCESS / RESTRICTION</th>
+                </tr>
+                <!-- First row -->
+                <tr>
+                    <th>Patrimoine Laurentides Association</th>
+                    <th>Deeds of concession
+                        <br>(1780 - 1847)
+                    </th>
+                    <th>Primary source - copies from the Livre Terrier de la Seigneurie du Lac des Deux-Montagnes
+                    </th>
+                    <th>Data was consistently recorded. 38 out of 1328 deeds missing.
+                        <br><br>Lot number, settler and Sulpician priest names’ clearly identifiable.
+                        <br><br>Lot numbers refer to Louis Guy’s cadaster.
+                    </th>
+                    <th>Free access upon request
+                        <br><br>Digitized
+                    </th>
+                </tr>
+                <!-- Second row -->
+                <tr>
+                    <th>Univers Culturel de Saint-Sulpice</th>
+                    <th>Deeds of sale
+                        <br>(1846 - 1930)
+                    </th>
+                    <th>Primary source - copies from the Livre Terrier de la Seigneurie du Lac des
+                        Deux-Montagnes.</th>
+                    <th>237 lots.
+                        <br><br>Some lot numbers missing.
+                        <br><br>Lot numbers refer to many cadasters not just Louis Guy’s.
+                        <br><br>No dimensions given to lots sold in part.
+                        <br><br>Settler and Sulpician priest names clearly identifiable.
+                    </th>
+                    <th>Restricted access
+                        <br><br>Printed
+                        <br><br>25$/h fee to consult the archivist once request is approved.
+                    </th>
+                </tr>
+                <!-- Third row -->
+                <tr>
+                    <th>Quebec Land Registry</th>
+                    <th>Deeds of sale
+                        <br>(1857 - 1960)
+                        <br><br>Official Cadaster of the Paroisse de l’Annonciation 1879
+                    </th>
+                    <th>Primary source - copies from the Livre Terrier de la Seigneurie du Lac des Deux-Montagnes
+                        <br><br>Secondary source - certified reconstituted document
+                    </th>
+                    <th>333 lots.
+                        <br><br>Deeds of sale are handwritten, can be hard to decipher.
+                        <br><br>No dimensions given to lots sold in part.
+                        <br><br>Sale amounts are included but recorded consistently. Currency units changed overtime.
+                        <br><br>Georeferenced - Used current lot borders from Natural Resources Canada to trace lots
+                        more precisely.
+                    </th>
+                    <th>Restricted access
+                        <br><br>Digitized
+                        <br><br>$95 for a monthly subscription and $995 for a year - free for research purposes once
+                        request is approved.
+                        <br><br>266$ to obtain a full geodatabase of Oka’s current cadastral layout.
+                    </th>
+                </tr>
+                <!-- Fourth row -->
+                <tr>
+                    <th>Quebec National Library and Archives (BanQ)</th>
+                    <th>Map of the seigneury of Lac-des-Deux-Montagnes - Louis Guy 1798
+                        <br><br>
+                        Paroisse de Saint-Benoit 1878
+                        <br>Paroisse de Saint-Canut 1879
+                        <br>Paroisse de Saint-Colomban 1879
+                        <br>Paroisse de Saint-Jerome 1877
+                        <br>Paroisse de Saint-Joseph du Lac 1878
+                        <br>Paroisse de Saint-Monique 1877
+                        <br>Paroisse de Saint-Placide 1879
+                        <br>Paroisse de Saint-Placide 1879
+                        <br>Paroisse Saint-Hermas 1879
+                        <br>Correspondence with the National
+
+                        <br><br>Commission for the Repurchase of Seigneurial Rents (SNRRS) 1936
+                    </th>
+                    <th>Secondary sources - certified reconstituted documents
+                    </th>
+                    <th>Georeferenced - precision was best in agricultural areas where the lot borders haven’t changed.
+                        <br><br>Precise. Gave specific amounts per municipality constituting the Seigneurie.
+                    </th>
+                    <th>Free access but only in French.
+                        <br><br>Digitized
+                        <br><br>11 pages for 5.50$
+                        </th>
+                </tr>
+            </table>
+        </div>
     </main>
 
 </body>

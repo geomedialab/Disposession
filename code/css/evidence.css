@@ -1,0 +1,41 @@
+#evidence{
+    background-color: var(--black-color);
+    display: flex;
+    flex-direction: column;
+    margin-top: 7vh;
+}
+
+#evidence-table {
+    color: var(--white-color);
+    font-family: Neue-Machina;
+    vertical-align: top;
+    text-align: left;
+    border-collapse: collapse;
+    border-style: hidden;
+    align-self: center;
+
+    width: 90%;
+    margin-bottom: 7vh;
+}
+
+#evidence-table td, #evidence-table th {
+    border: 3px solid var(--light-grey-color);
+}
+
+#evidence-table tr:first-of-type {
+    text-align: center;
+    font-weight: bold;
+    border-top: 0;
+}
+
+/* Target first row (headers) */
+#evidence-table tr:first-child>th {
+    font-size: 1.5rem;
+}
+
+/* Target every row but first one */
+#evidence-table tr:not(:first-child)>th {
+    padding: 10px;
+    vertical-align: top;
+    font-weight: 300;
+}

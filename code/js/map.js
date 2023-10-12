@@ -268,7 +268,7 @@ function addPhaseLayer(phaseLayerName) {
     resetTimeline();
     resetLayers();
     document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
-    document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'none';
+    // document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'none';
 
     phaseNumber = phaseLayerName.split("_")[0]
 
@@ -277,7 +277,7 @@ function addPhaseLayer(phaseLayerName) {
     var minSliderValue = document.getElementById("min-slider")
     var maxSliderValue = document.getElementById("max-slider")
 
-    var yearLegend = L.control({ position: 'topright' });
+    var yearLegend = L.control({ position: 'bottomleft' });
     yearLegend.onAdd = function () {
         const div = L.DomUtil.create('div', 'info legend year-legend');
         if (phaseNumber == "First") {
@@ -340,10 +340,9 @@ function pointInPoly(marker) {
 }
 
 // Top left legend details
-const cadasterLegend = L.control({ position: 'topleft' });
+const cadasterLegend = L.control({ position: 'bottomright' });
 cadasterLegend.onAdd = function () {
     const div = L.DomUtil.create('div');
-    div.style.zIndex = 3
     labels = [],
         categories = [
             { name: '<div class="english">Historic white settlement</div><div class="french">French text</div>', color: cadasterColor },
@@ -360,13 +359,14 @@ cadasterLegend.onAdd = function () {
     return div;
 }
 
-cadasterLegend.addTo(timelineMap);
+console.log(cadasterLegend)
+
 
 // Meat and potatoes of the timeline function
 function timeDisplay(data, previousYear, liveYear) {
 
     // Remove bottom left year range if it exists
-    var elements = document.getElementsByClassName('info legend year-legend leaflet-control');
+    var elements = document.getElementsByClassName('year-legend');
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
     }
@@ -379,8 +379,10 @@ function timeDisplay(data, previousYear, liveYear) {
         return div
     }
     yearLegend.addTo(timelineMap);
-    const correctArray = [];
+
+
     // Check conditions, add to array
+    const correctArray = [];
     for (var i = 0; i < data.features.length; i++) {
         const featureTime = data.features[i].properties.year;
 
@@ -474,7 +476,7 @@ function startTimeDisplay() {
 
 function resetTimeline() {
     clearTimeout(timer);
-    var elements = document.getElementsByClassName("info legend year-legend leaflet-control")
+    var elements = document.getElementsByClassName("year-legend")
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
     }
@@ -491,8 +493,8 @@ function resetMap() {
     timelineMap.addLayer(cadasterLayer);
 
     document.getElementById("no-data").style.display = "none";
-    document.getElementById("no-address").style.display = "none";
-    document.getElementById("not-in-polygon").style.display = "none";
+    // document.getElementById("no-address").style.display = "none";
+    // document.getElementById("not-in-polygon").style.display = "none";
 
     document.getElementById("omit-year-query").checked = true;
     document.getElementById("greyed-out").style.zIndex = 9999;
@@ -524,7 +526,7 @@ function displayQueryResults(queryResults) {
     
     var lat = queryLayer.getBounds().getCenter().lat
     var lon = queryLayer.getBounds().getCenter().lng
-    console.log(queryLayer.getBounds().getCenter())
+    // Center slightly to the right of cadaster to account for intro/query box
     timelineMap.flyTo([lat,lon + 0.1], 11);
 }
 
@@ -727,4 +729,6 @@ function checkAndChangeStylingParameters() {
 addIndigLands();
 addKanehsatakeToMain();
 addCadaster();
+
 $(document).ready(function () { startTimeDisplay(); })
+cadasterLegend.addTo(timelineMap);
