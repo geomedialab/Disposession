@@ -1,10 +1,10 @@
 // Initialize Leaflet map
-var zoom = 11;
-var center = [45.627687, -74.073016];
+var zoom = 10.5;
+var center = [45.631550, -73.809463];
 
 // Variables for timeline
-const interval = 1000;
-const earliestDate = 1760;
+const interval = 1400;
+const earliestDate = 1770;
 const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
 var timer = null;
@@ -25,7 +25,7 @@ function viewFullMap() {
     // Show Query Map
     if (state == "VIEW FULL MAP") {
         resetTimeline();
-        timelineMap.flyTo([45.631550, -73.709463], 10.5);
+        timelineMap.flyTo(center, zoom);
         addCadasterToTimeline();
         addKanehsatakeToTimeline();
 
@@ -66,8 +66,8 @@ var map = L.map('map',
 
 var timelineMap = L.map('timeline-map',
     {
-        center: [45.631550, -73.709463],
-        zoom: 11,
+        center: center,
+        zoom: zoom,
         zoomControl: false,
         fullScreenControl: false,
         attributionControl: false
@@ -401,7 +401,7 @@ function timeDisplay(data, previousYear, liveYear) {
         timelineStyle
     ).addTo(timelineMap);
     // Fade that layer onto map over time
-    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, fullCadasterStyle.opacity, 0.01, 10)
+    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, fullCadasterStyle.opacity, 0.01, interval/100)
 
     // Recursive call 
     if (liveYear <= 1960) {
@@ -464,7 +464,7 @@ function startTimeDisplay() {
             map.fitBounds(cadasterLayer.getBounds())
 
             // Start the timeline animation
-            timeDisplay(cadasterData, earliestDate, (earliestDate + range));
+            timeDisplay(cadasterData, earliestDate , (earliestDate + range));
 
             // If Reset Map is clicked during animation, end timeout
             document.getElementById("reset-map").addEventListener("click", function () {

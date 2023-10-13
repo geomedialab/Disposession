@@ -8,7 +8,7 @@
 
     width: fit-content;
     height: min-content;
-    right: 10vw;
+    right: 5vw;
     top: 20%;
 
 
@@ -28,7 +28,6 @@
     justify-content: space-between;
 
     width: fit-content;
-    max-height: 72vh;
     right: 5vw;
     top: 10%;
 
@@ -213,7 +212,7 @@
     align-self: center;
 }
 
-#contractual-land-text {
+#black-text {
     color: var(--white-color);
 
     font-family: 'Hanken Grotesk', sans-serif;
@@ -248,10 +247,6 @@
 .subtitle {
     color: var(--subtitle-color);
     font-size: 1.2rem;
-}
-
-.acknowledgements {
-    padding: 0.5rem 7vw;
 }
 
 .text {

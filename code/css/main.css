@@ -63,6 +63,11 @@ html::-webkit-scrollbar {
   src: url(../../assets/Machina/PPNeueMachina-InktrapRegular.otf);
 }
 
+@font-face {
+  font-family: Neue-Machina-Bold;
+  src: url(../../assets/Machina/PPNeueMachina-InktrapUltrabold.otf);
+}
+
 .machina {
   font-family: Neue-Machina;
 }
