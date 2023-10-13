@@ -144,7 +144,7 @@
 }
 
 .introduction-text {
-    width: 800px;
+    width: 50%;
     color: var(--black-color);
 
     font-family: 'Hanken Grotesk', sans-serif;
@@ -152,10 +152,19 @@
     align-self: center;
 }
 
-.introduction-text>i {
-    width: 800px;
-    color: var(--black-color);
+.chart {
+    width: 65vw;
+    position: relative;
+    left: -7.5vw;
+}
 
+.quote {
+    margin-left: 7%;
+    margin-right: 7%;
+    text-align: justify;
+}
+.introduction-text>i {
+    color: var(--black-color);
     font-family: 'Hanken Grotesk', sans-serif;
     font-size: 20px;
     align-self: center;
@@ -205,7 +214,6 @@
 }
 
 #contractual-land-text {
-    width: 800px;
     color: var(--white-color);
 
     font-family: 'Hanken Grotesk', sans-serif;
@@ -420,10 +428,6 @@ figcaption {
     margin-left: 15%;
 }
 
-.quote {
-    margin: 0 13vw;
-    text-align: justify;
-}
 
 .left-leaning {
     margin-left: -3rem;

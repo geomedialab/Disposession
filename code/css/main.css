@@ -46,6 +46,7 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: white;
 }
+
 html::-webkit-scrollbar {
   display: none;
 }
@@ -56,6 +57,7 @@ html::-webkit-scrollbar {
   padding: 0;
   scroll-margin-top: 7vh;
 }
+
 @font-face {
   font-family: Neue-Machina;
   src: url(../../assets/Machina/PPNeueMachina-InktrapRegular.otf);
@@ -72,7 +74,7 @@ button:focus {
   outline: none;
 }
 
-.image-shadow{
+.image-shadow {
   filter: drop-shadow(1px 7px 16px rgb(22, 21, 21));
 }
 
@@ -92,9 +94,10 @@ a.anchor {
 
 .fixedElement {
   background-color: #c0c0c0;
-  position:fixed;
-  top:8vh;
-  z-index: 10000;;
+  position: fixed;
+  top: 8vh;
+  z-index: 10000;
+  ;
 }
 
 body {
@@ -107,6 +110,7 @@ body {
 main::-webkit-scrollbar {
   display: none;
 }
+
 main {
   scroll-behavior: smooth;
   position: relative;
@@ -138,6 +142,7 @@ nav>a>p {
   position: relative;
   overflow: hidden;
 }
+
 .underline:after {
   content: "";
   position: absolute;
@@ -149,6 +154,7 @@ nav>a>p {
   transition-duration: 0.3s;
   transition-timing-function: ease-out;
 }
+
 .underline:hover:after,
 .underline:focus:after,
 .underline:active:after {
@@ -160,11 +166,20 @@ nav>a {
   align-items: center;
   padding: 1rem;
   margin: 0;
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
-nav>a>p{
-  font-size: 18pt;
+
+nav>a>p {
+  font-size: 1.5rem;
   font-family: Neue-Machina;
+}
+
+@media only screen and (max-width: 1200px) {
+  nav>a>p {
+    font-size: 1.2rem;
+    text-align: center;
+    font-family: Neue-Machina;
+  }
 }
 
 nav>div:last-of-type {
@@ -308,6 +323,7 @@ a:hover {
 .english {
   margin: 0;
 }
+
 .french {
   display: none;
   margin: 0;
