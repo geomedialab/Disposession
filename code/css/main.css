@@ -123,6 +123,7 @@ main {
   scrollbar-width: none;
   height: 100vh;
   overflow-y: scroll;
+  margin-bottom: 7vh;
 }
 
 nav {
