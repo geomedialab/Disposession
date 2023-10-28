@@ -56,7 +56,7 @@ function viewFullMap() {
 
 }
 // Initialize map
-var map = L.map('map',
+var geocoding_map = L.map('geocoding-map',
     {
         center: center,
         zoom: zoom,
@@ -76,23 +76,22 @@ var timelineMap = L.map('timeline-map',
 // Not sure whether to have this or not QOL thing
 // timelineMap.scrollWheelZoom.disable();
 
-
 var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 20
 }).addTo(timelineMap);
 
-// Initialize Basemaps
 var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 20
-}).addTo(map);
+}).addTo(geocoding_map);
 
 const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-});;
+}).addTo(geocoding_map);
+
 
 // This is a convoluted function that adds IndigLandsLayer to the basemaps but is also in charge of creating the basemap control features
 // It's not great coding but it works
@@ -170,22 +169,7 @@ const mergedStyle = {
     "opacity": 1,
 }
 
-
-// Adding the layers
-function addMerged() {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/mergedCadaster.geojson')
-        .then((response) => response.json())
-        .then((data) => mergedData = data)
-        .then(() => {
-            mergedLayer = L.geoJSON(
-                mergedData,
-                setOptions = {
-                    style: mergedStyle,
-                }).addTo(map);
-        })
-}
-
-function addCadaster() {
+function addCadaster(map) {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
@@ -215,7 +199,7 @@ function addCadasterToTimeline() {
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
-            cadasterLegend.addTo(map);
+            cadasterLegend.addTo(timelineMap);
             // Dynamically build selection options for queries
             // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
             createSoldToIndex("buyerQuery")
@@ -246,7 +230,7 @@ function addKanehsatakeToMain() {
                 setStyle = {
                     style: kanehsatakeStyle
                 }
-            ).addTo(map);
+            ).addTo(geocoding_map);
         });
 }
 
@@ -262,63 +246,6 @@ function addKanehsatakeToTimeline() {
                 }
             ).addTo(timelineMap);
         });
-}
-
-function addPhaseLayer(phaseLayerName) {
-    resetTimeline();
-    resetLayers();
-    document.getElementsByClassName("info legend leaflet-control")[0].style.display = 'block';
-    // document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'none';
-
-    phaseNumber = phaseLayerName.split("_")[0]
-
-    var minSliderTextValue = document.getElementById("minRangeValue")
-    var maxSliderTextValue = document.getElementById("maxRangeValue")
-    var minSliderValue = document.getElementById("min-slider")
-    var maxSliderValue = document.getElementById("max-slider")
-
-    var yearLegend = L.control({ position: 'bottomleft' });
-    yearLegend.onAdd = function () {
-        const div = L.DomUtil.create('div', 'info legend year-legend');
-        if (phaseNumber == "First") {
-            startDate = 1780
-            endDate = 1809
-            // Having the french english divs gets complicated, maybe just show the years the user knows which phase they clicked
-            div.innerHTML = `<div class="english" style="font-size:2.5rem;">First Phase</div><div class="french" style="font-size:2.5rem;">Première Phase</div><div style="font-size:2rem; text-align:right;">${startDate} - ${endDate}</div>`
-        } else if (phaseNumber == "Second") {
-            startDate = 1820
-            endDate = 1829
-            div.innerHTML = `<div class="english" style="font-size:2.5rem;">Second Phase</div><div class="french" style="font-size:2.5rem;">Seconde Phase</div><div style="font-size:2rem;  text-align:right;">${startDate} - ${endDate}</div>`
-        } else if (phaseNumber == "Third") {
-            startDate = 1860
-            endDate = 1889
-            div.innerHTML = `<div class=""english" style="font-size:2.5rem;">Third Phase</div><div class="french" style="font-size:2.5rem;">Troisième Phase</div><div style="font-size:2rem;  text-align:right;">${startDate} - ${endDate}</div>`
-        }
-
-        document.getElementById("greyed-out").style["z-index"] = -9999;
-        document.getElementById("omit-year-query").checked = false;
-        minSliderTextValue.innerHTML = startDate
-        maxSliderTextValue.innerHTML = endDate
-        minSliderValue.value = startDate
-        maxSliderValue.value = endDate
-        return div
-    }
-    yearLegend.addTo(map);
-
-    fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
-        .then((response) => response.json())
-        .then((r) => phaseLayerData = r)
-        .then(() => {
-            L.geoJSON(
-                phaseLayerData,
-                setOptions = {
-                    style: queryStyle,
-                    onEachFeature: onEachFeature
-                }
-            ).addTo(map);
-        });
-    map.fitBounds(cadasterLayer.getBounds());
-    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
 }
 
 // Georeferencing check for where to place marker if it's within the polygon
@@ -340,7 +267,7 @@ function pointInPoly(marker) {
 }
 
 // Top left legend details
-const cadasterLegend = L.control({ position: 'bottomright' });
+const cadasterLegend = L.control({ position: 'topright' });
 cadasterLegend.onAdd = function () {
     const div = L.DomUtil.create('div');
     labels = [],
@@ -359,7 +286,6 @@ cadasterLegend.onAdd = function () {
     return div;
 }
 
-console.log(cadasterLegend)
 
 
 // Meat and potatoes of the timeline function
@@ -461,8 +387,6 @@ function startTimeDisplay() {
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
-            map.fitBounds(cadasterLayer.getBounds())
-
             // Start the timeline animation
             timeDisplay(cadasterData, earliestDate , (earliestDate + range));
 
@@ -512,8 +436,6 @@ function displayQueryResults(queryResults) {
     document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
     // Build new legend
     resetLayersTimeline();
-
-
 
     queryLayer = L.geoJSON(
         queryResults,
@@ -728,7 +650,7 @@ function checkAndChangeStylingParameters() {
 // Initialize the map with data, The order added affects which is on top of the other
 addIndigLands();
 addKanehsatakeToMain();
-addCadaster();
+addCadaster(geocoding_map);
 
 $(document).ready(function () { startTimeDisplay(); })
-cadasterLegend.addTo(timelineMap);
+cadasterLegend.addTo(geocoding_map);

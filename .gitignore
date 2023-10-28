@@ -1,2 +1,3 @@
 data/shp/*
-*.ipynb
+data/notebooks/*
+MeetingNotes

@@ -3,6 +3,7 @@
     height: fit-content;
     grid-template-columns: 40% 40%;
     gap: 4vw;
+    justify-content: center;
 }
 
 .action-item {
