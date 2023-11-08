@@ -1,6 +1,14 @@
-// Initialize Leaflet map
-var zoom = 10.5;
-var center = [45.631550, -73.809463];
+
+if (window.innerHeight < 800) {
+    var zoom = 10
+    var center = [45.631550, -73.509463];
+} else {
+    var zoom = 10.5;
+    var center = [45.631550, -73.759463];
+}
+
+
+
 
 // Variables for timeline
 const interval = 1400;
@@ -35,8 +43,9 @@ function viewFullMap() {
         introBox.style.display = 'none';
         queryBox.style.display = 'block';
         document.querySelector("#view-full-map").innerHTML = "VIEW TIMELINE"
+        turnOnMapInteraction(timelineMap, "timeline-map")
 
-    // Show Timeline
+        // Show Timeline
     } else if (state == "VIEW TIMELINE") {
         console.log(state);
         startTimeDisplay();
@@ -49,20 +58,13 @@ function viewFullMap() {
 
         timelineMap.flyTo([45.631550, -73.709463], 10.5);
         document.querySelector("#view-full-map").innerHTML = "VIEW FULL MAP"
+        turnOffMapInteraction(timelineMap, "timeline-map")
     }
     resetTimeline();
     resetLayersTimeline();
 
-
 }
-// Initialize map
-var geocoding_map = L.map('geocoding-map',
-    {
-        center: center,
-        zoom: zoom,
-        zoomControl: false,
-        fullScreenControl: false,
-    });
+// Initialize maps
 
 var timelineMap = L.map('timeline-map',
     {
@@ -73,24 +75,38 @@ var timelineMap = L.map('timeline-map',
         attributionControl: false
     });
 
-// Not sure whether to have this or not QOL thing
-// timelineMap.scrollWheelZoom.disable();
+var geocoding_map = L.map('geocoding-map',
+    {
+        zoom: 10,
+        center: [45.631550, -74.009463],
+        zoomControl: false,
+        fullScreenControl: false,
+    });
 
-var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
+// Layer control must reference different layers see #3 : https://store.extension.iastate.edu/product/15632.pdf
+// Layer control is actually created and added in the addIndigLands function
+
+const Esri_WorldImagery1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 }).addTo(timelineMap);
 
-var darkBasemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+const Esri_WorldImagery2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+}).addTo(geocoding_map);
+
+var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20,
+    zIndex: 10,
+}).addTo(timelineMap);
+
+var darkBasemap2 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 20
 }).addTo(geocoding_map);
 
-const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-}).addTo(geocoding_map);
 
 
 // This is a convoluted function that adds IndigLandsLayer to the basemaps but is also in charge of creating the basemap control features
@@ -100,23 +116,36 @@ function addIndigLands() {
         .then((response) => response.json())
         .then((r) => indigLandsData = r)
         .then(() => {
-            indigLandsLayer = L.geoJSON(
+            var indigLandsLayer = L.geoJSON(
                 indigLandsData,
                 setOptions = {
                     onEachFeature: onEachFeatureIndigLands,
                 }
             );
-            const basemaps = {
-                "Dark Basemap": darkBasemap,
-                "Satellite Basemap": Esri_WorldImagery,
+            // The order within these determines which is initalized on top.
+            // The lower one gets rendered as on top of the other ones so is the first layer the user will see.
+            const basemaps1 = {
+                "Satellite Basemap": Esri_WorldImagery1,
+                "Dark Basemap": darkBasemap1,
             }
-            const overlays = {
-                "North American Indigenous lands": indigLandsLayer
+            const overlays1 = {
+                "North American Indigenous Lands<br>&emsp;&nbsp;sourced from Native-Land.ca": indigLandsLayer
             }
 
-            L.control.layers(basemaps, overlays, {position: 'topleft'}).addTo(timelineMap);
+            const basemaps2 = {
+                "Satellite Basemap": Esri_WorldImagery2,
+                "Dark Basemap": darkBasemap2,
+            }
+            const overlays2 = {
+                "North American Indigenous Lands<br>&emsp;&nbsp;sourced from Native-Land.ca": indigLandsLayer
+            }
+
+            L.control.layers(basemaps1, overlays1, { position: 'topleft' }).addTo(timelineMap);
+            L.control.layers(basemaps2, overlays2, { position: 'topleft' }).addTo(geocoding_map);
+
         });
 }
+
 
 // Styling parameters
 var cadasterColor = getComputedStyle(document.documentElement)
@@ -148,7 +177,7 @@ const queryStyle = {
     "opacity": 1,
 }
 
-const timelineStyle = {
+var timelineStyle = {
     "color": getComputedStyle(document.documentElement)
         .getPropertyValue('--white-color'),
     "weight": 1,
@@ -174,7 +203,6 @@ function addCadaster(map) {
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
-            cadasterLegend.addTo(map);
             // Dynamically build selection options for queries
             // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
             createSoldToIndex("buyerQuery")
@@ -199,14 +227,12 @@ function addCadasterToTimeline() {
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
-            cadasterLegend.addTo(timelineMap);
             // Dynamically build selection options for queries
             // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
             createSoldToIndex("buyerQuery")
             createConceededByIndex("conceededByQuery")
             createorigAIndex("originalAQuery")
             createNumEnregiIndex("numEnregiQuery");
-
 
             // Create the popups
             cadasterLayer = L.geoJSON(
@@ -254,9 +280,10 @@ function pointInPoly(marker) {
     var numberOfLots = 0
     cadasterLayer.eachLayer(function (indivLot) {
         if (indivLot.contains(latLng)) {
-            displayQueryResults(indivLot.feature)
+            displayQueryResults(indivLot.feature, geocoding_map)
             numberOfLots += 1
-            marker.addTo(map);
+            marker.addTo(geocoding_map);
+            geocoding_map.remo(cadasterLayer);
         }
     })
     if (numberOfLots == 0) {
@@ -267,29 +294,67 @@ function pointInPoly(marker) {
 }
 
 // Top left legend details
-const cadasterLegend = L.control({ position: 'topright' });
-cadasterLegend.onAdd = function () {
-    const div = L.DomUtil.create('div');
-    labels = [],
-        categories = [
-            { name: '<div class="english">Historic white settlement</div><div class="french">French text</div>', color: cadasterColor },
-            { name: '<div class="english">Kanehsatà:ke today</div><div class="french">French text</div>', color: purpleColor },
-        ];
-    // Seignerie du Lac des Deux Montagnes
-    for (var i = 0; i < categories.length; i++) {
-        div.innerHTML +=
-            labels.push(
-                '<i class="circle" style="background:' + categories[i].color + '"></i>' +
-                (categories[i].name));
+// const cadasterLegend = L.control({ position: 'topright' });
+// cadasterLegend.onAdd = function () {
+//     const div = L.DomUtil.create('div');
+//     labels = [],
+//         categories = [
+//             { name: '<div class="english">Historic white settlement</div><div class="french">French text</div>', color: cadasterColor },
+//             { name: '<div class="english">Kanehsatà:ke today</div><div class="french">French text</div>', color: purpleColor },
+//         ];
+//     // Seignerie du Lac des Deux Montagnes
+//     for (var i = 0; i < categories.length; i++) {
+//         div.innerHTML +=
+//             labels.push(
+//                 '<i class="circle" style="background:' + categories[i].color + '"></i>' +
+//                 (categories[i].name));
+//     }
+//     div.innerHTML = labels.join("");
+//     return div;
+// }
+
+//Function to create gradient color array given start colow, end color, and # of steps
+function gradient(startColor, endColor, steps) {
+    var start = {
+        'Hex': startColor,
+        'R': parseInt(startColor.slice(1, 3), 16),
+        'G': parseInt(startColor.slice(3, 5), 16),
+        'B': parseInt(startColor.slice(5, 7), 16)
     }
-    div.innerHTML = labels.join("");
-    return div;
+    var end = {
+        'Hex': endColor,
+        'R': parseInt(endColor.slice(1, 3), 16),
+        'G': parseInt(endColor.slice(3, 5), 16),
+        'B': parseInt(endColor.slice(5, 7), 16)
+    }
+    diffR = end['R'] - start['R'];
+    diffG = end['G'] - start['G'];
+    diffB = end['B'] - start['B'];
+
+    stepsHex = new Array();
+    stepsR = new Array();
+    stepsG = new Array();
+    stepsB = new Array();
+
+    for (var i = 0; i <= steps; i++) {
+        stepsR[i] = start['R'] + ((diffR / steps) * i);
+        stepsG[i] = start['G'] + ((diffG / steps) * i);
+        stepsB[i] = start['B'] + ((diffB / steps) * i);
+        stepsHex[i] = '#' + Math.round(stepsR[i]).toString(16) + '' + Math.round(stepsG[i]).toString(16) + '' + Math.round(stepsB[i]).toString(16);
+    }
+    return stepsHex;
+
 }
+
+var timelineGradient = gradient(
+    '#FFFFFF',
+    '#000000',
+    19)
 
 
 
 // Meat and potatoes of the timeline function
-function timeDisplay(data, previousYear, liveYear) {
+function timeDisplay(data, previousYear, liveYear, index) {
 
     // Remove bottom left year range if it exists
     var elements = document.getElementsByClassName('year-legend');
@@ -321,17 +386,26 @@ function timeDisplay(data, previousYear, liveYear) {
             }
         }
     }
+
+
+    var timelineStyle = {
+        "color": timelineGradient[index],
+        "weight": 1,
+        "opacity": 0,
+        "fillOpacity": 0,
+        "interactive": false,
+    }
+
     // Define layer with correct array as data
     timelineLayer = L.geoJSON(
         correctArray,
         timelineStyle
     ).addTo(timelineMap);
     // Fade that layer onto map over time
-    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, fullCadasterStyle.opacity, 0.01, interval/100)
-
+    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, fullCadasterStyle.opacity, 0.01, interval / 100)
     // Recursive call 
     if (liveYear <= 1960) {
-        timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range)); }, interval);
+        timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval);
     } else {
         // Create and add Years to top right
         var yearLegend = L.control({ position: 'bottomleft' });
@@ -362,20 +436,11 @@ function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay)
     }, delay)
 }
 
-function resetLayers() {
-    map.eachLayer(function (layer) {
-        if (layer != darkBasemap) {
-            if (layer != Esri_WorldImagery) {
-                timelineMap.removeLayer(layer);
-            }
-        }
-    });
-}
 function resetLayersTimeline() {
     timelineMap.eachLayer(function (layer) {
         // layer_id is 28 for some reason for the dark basemap
-        if (layer._leaflet_id != 28) {
-            if (layer != Esri_WorldImagery) {
+        if (layer != darkBasemap1) {
+            if (layer != Esri_WorldImagery1) {
                 timelineMap.removeLayer(layer);
             }
         }
@@ -388,7 +453,7 @@ function startTimeDisplay() {
         .then((data) => cadasterData = data)
         .then(() => {
             // Start the timeline animation
-            timeDisplay(cadasterData, earliestDate , (earliestDate + range));
+            timeDisplay(cadasterData, earliestDate, (earliestDate + range), 0);
 
             // If Reset Map is clicked during animation, end timeout
             document.getElementById("reset-map").addEventListener("click", function () {
@@ -431,9 +496,10 @@ function resetMap() {
     timelineMap.fitBounds(cadasterLayer.getBounds())
 }
 
-function displayQueryResults(queryResults) {
+function displayQueryResults(queryResults, map) {
     // Remove General Legend
-    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
+    // document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
+    document.getElementById("no-data").style.display = "none";
     // Build new legend
     resetLayersTimeline();
 
@@ -444,14 +510,26 @@ function displayQueryResults(queryResults) {
             onEachFeature: onEachFeature
         });
     resetTimeline();
-    timelineMap.addLayer(queryLayer);
-    
+
+    cadasterLayer = L.geoJSON(
+        cadasterData,
+        setOptions = {
+            style: {
+                fillColor: '#e6e6e6',
+                weight: 0.1,
+                color: '#e6e6e6',
+            }
+        }
+    )
+    console.log(cadasterLayer)
+    map.addLayer(cadasterLayer);
+    map.addLayer(queryLayer);
+
     var lat = queryLayer.getBounds().getCenter().lat
     var lon = queryLayer.getBounds().getCenter().lng
     // Center slightly to the right of cadaster to account for intro/query box
-    timelineMap.flyTo([lat,lon + 0.1], 11);
+    map.flyTo([lat, lon + 0.1], 11);
 }
-
 
 // Build popup and tooltips
 var onEachFeature = function (feature, layer) {
@@ -570,7 +648,7 @@ var onEachFeatureIndigLands = function (feature, layer) {
     layer.setStyle({
         "color": feature.properties.color,
         "fillOpacity": 0,
-        "weight": 1,
+        "weight": 0,
         "opacity": 0.5,
         'dashArray': '5'
     })
@@ -602,8 +680,17 @@ var onEachFeatureIndigLands = function (feature, layer) {
 
 function checkAndChangeStylingParameters() {
     var zoomLevel = map.getZoom();
-    
+
     if (timelineMap.hasLayer(cadasterLayer)) {
+        if (zoomLevel <= 7) {
+            cadasterLayer.setStyle(
+                {
+                    "weight": 0
+                }
+            )
+        }
+    }
+    if (geocoding_map.hasLayer(cadasterLayer)) {
         if (zoomLevel <= 7) {
             cadasterLayer.setStyle(
                 {
@@ -644,13 +731,65 @@ function checkAndChangeStylingParameters() {
             }
         )
 
+    } if (geoco.hasLayer(Esri_WorldImagery) && timelineMap.hasLayer(cadasterLayer)) {
+        if (zoomLevel == 12) {
+            cadasterLayer.setStyle(
+                {
+                    "weight": 1.5
+                }
+            )
+
+        } if (zoomLevel > 12) {
+            console.log("zoom > 12");
+            cadasterLayer.setStyle(
+                {
+                    "weight": 5
+                }
+            )
+
+        } else {
+            cadasterLayer.setStyle(
+                {
+                    "weight": 0.5
+                }
+            )
+
+        }
+        // Reset them
+    } else {
+        cadasterLayer.setStyle(
+            {
+                "weight": 0.5
+            }
+        )
+
     }
 }
 
+function turnOffMapInteraction(map, mapid) {
+    map.dragging.disable();
+    map.touchZoom.disable();
+    map.doubleClickZoom.disable();
+    map.scrollWheelZoom.disable();
+    map.boxZoom.disable();
+    map.keyboard.disable();
+    if (map.tap) map.tap.disable();
+    document.getElementById(mapid).style.cursor = 'default';
+}
+function turnOnMapInteraction(map, mapid) {
+    map.dragging.enable();
+    map.touchZoom.enable();
+    map.doubleClickZoom.enable();
+    map.scrollWheelZoom.enable();
+    map.boxZoom.enable();
+    map.keyboard.enable();
+    if (map.tap) map.tap.enable();
+    document.getElementById(mapid).style.cursor = 'grab';
+}
+
+turnOffMapInteraction(timelineMap, "timeline-map")
 // Initialize the map with data, The order added affects which is on top of the other
 addIndigLands();
 addKanehsatakeToMain();
 addCadaster(geocoding_map);
-
 $(document).ready(function () { startTimeDisplay(); })
-cadasterLegend.addTo(geocoding_map);

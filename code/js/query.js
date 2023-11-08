@@ -76,6 +76,8 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
             }
         });
         container.appendChild(spanElement);
+
+        container.classList.add("machina")
         spanElement.appendChild(pElement);
     }
 }
@@ -144,8 +146,9 @@ function filterQuery() {
     }
 
     if (queryResults.length != 0) {
-        displayQueryResults(queryResults)
+        displayQueryResults(queryResults, timelineMap)
     } else {
+        resetLayersTimeline()
         document.getElementById("no-data").style.display = "block"
     }
 }

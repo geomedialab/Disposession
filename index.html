@@ -75,8 +75,8 @@
         <div id="timeline">
             <div id="timeline-map"></div>
             <!-- <div id="map"></div> -->
-            <div id="view-full-map" class="grow image-shadow" onclick="viewFullMap()">VIEW FULL MAP</div>
-            <div class="image-shadow" id="intro-box">
+            <div id="view-full-map" class="grow " onclick="viewFullMap()">VIEW FULL MAP</div>
+            <div id="intro-box">
                 <div id="intro-content">
                     <h1>MAPPING ARCHIVES:<br>
                         MOHAWK LAND DISPOSESSION<br>
@@ -85,25 +85,24 @@
                     <h2>Visualize how contractually promised land was taken from the<br>Mohawk of Kanehsatà:ke
                         over the course of 200 years.</h2>
                     <div class="spacer"></div>
-                    <br>
                     <table id="intro-table">
                         <tr>
-                            <td id="land-granted">540km<sup>2</sup></td>
+                            <td id="land-granted">540km<sup style="font-size: 1.8rem;">2</sup></td>
                             <td id="parcels-distributed">1830</td>
                             <td id="years-table">200</td>
                             <td id="land-remains">2%</td>
                         </tr>
                         <tr>
                             <td>
-                                <div class="english">Indigenous<br>land granted</div>
+                                <div class="english">Indigenous land<br>granted to the Sulpicians</div>
                                 <div class="french">Terre autochtone concédée</div>
                             </td>
                             <td>
-                                <div class="english">Parcels<br>Distributed</div>
+                                <div class="english">Parcels distributed<br>to Settlers</div>
                                 <div class="french">Parcelles de Terrain Distribuées</div>
                             </td>
                             <td>
-                                <div class="english">Years</div>
+                                <div class="english">Years of<br>dispossession</div>
                                 <div class="french">Années</div>
                             </td>
                             <td>
@@ -125,91 +124,94 @@
                         <div id="how-to">
                             <p class="english machina">Search the database by</p>
                         </div>
-                        <!-- Year slider -->
-                        <div id="query-decorator">
-                            <p class="english machina">Years</p>
-                            <p class="french machina">Années</p>
-                            <div id="slider">
-                                <div id="greyed-out"></div>
-                                <div id="slider-value">
-                                    <p id="minRangeValue" class="machina"></p>
-                                    <p>&ensp;&ensp;&ensp;-&ensp;&ensp;&ensp;</p>
-                                    <p id="maxRangeValue" class="machina"></p>
-                                </div>
-                                <div class="range-container">
-                                    <div id="sliders-control">
-                                        <input class="function machina" id="min-slider" type="range" value="1810"
-                                            min="1780" max="1960" oninput="calculateMax()" />
-                                        <input class="function machina" id="max-slider" type="range" value="1930"
-                                            min="1780" max="1960" oninput="calculateMin()" />
+                        <div id="all-queries">
+                            <!-- Year slider -->
+                            <div id="query-decorator">
+                                <p class="english machina">Years</p>
+                                <p class="french machina">Années</p>
+                                <div id="slider">
+                                    <div id="greyed-out"></div>
+                                    <div id="slider-value">
+                                        <p id="minRangeValue" class="machina"></p>
+                                        <p>&ensp;&ensp;&ensp;-&ensp;&ensp;&ensp;</p>
+                                        <p id="maxRangeValue" class="machina"></p>
                                     </div>
+                                    <div class="range-container">
+                                        <div id="sliders-control">
+                                            <input class="function machina" id="min-slider" type="range" value="1810"
+                                                min="1780" max="1960" oninput="calculateMax()" />
+                                            <input class="function machina" id="max-slider" type="range" value="1930"
+                                                min="1780" max="1960" oninput="calculateMin()" />
+                                        </div>
+                                    </div>
+                                    <div class="spacer"></div>
+                                </div>
+                                <div id="omit">
+                                    <input type="checkbox" checked="checked" id="omit-year-query" name="omit-year-query"
+                                        oninput="changeYearDisplay()">
+                                    <label for="omit-year-query">
+                                        <p class="english machina" style="padding-top: 4px">&ensp;Display all years</p>
+                                        <p class="french machina" style="padding-top: 4px">&ensp;Afficher toutes les
+                                            années
+                                        </p>
+                                    </label></span>
+                                </div>
+                            </div>
+                            <!-- Rest of queries -->
+                            <div>
+                                <div id="query-decorator">
+                                    <p class="english machina">Sulpician Priests</p>
+                                    <p class="french machina">French text.</p>
+                                    <input class="mainQuery machina" type="search" id="conceededByQuery"
+                                        oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
+                                        onclick="showList('conceededByQuery','conceededByUL')">
+                                    <label for="conceededByQuery" class="query-label" id="conceededByQuery-label">
+                                        <div class="english machina">Search by Sulpician name</div>
+                                        <div class="french machina">French text.</div>
+                                    </label>
+                                    <ul class="queryList" id="conceededByUL">
+                                    </ul>
+                                </div>
+                                <div id="query-decorator">
+                                    <p class="english machina">Sold or Conceded to</p>
+                                    <p class="french machina">French text.</p>
+                                    <input class="mainQuery" type="search" id="buyerQuery"
+                                        oninput="showSelectableFields('buyerQuery', 'buyerUL')"
+                                        onclick="showList('buyerQuery', 'buyerUL')">
+                                    <label for="buyerQuery" class="query-label" id="buyerQuery-label">
+                                        <div class="english machina">Search by lot acquirer</div>
+                                        <div class="french machina">French text</div>
+                                    </label>
+                                    <ul class="queryList" id="buyerUL">
+                                    </ul>
+                                </div>
+                                <div id="query-decorator">
+                                    <p class="english machina">Registration Number</p>
+                                    <p class="french machina">French text.</p>
+                                    <input class="mainQuery" type="search" id="numEnregiQuery"
+                                        oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
+                                        onclick="showList('numEnregiQuery','numEnregiUL')">
+                                    <label for="numEnregiQuery" class="query-label" id="numEnregiQuery-label">
+                                        <div class="english machina">Search by registration number</div>
+                                        <div class="french machina">French text</div>
+                                    </label>
+                                    <ul class="queryList" id="numEnregiUL">
+                                    </ul>
                                 </div>
                                 <div class="spacer"></div>
-                            </div>
-                            <div id="omit">
-                                <input type="checkbox" checked="checked" id="omit-year-query" name="omit-year-query"
-                                    oninput="changeYearDisplay()">
-                                <label for="omit-year-query">
-                                    <p class="english machina" style="padding-top: 4px">&ensp;Display all years</p>
-                                    <p class="french machina" style="padding-top: 4px">&ensp;Afficher toutes les années
-                                    </p>
-                                </label></span>
-                            </div>
-                        </div>
-                        <!-- Rest of queries -->
-                        <div>
-                            <div id="query-decorator">
-                                <p class="english machina">Sulpician Priests</p>
-                                <p class="french machina">French text.</p>
-                                <input class="mainQuery" type="search" id="conceededByQuery"
-                                    oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
-                                    onclick="showList('conceededByQuery','conceededByUL')">
-                                <label for="conceededByQuery" class="query-label" id="conceededByQuery-label">
-                                    <div class="english machina">Search by Sulpician name</div>
-                                    <div class="french machina">French text.</div>
-                                </label>
-                                <ul class="queryList" id="conceededByUL">
-                                </ul>
-                            </div>
-                            <div id="query-decorator">
-                                <p class="english machina">Sold or Conceded to</p>
-                                <p class="french machina">French text.</p>
-                                <input class="mainQuery" type="search" id="buyerQuery"
-                                    oninput="showSelectableFields('buyerQuery', 'buyerUL')"
-                                    onclick="showList('buyerQuery', 'buyerUL')">
-                                <label for="buyerQuery" class="query-label" id="buyerQuery-label">
-                                    <div class="english machina">Search by lot acquirer</div>
-                                    <div class="french machina">French text</div>
-                                </label>
-                                <ul class="queryList" id="buyerUL">
-                                </ul>
-                            </div>
-                            <div id="query-decorator">
-                                <p class="english machina">Registration Number</p>
-                                <p class="french machina">French text.</p>
-                                <input class="mainQuery" type="search" id="numEnregiQuery"
-                                    oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
-                                    onclick="showList('numEnregiQuery','numEnregiUL')">
-                                <label for="numEnregiQuery" class="query-label" id="numEnregiQuery-label">
-                                    <div class="english machina">Search by registration number</div>
-                                    <div class="french machina">French text</div>
-                                </label>
-                                <ul class="queryList" id="numEnregiUL">
-                                </ul>
-                            </div>
-                            <div class="spacer"></div>
-                            <div id="query-decorator">
-                                <p class="english machina">With origininal deed of sale</p>
-                                <p class="french machina">French text.</p>
-                                <input class="mainQuery" type="search" id="originalAQuery"
-                                    oninput="showSelectableFields('originalAQuery', 'originalAUL')"
-                                    onclick="showList('originalAQuery', 'originalAUL')">
-                                <label for="originalAQuery" class="query-label" id="originalAQuery-label">
-                                    <div class="english machina">Search by registration number</div>
-                                    <div class="french machina">French text</div>
-                                </label>
-                                <ul class="queryList" id="originalAUL">
-                                </ul>
+                                <div id="query-decorator">
+                                    <p class="english machina">With original deed of sale</p>
+                                    <p class="french machina">French text.</p>
+                                    <input class="mainQuery" type="search" id="originalAQuery"
+                                        oninput="showSelectableFields('originalAQuery', 'originalAUL')"
+                                        onclick="showList('originalAQuery', 'originalAUL')">
+                                    <label for="originalAQuery" class="query-label" id="originalAQuery-label">
+                                        <div class="english machina">Search by registration number</div>
+                                        <div class="french machina">French text</div>
+                                    </label>
+                                    <ul class="queryList" id="originalAUL">
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -251,8 +253,7 @@
                 <br><br>
 
                 <figure style="position: absolute; left: 3vw;">
-                    <img class="image-shadow grow-no-pointer" style="max-width: 15vw; height: auto;"
-                        src="assets/sulpician.png">
+                    <img class=" grow-no-pointer" style="max-width: 15vw; height: auto;" src="assets/sulpician.png">
                     <figcaption class="caption">Credit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
                         Copyright : © Bibliothèque et Archives Canada<br>
                         Source : Bibliothèque et Archives Canada, no. d’acquisition 1933-188-1, C-000182
@@ -305,9 +306,9 @@
                     Feb.
                     8, 1787.
                 </div>
-                <img src="assets/wampum.png" id="wampum" class="grow-no-pointer"></img>
+                <img src="assets/wampum.png" id="wampum"></img>
                 <div class="caption"> Two dog Wampum as described by Mohawk Chief Aughneetha.</div>
-                <br><br>
+                <br>
 
                 Although the Mohawk repeatedly delivered this Two Dog Wampum to British officials, officials to honor
                 their promise and protect the land from white settlement, the British upheld that the Sulpician priests
@@ -342,8 +343,8 @@
 
                 <figure class="fun-figure">
                     <div style="position: relative;">
-                        <img class="image-shadow effect" src="assets/cadaster_map.png" id="base-image">
-                        <img class="image-shadow effect" src="assets/act_of_concession.png" id="overlay-image">
+                        <img class="effect" src="assets/Deux_Montagnes_Louis_Guy_Animated.gif" id="base-image">
+                        <img class="effect" src="assets/act_of_concession.png" id="overlay-image">
                     </div>
                     <figcaption class="fig-cap-centered machina caption">
                         The Seigneurie du Lac-des-Deux-Montagnes, initially a small
@@ -371,9 +372,9 @@
                 <br><br>
                 <table id="average-lots">
                     <tr>
-                        <td><img class="grow-no-pointer" src="assets/average_block_mont_royal.jpg"></td>
-                        <td><img class="grow-no-pointer" src="assets/average_block_jacques_cartier.JPG"></td>
-                        <td><img class="grow-no-pointer" src="assets/average_block_central_park.JPG"></td>
+                        <td><img src="assets/average_block_mont_royal.jpg"></td>
+                        <td><img src="assets/average_block_jacques_cartier.JPG"></td>
+                        <td><img src="assets/average_block_central_park.JPG"></td>
                     </tr>
                     <tr>
                         <td>THE WIDTH OF<br>MONT-ROYAL</td>
@@ -399,8 +400,7 @@
                 <table id="rhythm-table">
                     <tr>
                         <td>
-                            <image class="grow-no-pointer" style="height: 400px; width: 300px;"
-                                src="assets/Rhythm1.png"></image>
+                            <image style="height: 400px; width: 300px; border: 2px solid grey;" src="assets/Rhythm1.png"></image>
                         </td>
                         <td style="font-size: 1.1rem;">
                             The first phase of settlement was from 1780 to 1809 (with a notable peak
@@ -414,8 +414,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <image class="grow-no-pointer" style="height: 400px; width: 300px;"
-                                src="assets/Rhythm2.png"></image>
+                            <image style="height: 400px; width: 300px; border: 2px solid grey;" src="assets/Rhythm2.png"></image>
                         </td>
                         <td>
                             The second phase of settlement was short but intense. 28,000 acres of land granted in just
@@ -429,8 +428,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <image class="grow-no-pointer" style="height: 400px; width: 300px;"
-                                src="assets/Rhythm3.png"></image>
+                            <image style="height: 400px; width: 300px; border: 2px solid grey;" src="assets/Rhythm3.png"></image>
                         </td>
                         <td>
                             The third phase of settlement occurred between 1860 and 1889, marking the end of the
@@ -456,10 +454,26 @@
                 between 1780 and 1960.
                 <br><br>
             </div>
+            <div class="decoration">
+                <div id="address">
+                    <div id="no-address" class="machina" style="color: var(--black-color);">Address not found.</div>
+                    <div id="not-in-polygon" class="machina" style="color: var(--black-color);">Location is not within research area.</div>
+                    <div id="query-decorator">
+                        <input type="search" placeholder="Enter address on this territory" id="geocoding-search"
+                            style="border-radius: 12px;">
+                        <ul class="queryList" id="geocodingUL"></ul>
+                        <div id="button-decorators" style="margin-top: 0;">
+                            <button id="submit-address" class="button grow machina" onclick="callNominatim()"
+                                style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color);">ENTER
+                                ADDRESS
+                                <i class="fa fa-circle-o-notch fa-spin" id="loading"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="geocoding-map"></div>
         </div>
     </main>
-
     <script src="code/js/map.js"></script>
     <script src="code/js/slider.js"></script>
 </body>

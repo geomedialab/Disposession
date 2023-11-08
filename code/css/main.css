@@ -26,7 +26,7 @@ html {
 
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
   background-color: transparent;
 }
 
@@ -39,7 +39,7 @@ html {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--cadaster-color);
-  border-radius: 50px;
+  border-radius: 18px;
 }
 
 /* Handle on hover */
@@ -118,12 +118,11 @@ main::-webkit-scrollbar {
 
 main {
   scroll-behavior: smooth;
-  position: relative;
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  position: relative;
   height: 100vh;
+  scrollbar-width: none;
   overflow-y: scroll;
-  margin-bottom: 7vh;
 }
 
 nav {
@@ -176,7 +175,7 @@ nav>a {
 }
 
 nav>a>p {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-family: Neue-Machina;
 }
 
@@ -198,9 +197,9 @@ nav>div:last-of-type {
 }
 
 .dividing-line {
-  width: 90%;
-  background: linear-gradient(90deg, rgb(135 131 131 / 83%), transparent);
+  background: rgb(135 131 131 / 83%);
   height: 0.3vh;
+  width: 102%;
   border-radius: 8px;
 }
 

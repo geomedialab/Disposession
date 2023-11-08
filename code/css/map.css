@@ -1,7 +1,8 @@
 #geocoding-map {
-    height: 83vh;
-    margin-top: 7vh;
+    height: 93vh;
+    width: 80%;
     z-index: 0;
+    align-self: center;
 }
 
 #timeline-map {
@@ -75,4 +76,10 @@ path:focus {
 
 .leaflet-control-layers {
     opacity: 0.5;
+}
+
+.geocoding-button-container {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
 }

@@ -8,8 +8,11 @@
 
     width: fit-content;
     height: min-content;
+    max-height: 80vh;
+    max-width: 65vw;
+    overflow-y: scroll;
     right: 5vw;
-    top: 20%;
+    top: 20vh;
 
 
     background-color: var(--black-color);
@@ -23,15 +26,17 @@
     position: absolute;
     z-index: 2;
 
+
     display: none;
     flex-direction: column;
     justify-content: space-between;
 
     width: fit-content;
+    height: fit-content;
+    max-height: 75vh;
     right: 5vw;
-    top: 10%;
-
-
+    top: 10vh;
+    
     background-color: var(--black-color);
     outline: 2px solid #444444;
     border-radius: var(--radius);
@@ -61,20 +66,27 @@
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    border-spacing: 10px;
+
     color: var(--white-color);
     font-family: 'Space Grotesk', sans-serif;
+    padding-top: 1vh;
+    border-collapse: collapse;
 }
 
 #intro-table tr:first-of-type {
     font-size: 2.7rem;
     font-family: 'Space Grotesk', sans-serif;
 }
+
 #intro-table tr {
     font-size: 1.2rem;
     font-family: Neue-Machina;
 }
 
+#intro-table tr td div {
+    padding-right: 20px;
+    line-height: 1.6;
+}
 
 #average-lots>tbody>tr:last-of-type {
     font-size: 1.2rem;
@@ -93,8 +105,8 @@
     z-index: 10;
     border: 2px;
 
-    right: 5vw;
-    bottom: 7.5vh;
+    right: 3vw;
+    bottom: 3vh;
 
 
     background-color: var(--purple-color);
@@ -128,6 +140,7 @@
     flex-direction: column;
     background-color: var(--white-color);
     z-index: 1;
+    padding-bottom: 3vh;
 }
 
 #landing>p {
@@ -162,6 +175,7 @@
     margin-right: 7%;
     text-align: justify;
 }
+
 .introduction-text>i {
     color: var(--black-color);
     font-family: 'Hanken Grotesk', sans-serif;
@@ -176,7 +190,7 @@
     margin: 0;
     margin: auto;
     padding: 1rem 0;
-    filter: grayscale(100%) drop-shadow(1px 7px 16px rgb(22, 21, 21));
+    filter: grayscale(100%);
 }
 
 #contractual-land {
@@ -295,8 +309,8 @@
 #overlay-image {
     max-width: 400px;
     position: absolute;
-    left: 63px;
-    top: 49%;
+    left: 25vw;
+    top: 29vh;
     margin-right: 10px;
     filter: brightness(80%);
 }
@@ -329,6 +343,7 @@ figure {
 .caption {
     color: var(--light-grey-color);
     font-size: 0.8rem;
+    line-height: 1.3;
 }
 
 .fun-figure {
@@ -393,11 +408,13 @@ td>img {
 
 #base-image {
     filter: brightness(90%);
+    width: 80%;
+    max-height: 800px;
 }
 
 #overlay-image:hover {
     filter: brightness(90%);
-    transform: scale(1.2) translateY(-30%);
+    transform: scale(1.3) translateY(-30%);
 }
 
 figure>img {
@@ -408,9 +425,6 @@ figure>img {
     height: 80%;
 }
 
-figure>div>img {
-    border-radius: 10px;
-}
 
 figcaption {
     width: min-content;

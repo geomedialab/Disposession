@@ -40,7 +40,6 @@ function callNominatim() {
 function placeMapMarker(newValue) {
     for (i = 0; i < addressData.length; i++) {
         if (addressData[i].display_name == newValue) {
-            console.log(addressData[i])
             var geocodedMarker = L.marker(
                 [Number(addressData[i].lat), Number(addressData[i].lon)]
             ).bindTooltip(
