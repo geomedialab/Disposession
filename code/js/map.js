@@ -284,6 +284,7 @@ function addKanehsatakeToTimeline() {
 function pointInPoly(marker) {
     const latLng = marker.getLatLng();
     var numberOfLots = 0
+    resetLayersGeocoding();
     cadasterLayer.eachLayer(function (indivLot) {
         if (indivLot.contains(latLng)) {
             
@@ -454,9 +455,9 @@ function resetLayersTimeline() {
 }
 
 function resetLayersGeocoding() {
-    timelineMap.eachLayer(function (layer) {
-        if (layer != darkBasemap1) {
-            if (layer != Esri_WorldImagery1) {
+    geocoding_map.eachLayer(function (layer) {
+        if (layer != darkBasemap2) {
+            if (layer != Esri_WorldImagery2) {
                 geocoding_map.removeLayer(layer);
             }
         }
@@ -518,7 +519,6 @@ function displayQueryResults(queryResults, map) {
     document.getElementById("no-data").style.display = "none";
     // Build new legend
     resetLayersTimeline();
-    resetLayersGeocoding();
     resetTimeline();
 
     queryLayer = L.geoJSON(
@@ -809,4 +809,5 @@ turnOffMapInteraction(timelineMap, "timeline-map")
 addIndigLands();
 addKanehsatakeToMain();
 addCadaster(geocoding_map);
+var markerGroup = L.layerGroup().addTo(geocoding_map);
 $(document).ready(function () { startTimeDisplay(); })
