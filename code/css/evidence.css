@@ -2,7 +2,6 @@
     background-color: var(--black-color);
     display: flex;
     flex-direction: column;
-    margin-top: 7vh;
 }
 
 #evidence-table {
@@ -15,7 +14,7 @@
     align-self: center;
 
     width: 90%;
-    margin-bottom: 7vh;
+    margin-bottom: 10vh;
 }
 
 #evidence-table td, #evidence-table th {

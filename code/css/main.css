@@ -26,13 +26,11 @@ html {
 
 
 ::-webkit-scrollbar {
-  width: 6px;
-  background-color: transparent;
+  width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  display: none;
   background: transparent;
 }
 
@@ -40,15 +38,6 @@ html {
 ::-webkit-scrollbar-thumb {
   background: var(--cadaster-color);
   border-radius: 18px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: white;
-}
-
-html::-webkit-scrollbar {
-  display: none;
 }
 
 * {
@@ -106,23 +95,18 @@ a.anchor {
 }
 
 body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   padding: 0;
   min-height: 100%;
 }
 
-main::-webkit-scrollbar {
-  display: none;
-}
 
 main {
   scroll-behavior: smooth;
-  -ms-overflow-style: none;
   position: relative;
   height: 100vh;
-  scrollbar-width: none;
   overflow-y: scroll;
+  margin-top: 7vh;
+  overflow: overlay;
 }
 
 nav {

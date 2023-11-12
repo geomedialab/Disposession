@@ -23,6 +23,12 @@ function scrollToTop() {
 }
 
 
+function scrollToBottom() {
+    main = document.querySelector("main")
+    main.scrollTo(0, 100000);
+}
+
+
 function viewFullMap() {
     scrollToTop();
     var introBox = document.querySelector("#intro-box")
@@ -280,10 +286,11 @@ function pointInPoly(marker) {
     var numberOfLots = 0
     cadasterLayer.eachLayer(function (indivLot) {
         if (indivLot.contains(latLng)) {
+            
             displayQueryResults(indivLot.feature, geocoding_map)
             numberOfLots += 1
             marker.addTo(geocoding_map);
-            geocoding_map.remo(cadasterLayer);
+            scrollToBottom();
         }
     })
     if (numberOfLots == 0) {
@@ -438,10 +445,19 @@ function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay)
 
 function resetLayersTimeline() {
     timelineMap.eachLayer(function (layer) {
-        // layer_id is 28 for some reason for the dark basemap
         if (layer != darkBasemap1) {
             if (layer != Esri_WorldImagery1) {
                 timelineMap.removeLayer(layer);
+            }
+        }
+    });
+}
+
+function resetLayersGeocoding() {
+    timelineMap.eachLayer(function (layer) {
+        if (layer != darkBasemap1) {
+            if (layer != Esri_WorldImagery1) {
+                geocoding_map.removeLayer(layer);
             }
         }
     });
@@ -476,7 +492,7 @@ function resetMap() {
     // Remove stuff
     resetLayersTimeline();
     resetInputs();
-
+    turnOnMapInteraction(timelineMap, "timeline-map");
     // Re-add stuff
     timelineMap.addLayer(kanehsatakeLayer);
     timelineMap.addLayer(cadasterLayer);
@@ -502,6 +518,8 @@ function displayQueryResults(queryResults, map) {
     document.getElementById("no-data").style.display = "none";
     // Build new legend
     resetLayersTimeline();
+    resetLayersGeocoding();
+    resetTimeline();
 
     queryLayer = L.geoJSON(
         queryResults,
@@ -509,26 +527,25 @@ function displayQueryResults(queryResults, map) {
             style: queryStyle,
             onEachFeature: onEachFeature
         });
-    resetTimeline();
 
-    cadasterLayer = L.geoJSON(
+    ghostLayer = L.geoJSON(
         cadasterData,
         setOptions = {
             style: {
-                fillColor: '#e6e6e6',
+                fillColor: '#1f1f1e',
                 weight: 0.1,
-                color: '#e6e6e6',
+                color: '#575654',
+                // opacity: 0.3,
+                fillOpacity: 0.3
             }
         }
     )
-    console.log(cadasterLayer)
-    map.addLayer(cadasterLayer);
+
+    map.addLayer(ghostLayer);
     map.addLayer(queryLayer);
 
-    var lat = queryLayer.getBounds().getCenter().lat
-    var lon = queryLayer.getBounds().getCenter().lng
     // Center slightly to the right of cadaster to account for intro/query box
-    map.flyTo([lat, lon + 0.1], 11);
+    map.flyToBounds(queryLayer.getBounds(), {duration: 1.5});
 }
 
 // Build popup and tooltips

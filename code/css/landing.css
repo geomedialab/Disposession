@@ -12,7 +12,7 @@
     max-width: 65vw;
     overflow-y: scroll;
     right: 5vw;
-    top: 20vh;
+    top: 8vh;
 
 
     background-color: var(--black-color);
@@ -28,14 +28,12 @@
 
 
     display: none;
-    flex-direction: column;
-    justify-content: space-between;
 
     width: fit-content;
     height: fit-content;
     max-height: 75vh;
     right: 5vw;
-    top: 10vh;
+    top: 5vh;
     
     background-color: var(--black-color);
     outline: 2px solid #444444;
@@ -140,7 +138,6 @@
     flex-direction: column;
     background-color: var(--white-color);
     z-index: 1;
-    padding-bottom: 3vh;
 }
 
 #landing>p {
@@ -199,10 +196,8 @@
     display: flex;
     background-color: var(--black-color);
     color: var(--white-color);
-    position: relative;
 
     z-index: 2;
-    top: -285px;
 }
 
 #profit-generated {
@@ -211,10 +206,6 @@
     display: flex;
     background-color: var(--white-color);
     color: var(--black-color);
-    position: relative;
-
-    z-index: 2;
-    top: -285px;
 }
 
 #profits-generated-text {
@@ -282,7 +273,7 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    padding-bottom: 3vh;
+    padding-bottom: 1.5vh;
     flex-direction: column;
     gap: 1rem;
 }
@@ -309,8 +300,8 @@
 #overlay-image {
     max-width: 400px;
     position: absolute;
-    left: 25vw;
-    top: 29vh;
+    left: 19vw;
+    top: 38vh;
     margin-right: 10px;
     filter: brightness(80%);
 }
@@ -376,7 +367,7 @@ figure {
 }
 
 td>img {
-    width: 250px;
+    width: 90%;
     height: 300px;
     object-fit: cover;
     text-align: center;
@@ -410,6 +401,7 @@ td>img {
     filter: brightness(90%);
     width: 80%;
     max-height: 800px;
+    left: -10%;
 }
 
 #overlay-image:hover {
