@@ -1,7 +1,7 @@
 // Get better zoom on maps based on window size
 const height = window.innerHeight
 const width = window.innerWidth
-console.log(width)
+
 if (height < 900) {
     var zoom = 10
     var center = [45.631550, -73.509463];
@@ -14,8 +14,6 @@ if (height < 900) {
         var center = [45.631550, -73.839463];
     }
 }
-
-console.log(zoom);
 
 
 // Variables for timeline
@@ -169,6 +167,8 @@ var orangeColor = getComputedStyle(document.documentElement)
     .getPropertyValue('--orange-color');
 var queryColor = getComputedStyle(document.documentElement)
     .getPropertyValue('--primary-color');
+var blackColor = getComputedStyle(document.documentElement)
+    .getPropertyValue('--black-color');
 
 const fullCadasterStyle = {
     "color": cadasterColor,
@@ -396,7 +396,7 @@ function timeDisplay(data, previousYear, liveYear, index) {
         "fillColor": timelineGradient[index],
         "fillOpacity": 0,
 
-        "color": timelineGradient[index],
+        "color": "#000",
         "weight": 1,
         "opacity": 0,
 
@@ -435,6 +435,7 @@ function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay)
         if (opacity < finalOpacity) {
             lyr.setStyle({
                 fillOpacity: opacity,
+                opacity: opacity
             });
             opacity = opacity + opacityStep
         }
