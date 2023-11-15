@@ -50,7 +50,6 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
         const ulElement = document.getElementById(ulId);
         const inputElement = document.getElementById(inputId);
         const parentLabel = document.getElementById(labelId);
-
         pElement.classList.add("machina");
         pElement.innerHTML = newValue;
 
@@ -65,7 +64,9 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
             }
             ulElement.style.display = 'none';
             inputElement.style.borderRadius = "calc(var(--radius) - 5px)";
-            parentLabel.style.display = 'none'
+            if (ulId != "geocodingUL") {
+                parentLabel.style.display = 'none'
+            }
         });
 
         const container = document.getElementById(ulId)
@@ -148,7 +149,7 @@ function filterQuery() {
     if (queryResults.length != 0) {
         displayQueryResults(queryResults, timelineMap)
     } else {
-        resetLayersTimeline()
+        resetLayersTimeline();
         document.getElementById("no-data").style.display = "block"
     }
 }

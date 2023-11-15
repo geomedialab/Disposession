@@ -9,7 +9,7 @@
     width: fit-content;
     height: min-content;
     max-height: 80vh;
-    max-width: 65vw;
+    max-width: 52vw;
     overflow-y: scroll;
     right: 5vw;
     top: 8vh;
@@ -60,14 +60,10 @@
     height: 100%;
 }
 
-#intro-table {
-    align-items: center;
-    justify-content: space-around;
+table#intro-table {
     width: 100%;
-
     color: var(--white-color);
     font-family: 'Space Grotesk', sans-serif;
-    padding-top: 1vh;
     border-collapse: collapse;
 }
 
@@ -81,10 +77,19 @@
     font-family: Neue-Machina;
 }
 
+#intro-table tr:nth-child(even) {
+    vertical-align: top;
+}
+
 #intro-table tr td div {
     padding-right: 20px;
     line-height: 1.6;
 }
+
+#intro-table tr td:last-of-type div:nth-last-of-type(-n+2){
+    padding-right: 0;
+}
+
 
 #average-lots>tbody>tr:last-of-type {
     font-size: 1.2rem;

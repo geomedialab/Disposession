@@ -28,7 +28,7 @@ function callNominatim() {
             // Reset array for each search
             if (indexData.length != 0) {
                 document.getElementById("geocodingUL").innerHTML = "";
-                createPElementsForSearch(indexData, 'geocodingUL', 'geocoding-search')
+                createPElementsForSearch(indexData, 'geocodingUL', 'geocoding-search', )
                 showList('geocoding-search', 'geocodingUL')
             }
             else {

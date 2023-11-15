@@ -1,17 +1,25 @@
-
-if (window.innerHeight < 800) {
+// Get better zoom on maps based on window size
+const height = window.innerHeight
+const width = window.innerWidth
+console.log(width)
+if (height < 900) {
     var zoom = 10
     var center = [45.631550, -73.509463];
 } else {
     var zoom = 10.5;
-    var center = [45.631550, -73.759463];
+    if (width > 1500) {
+        var center = [45.631550, -73.759463];
+    }
+    else {
+        var center = [45.631550, -73.839463];
+    }
 }
 
-
+console.log(zoom);
 
 
 // Variables for timeline
-const interval = 1400;
+const interval = 1800;
 const earliestDate = 1770;
 const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
@@ -34,10 +42,10 @@ function viewFullMap() {
     var introBox = document.querySelector("#intro-box")
     var queryBox = document.querySelector("#query-box");
 
-    state = document.querySelector("#view-full-map").innerHTML;
+    state = document.querySelector("#view-full-map");
 
     // Show Query Map
-    if (state == "VIEW FULL MAP") {
+    if (state.innerHTML == "VIEW FULL MAP") {
         resetTimeline();
         timelineMap.flyTo(center, zoom);
         addCadasterToTimeline();
@@ -48,12 +56,11 @@ function viewFullMap() {
 
         introBox.style.display = 'none';
         queryBox.style.display = 'block';
-        document.querySelector("#view-full-map").innerHTML = "VIEW TIMELINE"
+        state.innerHTML = "VIEW TIMELINE"
         turnOnMapInteraction(timelineMap, "timeline-map")
 
         // Show Timeline
-    } else if (state == "VIEW TIMELINE") {
-        console.log(state);
+    } else if (state.innerHTML == "VIEW TIMELINE") {
         startTimeDisplay();
 
         introBox.style.opacity = 100;
@@ -63,7 +70,7 @@ function viewFullMap() {
         introBox.style.display = 'block';
 
         timelineMap.flyTo([45.631550, -73.709463], 10.5);
-        document.querySelector("#view-full-map").innerHTML = "VIEW FULL MAP"
+        state.innerHTML = "VIEW FULL MAP"
         turnOffMapInteraction(timelineMap, "timeline-map")
     }
     resetTimeline();
@@ -167,13 +174,6 @@ const fullCadasterStyle = {
     "color": cadasterColor,
     "weight": 0.5,
     "opacity": 0.5,
-};
-
-const timelinerStyle = {
-    "color": cadasterColor,
-    "weight": 0.5,
-    "opacity": 0,
-    "fillOpacity": 0,
 };
 
 const queryStyle = {
@@ -287,7 +287,7 @@ function pointInPoly(marker) {
     resetLayersGeocoding();
     cadasterLayer.eachLayer(function (indivLot) {
         if (indivLot.contains(latLng)) {
-            
+
             displayQueryResults(indivLot.feature, geocoding_map)
             numberOfLots += 1
             marker.addTo(geocoding_map);
@@ -354,11 +354,7 @@ function gradient(startColor, endColor, steps) {
 
 }
 
-var timelineGradient = gradient(
-    '#FFFFFF',
-    '#000000',
-    19)
-
+var timelineGradient = gradient('#171717', '#FFFFFF', 19)
 
 
 // Meat and potatoes of the timeline function
@@ -395,12 +391,15 @@ function timeDisplay(data, previousYear, liveYear, index) {
         }
     }
 
-
     var timelineStyle = {
+
+        "fillColor": timelineGradient[index],
+        "fillOpacity": 0,
+
         "color": timelineGradient[index],
         "weight": 1,
         "opacity": 0,
-        "fillOpacity": 0,
+
         "interactive": false,
     }
 
@@ -410,7 +409,7 @@ function timeDisplay(data, previousYear, liveYear, index) {
         timelineStyle
     ).addTo(timelineMap);
     // Fade that layer onto map over time
-    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, fullCadasterStyle.opacity, 0.01, interval / 100)
+    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 0.8, 0.01, interval / 100)
     // Recursive call 
     if (liveYear <= 1960) {
         timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval);
@@ -424,7 +423,7 @@ function timeDisplay(data, previousYear, liveYear, index) {
             return div
         }
         resetLayersTimeline();
-        startTimeDisplay();
+        setInterval(startTimeDisplay(), 2000);
     }
 }
 
@@ -435,7 +434,7 @@ function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay)
     let timer = setTimeout(function changeOpacity() {
         if (opacity < finalOpacity) {
             lyr.setStyle({
-                opacity: opacity,
+                fillOpacity: opacity,
             });
             opacity = opacity + opacityStep
         }
@@ -517,9 +516,10 @@ function displayQueryResults(queryResults, map) {
     // Remove General Legend
     // document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
     document.getElementById("no-data").style.display = "none";
-    // Build new legend
-    resetLayersTimeline();
-    resetTimeline();
+    if (map == timelineMap) {
+        resetLayersTimeline();
+        resetTimeline();
+    }
 
     queryLayer = L.geoJSON(
         queryResults,
@@ -545,7 +545,7 @@ function displayQueryResults(queryResults, map) {
     map.addLayer(queryLayer);
 
     // Center slightly to the right of cadaster to account for intro/query box
-    map.flyToBounds(queryLayer.getBounds(), {duration: 1.5});
+    map.flyToBounds(queryLayer.getBounds(), { duration: 1.5 });
 }
 
 // Build popup and tooltips
@@ -725,7 +725,6 @@ function checkAndChangeStylingParameters() {
             )
 
         } if (zoomLevel > 12) {
-            console.log("zoom > 12");
             cadasterLayer.setStyle(
                 {
                     "weight": 5
@@ -757,7 +756,6 @@ function checkAndChangeStylingParameters() {
             )
 
         } if (zoomLevel > 12) {
-            console.log("zoom > 12");
             cadasterLayer.setStyle(
                 {
                     "weight": 5
