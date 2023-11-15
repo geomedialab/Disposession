@@ -274,9 +274,15 @@ function addKanehsatakeToTimeline() {
             kanehsatakeLayer = L.geoJSON(
                 kanehsatakeData,
                 setStyle = {
-                    style: kanehsatakeStyle
+                    "fillColor": purpleColor,
+                    "color": blackColor,
+                    "weight": 1,
+                    "opacity": 0,
+                    "fillOpacity": 0,
                 }
             ).addTo(timelineMap);
+
+            fadeInLayerLeaflet(kanehsatakeLayer, 0, 0.5, 0.01, interval / 100);
         });
 }
 
@@ -354,7 +360,7 @@ function gradient(startColor, endColor, steps) {
 
 }
 
-var timelineGradient = gradient('#171717', '#FFFFFF', 19)
+var timelineGradient = gradient('#1c1c1c', '#FFFFFF', 19)
 
 
 // Meat and potatoes of the timeline function
@@ -422,8 +428,8 @@ function timeDisplay(data, previousYear, liveYear, index) {
             div.innerHTML = 'Hello'
             return div
         }
-        resetLayersTimeline();
-        setInterval(startTimeDisplay(), 2000);
+        addKanehsatakeToTimeline();
+        setTimeout(startTimeDisplay, 7000);
     }
 }
 
@@ -469,6 +475,7 @@ function startTimeDisplay() {
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
+            resetLayersTimeline();
             // Start the timeline animation
             timeDisplay(cadasterData, earliestDate, (earliestDate + range), 0);
 
