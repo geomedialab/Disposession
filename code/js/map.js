@@ -1,23 +1,10 @@
-// Get better zoom on maps based on window size
-const height = window.innerHeight
-const width = window.innerWidth
 
-if (height < 900) {
-    var zoom = 10
-    var center = [45.631550, -73.509463];
-} else {
-    var zoom = 10.5;
-    if (width > 1500) {
-        var center = [45.631550, -73.759463];
-    }
-    else {
-        var center = [45.631550, -73.839463];
-    }
-}
+var zoom = 9
+var center = [45.631550, -73.509463];
 
 
 // Variables for timeline
-const interval = 1800;
+const interval = 1400;
 const earliestDate = 1770;
 const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
@@ -37,15 +24,16 @@ function scrollToBottom() {
 
 function viewFullMap() {
     scrollToTop();
-    var introBox = document.querySelector("#intro-box")
+    var introBox = document.querySelector("#intro-box");
     var queryBox = document.querySelector("#query-box");
 
-    state = document.querySelector("#view-full-map");
+    var state = document.querySelector("#state");
+    state2 = document.querySelector("#state2");
 
-    // Show Query Map
-    if (state.innerHTML == "VIEW FULL MAP") {
+    var language = checkCookie();
+    function setUpQueryMap() {
         resetTimeline();
-        timelineMap.flyTo(center, zoom);
+        timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] });
         addCadasterToTimeline();
         addKanehsatakeToTimeline();
 
@@ -54,26 +42,49 @@ function viewFullMap() {
 
         introBox.style.display = 'none';
         queryBox.style.display = 'block';
-        state.innerHTML = "VIEW TIMELINE"
         turnOnMapInteraction(timelineMap, "timeline-map")
-
-        // Show Timeline
-    } else if (state.innerHTML == "VIEW TIMELINE") {
-        startTimeDisplay();
-
-        introBox.style.opacity = 100;
-        queryBox.style.opacity = 0;
-        introBox.style.display = 'block';
-        queryBox.style.display = 'none';
-        introBox.style.display = 'block';
-
-        timelineMap.flyTo([45.631550, -73.709463], 10.5);
-        state.innerHTML = "VIEW FULL MAP"
-        turnOffMapInteraction(timelineMap, "timeline-map")
     }
-    resetTimeline();
-    resetLayersTimeline();
 
+    if (language == "french") {
+        if (state2.innerHTML == "VOIR LA CARTE COMPLÈTE") {
+            setUpQueryMap();
+            state2.innerHTML = "VOIR LA CHRONOLOGIE";
+        } else {
+            startTimeDisplay();
+
+            introBox.style.opacity = 100;
+            queryBox.style.opacity = 0;
+            introBox.style.display = 'block';
+            queryBox.style.display = 'none';
+            introBox.style.display = 'block';
+
+            timelineMap.flyTo([45.631550, -73.709463], 10.5);
+            state2.innerHTML = "VOIR LA CARTE COMPLÈTE";
+            turnOffMapInteraction(timelineMap, "timeline-map")
+        }
+    } else {
+        // Show Query Map
+        if (state.innerHTML == "VIEW FULL MAP") {
+            setUpQueryMap();
+            state.innerHTML = "VIEW TIMELINE"
+            // Show Timeline
+        } else {
+            startTimeDisplay();
+
+            introBox.style.opacity = 100;
+            queryBox.style.opacity = 0;
+            introBox.style.display = 'block';
+            queryBox.style.display = 'none';
+            introBox.style.display = 'block';
+
+            timelineMap.flyTo([45.631550, -73.709463], 10.5);
+            state.innerHTML = "VIEW FULL MAP"
+            turnOffMapInteraction(timelineMap, "timeline-map")
+        }
+        resetTimeline();
+        resetLayersTimeline();
+
+    }
 }
 // Initialize maps
 
@@ -204,6 +215,12 @@ const mergedStyle = {
     "opacity": 1,
 }
 
+const invisibleCadasterStyle = {
+    "weight": 0,
+    "opacity": 0,
+}
+
+
 function addCadaster(map) {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
@@ -225,6 +242,34 @@ function addCadaster(map) {
                     onEachFeature: onEachFeatureCadaster,
                 }
             ).addTo(map);
+        });
+}
+
+// Just used to flyToBounds of cadaster layer on initial load so center and zoom of map are screen size appropriate
+function addInvisibleCadaster(map) {
+    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+        .then((response) => response.json())
+        .then((data) => cadasterData = data)
+        .then(() => {
+            // Dynamically build selection options for queries
+            // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
+            createSoldToIndex("buyerQuery")
+            createConceededByIndex("conceededByQuery")
+            createorigAIndex("originalAQuery")
+            createNumEnregiIndex("numEnregiQuery");
+
+
+            // Create the popups
+            cadasterLayer = L.geoJSON(
+                cadasterData,
+                setOptions = {
+                    style: invisibleCadasterStyle,
+                    onEachFeature: onEachFeatureCadaster,
+                }
+            ).addTo(map);
+
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [850, 0] })
+            timelineMap.removeLayer(cadasterLayer);
         });
 }
 
@@ -815,5 +860,6 @@ turnOffMapInteraction(timelineMap, "timeline-map")
 addIndigLands();
 addKanehsatakeToMain();
 addCadaster(geocoding_map);
+addInvisibleCadaster(timelineMap)
 var markerGroup = L.layerGroup().addTo(geocoding_map);
-$(document).ready(function () { startTimeDisplay(); })
+$(document).ready(function () { setTimeout(startTimeDisplay(), "1500"); })

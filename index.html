@@ -40,50 +40,65 @@
     <title>Disposession</title>
 </head>
 
-<body>
+<body onload="pageLoadLanguageCheck()">
     <script src="code/js/query.js"></script>
     <script src="code/js/geocoding.js"></script>
     <script src="code/js/language.js"></script>
 
     <nav>
         <a href="index.html">
-            <p class="underline">ABOUT</p>
+            <p class="underline english">ABOUT</p>
+            <p class="underline french">À PROPOS</p>
         </a>
         <a href="code/html/research.html">
-            <p class="underline">RESEARCH METHODOLOGY</p>
+            <p class="underline english">RESEARCH METHODOLOGY</p>
+            <p class="underline french">MÉTHODOLOGIE</p>
         </a>
         <a href="code/html/sources.html">
-            <p class="underline">EVIDENCE</p>
+            <p class="underline english">EVIDENCE</p>
+            <p class="underline french">PIECES JUSTIFICATIVES</p>
         </a>
         <a href="code/html/team.html">
-            <p class="underline">TEAM</p>
+            <p class="underline english">TEAM</p>
+            <p class="underline french">ÉQUIPE</p>
         </a>
         <a href="code/html/contribute.html">
-            <p class="underline">GET INVOLVED</p>
+            <p class="underline english">GET INVOLVED</p>
+            <p class="underline french">IMPLIQUEZ-VOUS</p>
         </a>
-        <!-- Language switch, not yet implemented -->
-        <!-- <div class="switch">
+        <!-- Language switch -->
+        <div class="switch">
             <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox"
                 oninput="changeLanguage()">
             <label for="language-toggle"></label>
             <span class="on">EN</span>
             <span class="off">FR</span>
-        </div> -->
+        </div>
     </nav>
     <main>
         <!-- Map Content -->
         <div id="timeline">
             <div id="timeline-map"></div>
-            <!-- <div id="map"></div> -->
-            <div id="view-full-map" class="grow " onclick="viewFullMap()">VIEW FULL MAP</div>
+            <div id="view-full-map" class="grow" onclick="viewFullMap()">
+                <div id="state" class="english">VIEW FULL MAP</div>
+                <div id="state2" class="french">VOIR LA CARTE COMPLÈTE</div>
+            </div>
             <div id="intro-box">
                 <div id="intro-content">
-                    <h1>MAPPING ARCHIVES:<br>
-                        MOHAWK LAND DISPOSESSION<br>
+                    <h1 class="english">MAPPING ARCHIVES:<br>
+                        MOHAWK LAND DISPOSESSION
                         BY SULPICIAN PRIESTS</h1>
+                    <h1 class="french">
+                        CARTOGRAPHIER LES ARCHIVES :
+                        DÉPOSSESSION DE LA TERRE MOHAWK
+                        PAR LES PRÊTRES SULPICIENS
+                    </h1>
                     <div class="spacer"></div>
-                    <h2>Visualize how contractually promised land was taken from the Mohawk of Kanehsatà:ke
+                    <h2 class="english">Visualize how contractually promised land was taken from the Mohawk of
+                        Kanehsatà:ke
                         over the course of 200 years.</h2>
+                    <h2 class="french">Visualisez comment les Mohawks de Kanehsatà:ke ont été dépossédés de leurs terres
+                        pendant 200 ans.</h2>
                     <div class="spacer"></div>
                     <table id="intro-table">
                         <tr>
@@ -96,19 +111,19 @@
                         <tr>
                             <td>
                                 <div class="english">Indigenous land granted to the Sulpicians</div>
-                                <div class="french">Terre autochtone concédée</div>
+                                <div class="french">Terres autochtones octroyées aux Sulpiciens</div>
                             </td>
                             <td>
                                 <div class="english">Parcels distributed to Settlers</div>
-                                <div class="french">Parcelles de Terrain Distribuées</div>
+                                <div class="french">Parcelles attribuées aux colons </div>
                             </td>
                             <td>
                                 <div class="english">Years of<br>dispossession</div>
-                                <div class="french">Années</div>
+                                <div class="french">Années de dépossession</div>
                             </td>
                             <td>
                                 <div class="english">Land Remains for Kanehsatà:ke</div>
-                                <div class="french">Des terres Restent Pour Kanehsatà:ke</div>
+                                <div class="french">Territoire ancestral restant</div>
                             </td>
                         </tr>
                     </table>
@@ -119,7 +134,7 @@
                     <div id="input-container">
                         <div id="query-text">
                             <div class="english machina">INDIGENOUS LAND<br>GRANTED</div>
-                            <div class="french machina">Terre Autochtone Concédée</div>
+                            <div class="french machina">TERRE AUTOCHTONE<BR>CONCEDEE</div>
                         </div>
                         <div class="dividing-line"></div>
                         <div id="how-to">
@@ -234,23 +249,54 @@
             <h1 class="title">INTRODUCTION</h1>
             <div class="spacer"></div>
             <div class="introduction-text">
-                540 square kilometers of Indigenous land, divided into 1830 individual parcels, were gradually allocated
-                to European settlers over a span of two centuries. Today, a mere fraction, less than 2% of the original
-                land, remains for the Mohawk of Kanehsatà:ke (the Kanehsatakeró:non). This research presents what
-                dispossession looks like in the historical Seigneurie du Lac-des-Deux-Montagnes, situated within the
-                present day Laurentides administrative region of Quebec, Canada.
+                <div class="english">
+                    540 square kilometers of Indigenous land, divided into 1830 individual
+                    parcels, were gradually allocated
+                    to European settlers over a span of two centuries. Today, a mere fraction, less than 2% of the
+                    original
+                    land, remains for the Mohawk of Kanehsatà:ke (the Kanehsatakeró:non). This research presents what
+                    dispossession looks like in the historical Seigneurie du Lac-des-Deux-Montagnes, situated within the
+                    present day Laurentides administrative region of Quebec, Canada.
+                </div>
+                <div class="french">
+                    540 kilomètres carrés de terres autochtones, répartis en 1830 parcelles
+                    individuelles, ont été graduellement attribués à des colons européens pendant deux siècles.
+                    Aujourd'hui, les Mohawks de Kanehsatà:ke (Kanehsatakeró:non) ne possèdent plus qu'une infime partie
+                    de ces terres, soit à peine 2% de leur territoire ancestral. Cette étude met en lumière la manière
+                    dont la dépossession des terres autochtones s'est concrétisée dans la Seigneurie historique du
+                    Lac-des-Deux-Montagnes, située dans la région administrative actuelle des Laurentides au Québec, au
+                    Canada.
+                </div>
                 <br><br>
 
-                The area gained national attention during the Oka Crisis, also known as the siege of Kanehsatà:ke, when
-                the Mohawk people took a courageous stand against the Sureté Quebec (SQ), the Royal Canadian Mounted
-                Police (RCMP), and the Canadian Army. Their goal was to protect their sacred lands from being
-                transformed into a golf course for Oka residents. This intense 78-day military standoff not only shook
-                the nation at its core but also laid bare the enduring and deeply unjust structures underlying
-                contemporary land-based conflicts.
+                <div class="english">
+                    The area gained national attention during the Oka Crisis, also known as the siege
+                    of Kanehsatà:ke, when the Mohawk people took a courageous stand against the Sureté Quebec (SQ), the
+                    Royal Canadian Mounted
+                    Police (RCMP), and the Canadian Army. Their goal was to protect their sacred lands from being
+                    transformed into a golf course for Oka residents. This intense 78-day military standoff not only
+                    shook
+                    the nation at its core but also laid bare the enduring and deeply unjust structures underlying
+                    contemporary land-based conflicts.</div>
+                <div class="french">
+                    La région a attiré l'attention nationale lors de la crise d'Oka, également connue
+                    sous le nom du siège de Kanehsatà:ke, lorsque les Mohawks ont courageusement pris position contre la
+                    Sûreté du Québec (SQ), la Gendarmerie royale du Canada (GRC) et l'armée canadienne. Leur objectif
+                    était de protéger leurs terres sacrées afin qu'elles ne soient pas transformées en terrain de golf
+                    au profit des résidents d'Oka. Ce face-à-face entre militaires et civils a duré 78 jours et a
+                    ébranlé la nation, révélant la persistance et le caractère injuste des systèmes qui sous-tendent les
+                    conflits territoriaux actuels.</div>
                 <br><br>
 
-                But the Oka crisis is just the tip of the iceberg. The roots of this conflict stretch back nearly three
-                centuries.
+                <div class="english">
+                    But the Oka crisis is just the tip of the iceberg. The roots of this conflict
+                    stretch back nearly three
+                    centuries.
+                </div>
+                <div class="french">
+                    Mais la crise d'Oka n'est que la partie émergée de l'iceberg. Les racines de ce
+                    conflit remontent à près de trois siècles.
+                </div>
                 <br><br>
 
                 <figure style="position: absolute; left: 3vw;">
@@ -261,29 +307,88 @@
                     </figcaption>
                 </figure>
 
-                In Quebec, the seigneurial system governed and distributed land from the 16th to the 19th century. Under
-                this system, the "seigneurs" typically comprised French nobles, merchants, or religious congregations,
-                who had received vast land grants from the French Crown. Among these seigneurs were the Sulpicians, a
-                French society of diocesan priests, often known for their roles as wealthy, educated elites, academics,
-                and missionaries. However, it's essential to recognize that they were first and foremost powerful and
-                influential landowners. They were the Seigneurs of the island of Montreal for almost 200 years (1663 to
-                1854) in addition to the Seigneurie they administered in the Lac-des-Deux-Montagnes and the Seigneurie
-                de Saint-Sulpice.
+                <div class="english">
+                    In Quebec, the seigneurial system governed and distributed land from the 16th to the 19th century.
+                    Under
+                    this system, the "seigneurs" typically comprised French nobles, merchants, or religious
+                    congregations,
+                    who had received vast land grants from the French Crown. Among these seigneurs were the Sulpicians,
+                    a
+                    French society of diocesan priests, often known for their roles as wealthy, educated elites,
+                    academics,
+                    and missionaries. However, it's essential to recognize that they were first and foremost powerful
+                    and
+                    influential landowners. They were the Seigneurs of the island of Montreal for almost 200 years (1663
+                    to
+                    1854) in addition to the Seigneurie they administered in the Lac-des-Deux-Montagnes and the
+                    Seigneurie
+                    de Saint-Sulpice.
+                </div>
+                <div class="french">
+                    Au Québec, le système seigneurial a régi et distribué la terre du 16e (XVIème siècle) au 19e siècle
+                    (XIX ème siècle). Les "seigneurs" évoluant au sein de ce système étaient généralement des nobles,
+                    des marchands ou des congrégations religieuses françaises ayant reçu de vastes concessions de terres
+                    de la part du Roi de France. Parmi ces seigneurs figuraient les Sulpiciens, une société française de
+                    prêtres diocésains, souvent reconnus pour leur rôle en tant qu'élites prospères et éduquées,
+                    universitaires et missionnaires. Toutefois, il est essentiel de noter qu'ils étaient principalement
+                    des propriétaires terriens puissants et influents. Ils ont exercé leur autorité en tant que
+                    seigneurs de l'île de Montréal pendant près de 200 ans, de 1663 à 1854, en plus des Seigneuries
+                    qu'ils administraient au Lac-des-Deux-Montagnes et Saint-Sulpice.
+                </div>
                 <br><br>
 
-                In the early 1700s, the Sulpicians were granted around 540 km2 of land by the King of France. The
-                purpose was to establish the Seigneurie du Lac-des-Deux-Montagnes and displace a Mohawk group that had
-                converted to Catholicism, known as the "Mission Indians," to distance them from burgeoning settler towns
-                on the island of Montreal. Yet, Mohawk oral traditions and archaeological evidence point to another
-                faction of Mohawk (the Kanehsatakeró:non) having inhabited the land long before the Sulpicians' arrival,
-                and the French land grant.
+                <div class="english">
+                    In the early 1700s, the Sulpicians were granted around 540 km2 of land by the King of France. The
+                    purpose was to establish the Seigneurie du Lac-des-Deux-Montagnes and displace a Mohawk group that
+                    had
+                    converted to Catholicism, known as the "Mission Indians," to distance them from burgeoning settler
+                    towns
+                    on the island of Montreal. Yet, Mohawk oral traditions and archaeological evidence point to another
+                    faction of Mohawk (the Kanehsatakeró:non) having inhabited the land long before the Sulpicians'
+                    arrival,
+                    and the French land grant.
+                </div>
+                <div class="french">
+                    Au début des années 1700, les Sulpiciens se voient octroyer par le roi de France un territoire
+                    d'environ 540 km2. L'objectif était d'établir la Seigneurie du Lac-des-Deux-Montagnes et de déplacer
+                    un groupe de Mohawks qui s'était converti au catholicisme, connu sous le nom de "Mission Indians",
+                    afin de les éloigner des villes de colons en plein essor sur l'île de Montréal. Pourtant, les
+                    traditions orales mohawks et les preuves archéologiques indiquent qu'une autre communauté Mohawk
+                    (les Kanehsatakeró:non) occupait le territoire bien avant l'arrivée des Sulpiciens et l'octroi de
+                    terres par la Couronne française.
+                </div>
                 <br><br>
 
-                The Sulpicians and the British assured the Mohawk that the land in the Seigneurie du
-                Lac-des-Deux-Montagnes was theirs to live on. In 1721 the Mohawk made the Two Dog Wampum as a chain of
-                friendship to confirm this commitment and bind the Sulpicians to their responsibilities and obligations.
-                In the words of Mohawk Chief Aughneetha, Montreal Feb. 8, 1787
+
+                <figure style="position: absolute; right: 3vw;">
+                    <img style="max-width: 15vw; height: auto;" src="assets/Joseph_Swan_with_Wampum.jpg">
+                    <figcaption class="caption english">NEED ENGLISH CAPTION NEED ENGLISH CAPTION NEED ENGLISH CAPTION
+                        NEED ENGLISH CAPTION NEED ENGLISH CAPTION
+                    </figcaption>
+                    <figcaption class="caption french">Le chef kanien’kehá:ka [Mohawk] Joseph Swan Onasakenrat portant
+                        le « wampum aux deux chiens » de Kanesatake, vers 1868.<br>
+                        Tirage sur papier albuminé, 10,2 x 6,4 cm, Collection Jean Tanguay.
+                    </figcaption>
+                </figure>
+
+                <div class="english">
+                    The Sulpicians and the British assured the Mohawk that the land in the Seigneurie du
+                    Lac-des-Deux-Montagnes was theirs to live on. In 1721 the Mohawk made the Two Dog Wampum as a chain
+                    of
+                    friendship to confirm this commitment and bind the Sulpicians to their responsibilities and
+                    obligations.
+                    In the words of Mohawk Chief Aughneetha, Montreal Feb. 8, 1787
+                </div>
+                <div class="french">
+                    Les Sulpiciens et les Britanniques avaient assuré aux Mohawks que les terres de la Seigneurie du
+                    Lac-des-Deux-Montagnes leur seraient réservées. En 1721, les Mohawks créèrent le Wampum aux Deux
+                    Chiens, une chaîne d'amitié scellant cet engagement ainsi que les responsabilités et les obligations
+                    des Sulpiciens à leur égard.
+                    Pour citer les paroles du chef Mohawk Aughneetha, lors d'une réunion à Montréal le 8 février, 1787
+                </div>
                 <br><br>
+
+
                 <div class="quote">
                     <i>“our Priest (in conjunction with the Clergy of the Seminary of Montreal) told us we should remove
                         once
@@ -311,12 +416,27 @@
                 <div class="caption"> Two dog Wampum as described by Mohawk Chief Aughneetha.</div>
                 <br>
 
-                Although the Mohawk repeatedly delivered this Two Dog Wampum to British officials, officials to honor
-                their promise and protect the land from white settlement, the British upheld that the Sulpician priests
-                were the sole owners of the land. As the Mohawk of Kanehsatà:ke’s rights and title to the land were
-                never formally recognized, they became dependent upon the Sulpicians to hold for them “in trust.”
-                However, the Sulpicians broke their obligations and sold 98% of the land to settlers, the descendants of
-                whom still live on the land and celebrate the Sulpician’s heritage today.
+                <div class="english">
+                    Although the Mohawk repeatedly delivered this Two Dog Wampum to British officials, officials to
+                    honor
+                    their promise and protect the land from white settlement, the British upheld that the Sulpician
+                    priests
+                    were the sole owners of the land. As the Mohawk of Kanehsatà:ke’s rights and title to the land were
+                    never formally recognized, they became dependent upon the Sulpicians to hold for them “in trust.”
+                    However, the Sulpicians broke their obligations and sold 98% of the land to settlers, the
+                    descendants of
+                    whom still live on the land and celebrate the Sulpician’s heritage today.
+                </div>
+                <div class="fremch">
+                    Ce wampum a été présenté à plusieurs reprises par les Mohawks aux autorités Britanniques dans
+                    l'espoir qu'elles respectent leur engagement de protéger les terres contre la colonisation
+                    européenne. Cependant, les Britanniques ont soutenu que seuls les prêtres Sulpiciens étaient les
+                    légitimes propriétaires de ces terres. Les droits territoriaux des Mohawks de Kanehsatà:ke n'ont
+                    jamais été officiellement reconnus, les laissant tributaires des Sulpiciens, qui étaient censés les
+                    détenir "en fiducie". Les Sulpiciens n'ont pas honoré leurs obligations et ont vendu 98 % des terres
+                    aux colons. Leurs descendants résident toujours sur ces territoires et célèbrent encore à ce jour
+                    l'héritage des Sulpiciens.
+                </div>
                 <br><br>
             </div>
             <div style="vertical-align: top; display: inline-block; text-align: center; width: 100%; z-index: 3;">
@@ -331,17 +451,34 @@
             <div id="contractual-land">
                 <div class="introduction-text" id="black-text">
                     <br>
-                    <h1 class="title" style="color: var(--white-color); text-align: left;">HOW WAS
-                        CONTRACTUALLY PROMISED LAND TAKEN FROM THE MOHAWK OF KANEHSATÀ:KE?</h1>
+                    <h1 class="title english" style="color: var(--white-color); text-align: left;">
+                        HOW WAS CONTRACTUALLY PROMISED LAND TAKEN FROM THE MOHAWK OF KANEHSATÀ:KE?</h1>
+                    <h1 class="title french" style="color: var(--white-color); text-align: left;">
+                        COMMENT LES MOHAWKS DE KANEHSATÀ:KE ONT-ILS ÉTÉ DÉPOSSÉDÉS DES TERRES QUI LEUR AVAIENT ÉTÉ
+                        PROMISES PAR LE CONTRAT DU WAMPUM ?</h1>
                     <div class="spacer"></div>
 
-                    Once a Seigneurie was granted, the “seigneur” or lord commissioned a surveyor to create a cadaster,
-                    mapping out the lots designated for concession. The lot numbers, along with the names of the
-                    settlers
-                    (known as "censitaires") and any subsequent transactions, were recorded in a registry called the
-                    "terrier." Additionally, the seigneur often included taxation information, referred to as "cens and
-                    rents," in another registry called the "censier." For more than two centuries, the Sulpicians
-                    meticulously documented every property transaction they made with settlers in these land registries.
+                    <div class="english">
+                        Once a Seigneurie was granted, the “seigneur” or lord commissioned a surveyor to create a
+                        cadaster,
+                        mapping out the lots designated for concession. The lot numbers, along with the names of the
+                        settlers
+                        (known as "censitaires") and any subsequent transactions, were recorded in a registry called the
+                        "terrier." Additionally, the seigneur often included taxation information, referred to as "cens
+                        and
+                        rents," in another registry called the "censier." For more than two centuries, the Sulpicians
+                        meticulously documented every property transaction they made with settlers in these land
+                        registries.
+                    </div>
+                    <div class="french">
+                        Une fois la seigneurie accordée, le seigneur chargeait un arpenteur de créer un cadastre,
+                        traçant les parcelles désignées pour la concession. Les numéros de parcelles, ainsi que les noms
+                        des colons (appelés "censitaires") et toutes les transactions ultérieures, étaient consignés
+                        dans un registre appelé "terrier". En outre, le seigneur incluait souvent des informations
+                        fiscales, appelées "cens et rentes", dans un autre registre appelé "censier". Pendant plus de
+                        deux siècles, les Sulpiciens ont méticuleusement répertorié dans ces registres fonciers toutes
+                        les transactions qu'ils effectuaient avec les colons.
+                    </div>
                     <br><br>
 
                     <figure class="fun-figure">
@@ -349,7 +486,7 @@
                             <img class="effect" src="assets/Deux_Montagnes_Louis_Guy_Animated.gif" id="base-image">
                             <img class="effect" src="assets/act_of_concession.png" id="overlay-image">
                         </div>
-                        <figcaption class="fig-cap-centered machina caption">
+                        <figcaption class="fig-cap-centered machina caption english">
                             The Seigneurie du Lac-des-Deux-Montagnes, initially a small
                             mission, evolved into a tool of colonization as the Sulpicians, acting as land developers,
                             distributed cleared land to settlers to enhance their wealth. To manage their land holdings
@@ -357,26 +494,58 @@
                             in
                             1798, greatly improving tax collection and administration.
                         </figcaption>
+                        <figcaption class="fig-cap-centered machina caption french">
+                            La Seigneurie du Lac-des-Deux-Montagnes, qui à l'origine n'était qu'une modeste mission,
+                            s'est rapidement transformée en un outil de colonisation. Les Sulpiciens, agissant comme
+                            promoteurs fonciers, ont alloué des terres défrichées aux colons dans le but d'accroître
+                            leur propre richesse. Pour assurer une gestion efficace de leurs propriétés foncières, ils
+                            ont chargé Louis Guy, arpenteur général, de créer le premier cadastre en 1798, ce qui a
+                            considérablement amélioré la collecte et l'administration des taxes.
+                        </figcaption>
                     </figure>
                     <br>
 
-                    By reconstructing the historical cadaster of the Seigneurie du Lac-des-Deux-Montagnes and locating
-                    the
-                    initial deeds of sale and concession for each individual lot, we can analyze and understand the
-                    rhythm,
-                    geographical distribution, and spatial dynamics of these transactions. This information provides
-                    valuable insights into the colonization process and its significant impact on the people of
-                    Kanehsatà:ke.
+                    <div class="english">
+                        By reconstructing the historical cadaster of the Seigneurie du Lac-des-Deux-Montagnes and
+                        locating
+                        the
+                        initial deeds of sale and concession for each individual lot, we can analyze and understand the
+                        rhythm,
+                        geographical distribution, and spatial dynamics of these transactions. This information provides
+                        valuable insights into the colonization process and its significant impact on the people of
+                        Kanehsatà:ke.
+                    </div>
+                    <div class="french">
+                        En reconstituant le cadastre historique de la Seigneurie du Lac-des-Deux-Montagnes et en
+                        localisant les actes de vente et de concession originaux pour chaque parcelle de terre, nous
+                        pouvons analyser et comprendre le rythme, la répartition géographique et la logistique spatiale
+                        de ces transactions. Cette information fournit de précieuses indications sur le processus de
+                        colonisation et son impact majeur sur les habitants de Kanehsatà:ke.
+                    </div>
                     <br><br><br>
 
-                    <h1 class="title" style="color: var(--white-color); text-align: left;">THE SCALE OF DISPOSESSION
+                    <h1 class="title english" style="color: var(--white-color); text-align: left;">
+                        THE SCALE OF DISPOSESSION
+                    </h1>
+
+                    <h1 class="title french" style="color: var(--white-color); text-align: left;">
+                        L'ECHELLE DE DEPOSSESSION
                     </h1>
                     <center><img class="chart" src="assets/ScaleOfDisposession.png">
                     </center>
-                    Although the size of lots granted to settlers varied over time, we can observe two distinct periods.
-                    From 1780 to 1860, the average lot granted to a settler measured 76 acres on average. To provide
-                    some
-                    context, 76 acres of land is equivalent to 57 American football fields or…
+                    <div class="english">
+                        Although the size of lots granted to settlers varied over time, we can observe two distinct
+                        periods.
+                        From 1780 to 1860, the average lot granted to a settler measured 76 acres on average. To provide
+                        some
+                        context, 76 acres of land is equivalent to 57 American football fields or…
+                    </div>
+                    <div class="french">
+                        Si l'on examine l'évolution de la superficie des parcelles concédées aux colons, on peut
+                        distinguer deux périodes distinctes. Entre 1780 et 1860, la taille moyenne d'une parcelle
+                        accordée à un colon était d'environ 76 acres. Pour donner un ordre d'idée, 76 acres de terre
+                        équivalent à 57 terrains de football américain ou...
+                    </div>
                     <br><br>
                     <center>
                         <table id="average-lots">
@@ -386,28 +555,57 @@
                                 <td><img src="assets/average_block_central_park.JPG"></td>
                             </tr>
                             <tr>
-                                <td>THE WIDTH OF<br>MONT-ROYAL</td>
-                                <td>THE LENGTH OF THE<br>JACQUES-CARTIER BRIDGE</td>
-                                <td>HALF OF CENTRAL PARK</td>
+                                <td>
+                                    <div class="english" style="justify-content: center;">THE WIDTH OF MONT-ROYAL</div>
+                                    <div class="french" style="justify-content: center;"> LA LARGEUR DU<br>MONT-ROYAL
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="english" style="justify-content: center;">THE LENGTH OF
+                                        THE<br>JACQUES-CARTIER BRIDGE</div>
+                                    <div class="french" style="justify-content: center;">LA LONGUEUR DU<br>PONT
+                                        JACQUES-CARTIER</div>
+                                </td>
+                                <td>
+                                    <div class="english" style="justify-content: center;">HALF OF<br>CENTRAL PARK</div>
+                                    <div class="french" style="justify-content: center;">LA MOITIÉ DE<br>CENTRAL PARK
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </center>
                     <br>
 
-                    At the end of the seigneurial regime in 1858, the lots granted to settlers became significantly
-                    smaller
-                    (36
-                    acres on average). This coincides with the urban development of the municipality of Oka.
+                    <div class="english">
+                        At the end of the seigneurial regime in 1858, the lots granted to settlers became significantly
+                        smaller
+                        (36
+                        acres on average). This coincides with the urban development of the municipality of Oka.
+                    </div>
+                    <div class="french">
+                        À la fin du régime seigneurial, en 1858, les parcelles attribuées aux colons étaient nettement
+                        plus petites, avec une moyenne de 36 acres. Cette réduction de taille coïncide avec le
+                        développement urbain de la municipalité d'Oka.
+                    </div>
                     <br><br><br>
 
                     <h1 class="title" style="color: var(--white-color); text-align: left;">THE RHYTHM OF DISPOSESSION
                     </h1>
                     <center><img class="chart" src="assets/RhythmOfDisposession.png">
                     </center>
-                    Land distribution did not occur uniformly over time. Instead, settlement happened in sharp bursts
-                    lasting approximately 10 to 30 years. These bursts can be identified across three distinct phases in
-                    the
-                    historical record.
+                    <div class="english">
+                        Land distribution did not occur uniformly over time. Instead, settlement happened in sharp
+                        bursts
+                        lasting approximately 10 to 30 years. These bursts can be identified across three distinct
+                        phases in
+                        the
+                        historical record.
+                    </div>
+                    <div class="french">
+                        La distribution des terres n'a pas suivi un schéma uniforme au fil du temps. La colonisation
+                        s'est plutôt déroulée par vagues successives d'environ 10 à 30 ans. Ces vagues se distinguent en
+                        trois phases distinctes dans les archives historiques.
+                    </div>
                     <br><br>
 
                     <table id="rhythm-table">
@@ -417,16 +615,29 @@
                                     src="assets/Rhythm1.png"></image>
                             </td>
                             <td style="font-size: 1.1rem;">
-                                The first phase of settlement was from 1780 to 1809 (with a notable peak
-                                around 1790). Most of the settlers were French farmers. They established their homes in
-                                the
-                                fertile regions around côte St-Joseph, côte de la Baie, and les Eblouis, gradually
-                                expanding
-                                northward. These areas are collectively referred to as "la mouvance,". During this time,
-                                the
-                                Sulpicians collected feudal taxes known as "cens and rentes" based on their claimed
-                                ownership of
-                                the land.
+                                <div class="english">
+                                    The first phase of settlement was from 1780 to 1809 (with a notable peak
+                                    around 1790). Most of the settlers were French farmers. They established their homes
+                                    in
+                                    the
+                                    fertile regions around côte St-Joseph, côte de la Baie, and les Eblouis, gradually
+                                    expanding
+                                    northward. These areas are collectively referred to as "la mouvance,". During this
+                                    time,
+                                    the
+                                    Sulpicians collected feudal taxes known as "cens and rentes" based on their claimed
+                                    ownership of
+                                    the land.
+                                </div>
+                                <div class="french">
+                                    La première phase de colonisation s'est déroulée de 1780 à 1809 (avec un pic notable
+                                    vers 1790). La plupart des colons sont des agriculteurs français. Ils s'installent
+                                    dans les régions fertiles de la côte St-Joseph, de la côte de la Baie et des
+                                    Eblouis, puis s'étendent progressivement vers le nord. Ces régions sont appelées
+                                    collectivement "la mouvance". À cette époque, les Sulpiciens perçoivent des impôts
+                                    féodaux appelés "cens et rentes" en vertu de la propriété qu'ils revendiquent sur
+                                    les terres.
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -435,16 +646,34 @@
                                     src="assets/Rhythm2.png"></image>
                             </td>
                             <td>
-                                The second phase of settlement was short but intense. 28,000 acres of land granted in
-                                just
-                                10 years, from 1820 to 1829. That is equivalent to 21,200 football fields or slightly
-                                larger
-                                than the entire present-day municipality of Oka. This significant increase in land
-                                allocation aligns with the Sulpicians' implementation of the British monarchy's plan to
-                                bring British settlers to the Seigneurie du Lac-des-Deux-Montagnes. These British
-                                settlers
-                                established their homes in the northwestern part of the seigneury. The North River ("La
-                                Rivière-du-Nord") served as a natural buffer between the British and French settlements.
+                                <div class="english">
+                                    The second phase of settlement was short but intense. 28,000 acres
+                                    of land granted in
+                                    just
+                                    10 years, from 1820 to 1829. That is equivalent to 21,200 football fields or
+                                    slightly
+                                    larger
+                                    than the entire present-day municipality of Oka. This significant increase in land
+                                    allocation aligns with the Sulpicians' implementation of the British monarchy's plan
+                                    to
+                                    bring British settlers to the Seigneurie du Lac-des-Deux-Montagnes. These British
+                                    settlers
+                                    established their homes in the northwestern part of the seigneury. The North River
+                                    ("La
+                                    Rivière-du-Nord") served as a natural buffer between the British and French
+                                    settlements.
+                                </div>
+                                <div class="french">
+                                    La deuxième phase de colonisation a été brève, mais intense. En seulement 10 ans, de
+                                    1820 à 1829, 28000 acres de terres ont été concédées. Pour donner une idée plus
+                                    concrète, cela équivaut à environ 21200 terrains de football ou à une superficie
+                                    légèrement supérieure à celle de l'actuelle municipalité d'Oka. Cette importante
+                                    augmentation des concessions de terres correspond à la mise en œuvre du projet des
+                                    Sulpiciens, en accord avec la monarchie britannique, visant à attirer des colons
+                                    britanniques dans la Seigneurie du Lac-des-Deux-Montagnes. Ces colons britanniques
+                                    s'installent dans la partie nord-ouest de la seigneurie. La Rivière-du-Nord sert de
+                                    tampon naturel entre les établissements français et britanniques.
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -453,18 +682,33 @@
                                     src="assets/Rhythm3.png"></image>
                             </td>
                             <td>
-                                The third phase of settlement occurred between 1860 and 1889, marking the end of the
-                                seignorial regime in 1858. During this period, the lots granted were the first instances
-                                of
-                                legal land sales in the Seigneurie. Settlers could either purchase new lots and gain
-                                full
-                                ownership of the land or buy the lots they had been leasing. The increase in acres
-                                granted
-                                during this time could also be attributed to the significant number of Algonquin
-                                families
-                                who were removed from Kanehsatà:ke to Miniwaki between 1858 and 1870, and
-                                Kanehsatakeró:non
-                                families who were relocating to Gibson in 1881, freeing up more land for settlement.
+                                <div class="english">
+                                    The third phase of settlement occurred between 1860 and 1889, marking the end of the
+                                    seignorial regime in 1858. During this period, the lots granted were the first
+                                    instances
+                                    of
+                                    legal land sales in the Seigneurie. Settlers could either purchase new lots and gain
+                                    full
+                                    ownership of the land or buy the lots they had been leasing. The increase in acres
+                                    granted
+                                    during this time could also be attributed to the significant number of Algonquin
+                                    families
+                                    who were removed from Kanehsatà:ke to Miniwaki between 1858 and 1870, and
+                                    Kanehsatakeró:non
+                                    families who were relocating to Gibson in 1881, freeing up more land for settlement.
+                                </div>
+                                <div class="french">
+                                    La troisième phase de colonisation se déroule entre 1860 et 1889, marquant la fin du
+                                    régime seigneurial en 1858. Au cours de cette période, les parcelles concédées
+                                    marquent les premiers cas de vente de terres au sein de la Seigneurie. Les colons
+                                    avaient la possibilité soit d'acheter de nouvelles terres et d'en obtenir la pleine
+                                    propriété, soit d'acquérir les terres dont ils avaient été les concessionnaires.
+                                    L'augmentation du nombre d'acres attribués au cours de cette période peut également
+                                    être attribuée à l'importante relocalisation des familles algonquines de
+                                    Kanehsatà:ke à Miniwaki entre 1858 et 1870, ainsi qu'au déplacement des familles de
+                                    Kanehsatakeró:non à Gibson en 1881, libérant ainsi davantage de terres pour la
+                                    colonisation.
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -475,13 +719,25 @@
             <div id="profit-generated">
                 <div id="profits-generated-text">
                     <br>
-                    <h1 class="title" style="text-align: left;">HOW MUCH PROFIT WAS GENERATED?</h1>
+                    <h1 class="title english" style="text-align: left;">HOW MUCH PROFIT WAS GENERATED?</h1>
+                    <h1 class="title french" style="text-align: left;">NEED FRENCH TITLE</h1>
                     <div class="spacer"></div>
-                    It’s hard to say how much was made because land sale amounts were not consistently recorded. Based
-                    on
-                    the evidence we have gathered, this visual illustrates the different funding streams the Sulpicians
-                    had
-                    between 1780 and 1960.
+                    <div class="english">
+                        It’s hard to say how much was made because land sale amounts were not consistently recorded.
+                        Based
+                        on
+                        the evidence we have gathered, this visual illustrates the different funding streams the
+                        Sulpicians
+                        had
+                        between 1780 and 1960.
+                    </div>
+
+                    <div class="french">
+                        Il est difficile de déterminer avec précision le montant des recettes, car les chiffres relatifs
+                        aux ventes de terres n'ont pas été consignés de manière uniforme. Cependant, en se basant sur
+                        les données que nous avons pu recueillir, ce graphique met en évidence les diverses sources de
+                        financement dont disposaient les Sulpiciens entre 1780 et 1960.
+                    </div>
                     <br><br>
                 </div>
                 <div class="decoration">

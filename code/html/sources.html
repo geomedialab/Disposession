@@ -25,32 +25,37 @@
 
 </head>
 
-<body>
+<body onload="pageLoadLanguageCheck()">
     <script src="../js/language.js"></script>
     <nav>
         <a href="../../index.html">
-            <p class="underline">ABOUT</p>
+            <p class="underline english">ABOUT</p>
+            <p class="underline french">À PROPOS</p>
         </a>
         <a href="research.html">
-            <p class="underline">RESEARCH METHODOLOGY</p>
+            <p class="underline english">RESEARCH METHODOLOGY</p>
+            <p class="underline french">MÉTHODOLOGIE</p>
         </a>
         <a href="sources.html">
-            <p class="underline">EVIDENCE</p>
+            <p class="underline english">EVIDENCE</p>
+            <p class="underline french">PIECES JUSTIFICATIVES</p>
         </a>
         <a href="team.html">
-            <p class="underline">TEAM</p>
+            <p class="underline english">TEAM</p>
+            <p class="underline french">ÉQUIPE</p>
         </a>
         <a href="contribute.html">
-            <p class="underline">GET INVOLVED</p>
+            <p class="underline english">GET INVOLVED</p>
+            <p class="underline french">IMPLIQUEZ-VOUS</p>
         </a>
-        <!-- Language switch, not yet implemented -->
-        <!-- <div class="switch">
+        <!-- Language switch -->
+        <div class="switch">
             <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox"
                 oninput="changeLanguage()">
             <label for="language-toggle"></label>
             <span class="on">EN</span>
             <span class="off">FR</span>
-        </div> -->
+        </div>
     </nav>
 
     <main>
