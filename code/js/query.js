@@ -185,3 +185,8 @@ function changeYearDisplay() {
         greyedOut.style["z-index"] = -9999
     }
 }
+
+function hideGeocodingLabel() {
+    var label = document.getElementById("geocoding-search-label")
+    label.style.display = "none"
+}

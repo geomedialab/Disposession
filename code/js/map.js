@@ -28,7 +28,7 @@ function viewFullMap() {
     var queryBox = document.querySelector("#query-box");
 
     var state = document.querySelector("#state");
-    state2 = document.querySelector("#state2");
+    var state2 = document.querySelector("#state2");
 
     var language = checkCookie();
     function setUpQueryMap() {
@@ -46,9 +46,9 @@ function viewFullMap() {
     }
 
     if (language == "french") {
-        if (state2.innerHTML == "VOIR LA CARTE COMPLÈTE") {
+        if (state2.innerHTML == "CARTE COMPLÈTE") {
             setUpQueryMap();
-            state2.innerHTML = "VOIR LA CHRONOLOGIE";
+            state2.innerHTML = "CHRONOLOGIE";
         } else {
             startTimeDisplay();
 
@@ -59,7 +59,7 @@ function viewFullMap() {
             introBox.style.display = 'block';
 
             timelineMap.flyTo([45.631550, -73.709463], 10.5);
-            state2.innerHTML = "VOIR LA CARTE COMPLÈTE";
+            state2.innerHTML = "CARTE COMPLÈTE";
             turnOffMapInteraction(timelineMap, "timeline-map")
         }
     } else {
@@ -92,10 +92,14 @@ var timelineMap = L.map('timeline-map',
     {
         center: center,
         zoom: zoom,
-        zoomControl: false,
+        zoomControl:false,
         fullScreenControl: false,
         attributionControl: false
     });
+timelineMap.scrollWheelZoom.disable();
+L.control.zoom({
+    position: 'topright'
+}).addTo(timelineMap)
 
 var geocoding_map = L.map('geocoding-map',
     {
@@ -260,7 +264,7 @@ function addInvisibleCadaster(map) {
 
 
             // Create the popups
-            cadasterLayer = L.geoJSON(
+            var invisibleCadasterLayer = L.geoJSON(
                 cadasterData,
                 setOptions = {
                     style: invisibleCadasterStyle,
@@ -268,8 +272,10 @@ function addInvisibleCadaster(map) {
                 }
             ).addTo(map);
 
-            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [850, 0] })
-            timelineMap.removeLayer(cadasterLayer);
+            timelineMap.flyToBounds(invisibleCadasterLayer, { paddingBottomRight: [850, 0] })
+            timelineMap.removeLayer(invisibleCadasterLayer);
+            delete cadasterData;
+            delete invisibleCadasterLayer;
         });
 }
 
@@ -605,15 +611,14 @@ function displayQueryResults(queryResults, map) {
 var onEachFeature = function (feature, layer) {
     // Capitalize the first word of original deed sale variable
     const word = feature.properties.ORIGINAL_A
-    const capitalized =
-        word.charAt(0)
-        + word.slice(1).toLowerCase()
-
+    const capitalized = word.charAt(0) + word.slice(1).toLowerCase()
 
     if (feature.properties.CONCEDED_T != null) {
-        var wayOfSale = 'Conceded'
-        var soldOrConceeded = `<br>By: ${feature.properties.CONCEDED_B}
-                                 <br>To: ${feature.properties.CONCEDED_T}`
+        var wayOfSale = '<p class="english">Conceded</p><p class="french">Concédé</p>'
+        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.CONCEDED_B}
+                                 <br>To: ${feature.properties.CONCEDED_T}</div>\
+                                 <div class="french"> Par: ${feature.properties.CONCEDED_B}
+                                 <br>À: ${feature.properties.CONCEDED_T}</div>`
     } else {
         var wayOfSale = 'Sold'
         var soldOrConceeded = `<br>By ${feature.properties.SOLD_BY}
@@ -628,16 +633,18 @@ var onEachFeature = function (feature, layer) {
 
 
     layer.bindPopup(
-        `<center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
+        // English popup
+        `<p class="english"><center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
 
         // Correct order
-        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}.<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
+        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
 
         '<i>Information from the Land Registry of Quebec.</i><br>' +
 
         `Lot registration number: ${feature.properties.NUM_ENREGI}
                      <br>Found original sale: ${capitalized}
-                     <br>Notes: ${feature.properties.NOTES}`,
+                     <br>Notes: ${feature.properties.NOTES}
+                     </p>`,
         // Styling tooltip Options
         {
             sticky: false,
@@ -848,7 +855,7 @@ function turnOnMapInteraction(map, mapid) {
     map.dragging.enable();
     map.touchZoom.enable();
     map.doubleClickZoom.enable();
-    map.scrollWheelZoom.enable();
+    // map.scrollWheelZoom.enable();
     map.boxZoom.enable();
     map.keyboard.enable();
     if (map.tap) map.tap.enable();
@@ -862,4 +869,4 @@ addKanehsatakeToMain();
 addCadaster(geocoding_map);
 addInvisibleCadaster(timelineMap)
 var markerGroup = L.layerGroup().addTo(geocoding_map);
-$(document).ready(function () { setTimeout(startTimeDisplay(), "1500"); })
+$(document).ready(function () { setTimeout(() => {startTimeDisplay()}, "1500"); })

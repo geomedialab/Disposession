@@ -57,6 +57,10 @@ path:focus {
     font-family: Neue-Machina;
 }
 
+.leaflet-dragging .leaflet-grab {
+    cursor: move;
+}
+
 /* For some reason this doesn't override the font size ... */
 .leaflet-popup-content {
     font-size: 2em;

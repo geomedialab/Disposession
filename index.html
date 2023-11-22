@@ -81,7 +81,7 @@
             <div id="timeline-map"></div>
             <div id="view-full-map" class="grow" onclick="viewFullMap()">
                 <div id="state" class="english">VIEW FULL MAP</div>
-                <div id="state2" class="french">VOIR LA CARTE COMPLÈTE</div>
+                <div id="state2" class="french">CARTE COMPLÈTE</div>
             </div>
             <div id="intro-box">
                 <div id="intro-content">
@@ -118,7 +118,7 @@
                                 <div class="french">Parcelles attribuées aux colons </div>
                             </td>
                             <td>
-                                <div class="english">Years of<br>dispossession</div>
+                                <div class="english">Years of dispossession</div>
                                 <div class="french">Années de dépossession</div>
                             </td>
                             <td>
@@ -134,7 +134,7 @@
                     <div id="input-container">
                         <div id="query-text">
                             <div class="english machina">INDIGENOUS LAND<br>GRANTED</div>
-                            <div class="french machina">TERRE AUTOCHTONE<BR>CONCEDEE</div>
+                            <div class="french machina">TERRE ALLOUÉE</div>
                         </div>
                         <div class="dividing-line"></div>
                         <div id="how-to">
@@ -177,39 +177,39 @@
                             <div>
                                 <div id="query-decorator">
                                     <p class="english machina">Sulpician Priests</p>
-                                    <p class="french machina">French text.</p>
+                                    <p class="french machina">Sulpiciens</p>
                                     <input class="mainQuery machina" type="search" id="conceededByQuery"
                                         oninput="showSelectableFields('conceededByQuery', 'conceededByUL')"
                                         onclick="showList('conceededByQuery','conceededByUL')">
                                     <label for="conceededByQuery" class="query-label" id="conceededByQuery-label">
                                         <div class="english machina">Search by Sulpician name</div>
-                                        <div class="french machina">French text.</div>
+                                        <div class="french machina">Rechercher par nom de Sulpien</div>
                                     </label>
                                     <ul class="queryList" id="conceededByUL">
                                     </ul>
                                 </div>
                                 <div id="query-decorator">
                                     <p class="english machina">Sold or Conceded to</p>
-                                    <p class="french machina">French text.</p>
+                                    <p class="french machina">Vendue ou concédée à</p>
                                     <input class="mainQuery" type="search" id="buyerQuery"
                                         oninput="showSelectableFields('buyerQuery', 'buyerUL')"
                                         onclick="showList('buyerQuery', 'buyerUL')">
                                     <label for="buyerQuery" class="query-label" id="buyerQuery-label">
                                         <div class="english machina">Search by lot acquirer</div>
-                                        <div class="french machina">French text</div>
+                                        <div class="french machina">Rechercher par nom de colon</div>
                                     </label>
                                     <ul class="queryList" id="buyerUL">
                                     </ul>
                                 </div>
                                 <div id="query-decorator">
                                     <p class="english machina">Registration Number</p>
-                                    <p class="french machina">French text.</p>
+                                    <p class="french machina">Numero d'enregistrement</p>
                                     <input class="mainQuery" type="search" id="numEnregiQuery"
                                         oninput="showSelectableFields('numEnregiQuery', 'numEnregiUL')"
                                         onclick="showList('numEnregiQuery','numEnregiUL')">
                                     <label for="numEnregiQuery" class="query-label" id="numEnregiQuery-label">
-                                        <div class="english machina">Search by registration number</div>
-                                        <div class="french machina">French text</div>
+                                        <div class="english machina">Search by deed of sale</div>
+                                        <div class="french machina">Rechercher par acte de vente</div>
                                     </label>
                                     <ul class="queryList" id="numEnregiUL">
                                     </ul>
@@ -217,13 +217,13 @@
                                 <div class="spacer"></div>
                                 <div id="query-decorator">
                                     <p class="english machina">With original deed of sale</p>
-                                    <p class="french machina">French text.</p>
+                                    <p class="french machina">Première conceession</p>
                                     <input class="mainQuery" type="search" id="originalAQuery"
                                         oninput="showSelectableFields('originalAQuery', 'originalAUL')"
                                         onclick="showList('originalAQuery', 'originalAUL')">
                                     <label for="originalAQuery" class="query-label" id="originalAQuery-label">
-                                        <div class="english machina">Search by registration number</div>
-                                        <div class="french machina">French text</div>
+                                        <div class="english machina">Search by records obtained</div>
+                                        <div class="french machina">Rechercher par degree de certitude</div>
                                     </label>
                                     <ul class="queryList" id="originalAUL">
                                     </ul>
@@ -231,6 +231,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- TODO add a french no-data -->
                     <div id="no-data" class="english machina">No lots in the cadaster match your query.</div>
                     <div id="button-container">
                         <div id="button-decorators">
@@ -301,8 +302,12 @@
 
                 <figure style="position: absolute; left: 3vw;">
                     <img style="max-width: 15vw; height: auto;" src="assets/sulpician.png">
-                    <figcaption class="caption">Credit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
+                    <figcaption class="caption english">Credit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
                         Copyright : © Bibliothèque et Archives Canada<br>
+                        Source : Bibliothèque et Archives Canada, no. d’acquisition 1933-188-1, C-000182
+                    </figcaption>
+                    <figcaption class="caption french">Crédit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
+                        Droit d'auteur : © Bibliothèque et Archives Canada<br>
                         Source : Bibliothèque et Archives Canada, no. d’acquisition 1933-188-1, C-000182
                     </figcaption>
                 </figure>
@@ -362,8 +367,9 @@
 
                 <figure style="position: absolute; right: 3vw;">
                     <img style="max-width: 15vw; height: auto;" src="assets/Joseph_Swan_with_Wampum.jpg">
-                    <figcaption class="caption english">NEED ENGLISH CAPTION NEED ENGLISH CAPTION NEED ENGLISH CAPTION
-                        NEED ENGLISH CAPTION NEED ENGLISH CAPTION
+                    <figcaption class="caption english">Kanien'kehá:ka [Mohawk] chief Joseph Swan Onasakenrat carrying
+                        the "two-dog wampum" from Kanesatake, circa 1868.<br>
+                        Albumen print, 10.2 x 6.4 cm, Jean Tangua Collection
                     </figcaption>
                     <figcaption class="caption french">Le chef kanien’kehá:ka [Mohawk] Joseph Swan Onasakenrat portant
                         le « wampum aux deux chiens » de Kanesatake, vers 1868.<br>
@@ -720,7 +726,7 @@
                 <div id="profits-generated-text">
                     <br>
                     <h1 class="title english" style="text-align: left;">HOW MUCH PROFIT WAS GENERATED?</h1>
-                    <h1 class="title french" style="text-align: left;">NEED FRENCH TITLE</h1>
+                    <h1 class="title french" style="text-align: left;">QUEL EST LE MONTANT DES BÉNÉFICES RÉALISÉS ?</h1>
                     <div class="spacer"></div>
                     <div class="english">
                         It’s hard to say how much was made because land sale amounts were not consistently recorded.
@@ -748,13 +754,16 @@
                             style="color: var(--black-color); position: absolute; top: 46px;">Location is not within
                             area of study.</div>
                         <div id="query-decorator">
-                            <input type="search" placeholder="Enter address on this territory" id="geocoding-search"
-                                style="border-radius: 8px;">
+                            <input type="search" id="geocoding-search" name="geocoding-search" style="border-radius: 8px;" oninput="hideGeocodingLabel()">
+                            <label id="geocoding-search-label" for="geocoding-search" class="query-label" style="top: 0;">
+                                        <p class="english machina" style="padding-top: 4px">&ensp;Enter address on this territory</p>
+                                        <p class="french machina" style="padding-top: 4px">&ensp;Rechercher un addresse sur ce territoire</p>
+                                        </label>
                             <ul class="queryList" id="geocodingUL"></ul>
                             <div id="button-decorators" style="margin-top: 0;">
                                 <button id="submit-address" class="button grow machina" onclick="callNominatim()"
-                                    style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color);">ENTER
-                                    ADDRESS
+                                    style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color);">
+                                    ENTER ADDRESS
                                     <i class="fa fa-circle-o-notch fa-spin" id="loading"></i></button>
                             </div>
                         </div>
