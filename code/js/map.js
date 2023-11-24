@@ -599,7 +599,6 @@ function displayQueryResults(queryResults, map) {
 
     map.addLayer(ghostLayer);
     map.addLayer(queryLayer);
-    indigLandsLayer.bringToBack();
     ghostLayer.bringToFront();
     queryLayer.bringToFront();
 
