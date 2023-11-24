@@ -22,8 +22,10 @@ function changeLanguage() {
         }
         document.cookie = "Language=english;"
     }
-    document.getElementById("no-data").style.display = "none";
-    console.log(checkCookie());
+    var noData = document.getElementById("no-data");
+    if (noData !== null){
+        noData.style.display = "none";
+    }
 }
 
 function checkCookie() {

@@ -10,22 +10,15 @@ const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
 var timer = null;
 
-function scrollToTop() {
-    main = document.querySelector("main")
-    main.scrollTo(0, 0);
-}
-
-
-function scrollToBottom() {
-    main = document.querySelector("main")
-    main.scrollTo(0, 100000);
-}
-
-
 function viewFullMap() {
     scrollToTop();
     var introBox = document.querySelector("#intro-box");
     var queryBox = document.querySelector("#query-box");
+
+    // Turn on/off legend and zoom things
+    var timelineLegend = document.getElementById("timeline-legend");
+    var zoomControl = document.querySelector(".leaflet-control-zoom.leaflet-bar.leaflet-control");
+    var baselayerControl = document.querySelector(".leaflet-control-layers");
 
     var state = document.querySelector("#state");
     var state2 = document.querySelector("#state2");
@@ -33,9 +26,12 @@ function viewFullMap() {
     var language = checkCookie();
     function setUpQueryMap() {
         resetTimeline();
+        timelineLegend.style.opacity = 0
         timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] });
         addCadasterToTimeline();
         addKanehsatakeToTimeline();
+        zoomControl.style.display = "block";
+        baselayerControl.style.clear = "none";
 
         introBox.style.opacity = 0;
         queryBox.style.opacity = 100;
@@ -46,20 +42,21 @@ function viewFullMap() {
     }
 
     if (language == "french") {
-        if (state2.innerHTML == "CARTE COMPLÈTE") {
+        if (state2.innerHTML == "LA CARTE") {
             setUpQueryMap();
-            state2.innerHTML = "CHRONOLOGIE";
+            state2.innerHTML = "LA CHRONOLOGIE";
         } else {
             startTimeDisplay();
+            timelineLegend.opacity = 100;
 
             introBox.style.opacity = 100;
             queryBox.style.opacity = 0;
-            introBox.style.display = 'block';
-            queryBox.style.display = 'none';
-            introBox.style.display = 'block';
+            introBox.style.display = "block";
+            queryBox.style.display = "none";
+            zoomControl.style.display = "none";
 
             timelineMap.flyTo([45.631550, -73.709463], 10.5);
-            state2.innerHTML = "CARTE COMPLÈTE";
+            state2.innerHTML = "LA CARTE";
             turnOffMapInteraction(timelineMap, "timeline-map")
         }
     } else {
@@ -73,9 +70,9 @@ function viewFullMap() {
 
             introBox.style.opacity = 100;
             queryBox.style.opacity = 0;
-            introBox.style.display = 'block';
-            queryBox.style.display = 'none';
-            introBox.style.display = 'block';
+            introBox.style.display = "block";
+            queryBox.style.display = "none";
+            zoomControl.style.display = "none";
 
             timelineMap.flyTo([45.631550, -73.709463], 10.5);
             state.innerHTML = "VIEW FULL MAP"
@@ -86,19 +83,18 @@ function viewFullMap() {
 
     }
 }
-// Initialize maps
 
 var timelineMap = L.map('timeline-map',
     {
         center: center,
         zoom: zoom,
-        zoomControl:false,
+        zoomControl: false,
         fullScreenControl: false,
         attributionControl: false
     });
 timelineMap.scrollWheelZoom.disable();
 L.control.zoom({
-    position: 'topright'
+    position: 'topleft'
 }).addTo(timelineMap)
 
 var geocoding_map = L.map('geocoding-map',
@@ -138,7 +134,7 @@ var darkBasemap2 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{
 // This is a convoluted function that adds IndigLandsLayer to the basemaps but is also in charge of creating the basemap control features
 // It's not great coding but it works
 function addIndigLands() {
-    fetch("https://spencermartel.github.io/Disposession/data/geojson/Indig_lands_clipped.geojson")
+    fetch("https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories&name=mohawk")
         .then((response) => response.json())
         .then((r) => indigLandsData = r)
         .then(() => {
@@ -146,6 +142,7 @@ function addIndigLands() {
                 indigLandsData,
                 setOptions = {
                     onEachFeature: onEachFeatureIndigLands,
+                    attribution: "Native Land Digital"
                 }
             );
             // The order within these determines which is initalized on top.
@@ -155,7 +152,7 @@ function addIndigLands() {
                 "Dark Basemap": darkBasemap1,
             }
             const overlays1 = {
-                "North American Indigenous Lands<br>&emsp;&nbsp;sourced from Native-Land.ca": indigLandsLayer
+                "Mohawk Indigenous Lands<br>&emsp;&nbsp;sourced from Native-Land.ca": indigLandsLayer
             }
 
             const basemaps2 = {
@@ -249,7 +246,7 @@ function addCadaster(map) {
         });
 }
 
-// Just used to flyToBounds of cadaster layer on initial load so center and zoom of map are screen size appropriate
+// Only used to flyToBounds of cadaster layer on initial load so center and zoom of map are screen size appropriate
 function addInvisibleCadaster(map) {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
@@ -272,7 +269,7 @@ function addInvisibleCadaster(map) {
                 }
             ).addTo(map);
 
-            timelineMap.flyToBounds(invisibleCadasterLayer, { paddingBottomRight: [850, 0] })
+            timelineMap.flyToBounds(invisibleCadasterLayer, { paddingBottomRight: [700, 0] })
             timelineMap.removeLayer(invisibleCadasterLayer);
             delete cadasterData;
             delete invisibleCadasterLayer;
@@ -359,24 +356,26 @@ function pointInPoly(marker) {
 }
 
 // Top left legend details
-// const cadasterLegend = L.control({ position: 'topright' });
-// cadasterLegend.onAdd = function () {
-//     const div = L.DomUtil.create('div');
-//     labels = [],
-//         categories = [
-//             { name: '<div class="english">Historic white settlement</div><div class="french">French text</div>', color: cadasterColor },
-//             { name: '<div class="english">Kanehsatà:ke today</div><div class="french">French text</div>', color: purpleColor },
-//         ];
-//     // Seignerie du Lac des Deux Montagnes
-//     for (var i = 0; i < categories.length; i++) {
-//         div.innerHTML +=
-//             labels.push(
-//                 '<i class="circle" style="background:' + categories[i].color + '"></i>' +
-//                 (categories[i].name));
-//     }
-//     div.innerHTML = labels.join("");
-//     return div;
-// }
+const cadasterLegend = L.control({ position: 'bottomleft' });
+cadasterLegend.onAdd = function () {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.id = "timeline-legend"
+    div.style.backgroundColor = "transparent";
+    div.style.color = cadasterColor;
+    div.style.whitespace = "nowrap";
+    labels = [],
+        categories = [
+            '<i class="gradient-line" style="background-image: linear-gradient(to right, #1c1c1c, #FFFFFF);"></i>' + '<div class="english machina">Mohawk Land granted to settlers</div><div class="french machina">La terre des Mohawks accordée aux colons</div>',
+            '<i style="background:' + purpleColor + '"></i>' + '<div class="english machina">Kanehsatà:ke today</div><div class="french machina">Kanehsatà:ke aujourd\'hui</div>',
+        ];
+
+    for (var i = 0; i < categories.length; i++) {
+        div.innerHTML +=
+            labels.push(categories[i])
+    }
+    div.innerHTML = labels.join("");
+    return div;
+}
 
 //Function to create gradient color array given start colow, end color, and # of steps
 function gradient(startColor, endColor, steps) {
@@ -411,7 +410,9 @@ function gradient(startColor, endColor, steps) {
 
 }
 
-var timelineGradient = gradient('#1c1c1c', '#FFFFFF', 19)
+const linearStartStop = ['#1c1c1c', '#FFFFFF']
+
+var timelineGradient = gradient(linearStartStop[0], linearStartStop[1], 19)
 
 
 // Meat and potatoes of the timeline function
@@ -471,14 +472,9 @@ function timeDisplay(data, previousYear, liveYear, index) {
     if (liveYear <= 1960) {
         timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval);
     } else {
-        // Create and add Years to top right
-        var yearLegend = L.control({ position: 'bottomleft' });
-        yearLegend.onAdd = function () {
-            const div = L.DomUtil.create('div', 'info legend year-legend');
-
-            div.innerHTML = 'Hello'
-            return div
-        }
+        // Remove bottom left year range if it exists
+        var elements = document.querySelector('year-legend');
+        console.log(elements)
         addKanehsatakeToTimeline();
         setTimeout(startTimeDisplay, 7000);
     }
@@ -527,6 +523,8 @@ function startTimeDisplay() {
         .then((data) => cadasterData = data)
         .then(() => {
             resetLayersTimeline();
+            cadasterLegend.addTo(timelineMap);
+
             // Start the timeline animation
             timeDisplay(cadasterData, earliestDate, (earliestDate + range), 0);
 
@@ -568,7 +566,7 @@ function resetMap() {
     document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'block';
 
     scrollToTop();
-    timelineMap.fitBounds(cadasterLayer.getBounds())
+    timelineMap.fitBounds(cadasterLayer.getBounds(), { paddingBottomRight: [400, 0] })
 }
 
 function displayQueryResults(queryResults, map) {
@@ -594,7 +592,6 @@ function displayQueryResults(queryResults, map) {
                 fillColor: '#1f1f1e',
                 weight: 0.1,
                 color: '#575654',
-                // opacity: 0.3,
                 fillOpacity: 0.3
             }
         }
@@ -602,6 +599,9 @@ function displayQueryResults(queryResults, map) {
 
     map.addLayer(ghostLayer);
     map.addLayer(queryLayer);
+    indigLandsLayer.bringToBack();
+    ghostLayer.bringToFront();
+    queryLayer.bringToFront();
 
     // Center slightly to the right of cadaster to account for intro/query box
     map.flyToBounds(queryLayer.getBounds(), { duration: 1.5 });
@@ -723,11 +723,12 @@ var onEachFeatureCadaster = function (feature, layer) {
 
 var onEachFeatureIndigLands = function (feature, layer) {
     layer.setStyle({
-        "color": feature.properties.color,
-        "fillOpacity": 0,
-        "weight": 0,
-        "opacity": 0.5,
-        'dashArray': '5'
+        "color": purpleColor,
+        "fillOpacity": 0.02,
+        "weight": 2,
+        "fillColor": purpleColor,
+        "opacity": 1,
+        'dashArray': '5',
     })
 
     // Trying to add labels to markers to show indig names on map, REALLY affects performance
@@ -735,7 +736,7 @@ var onEachFeatureIndigLands = function (feature, layer) {
     // var latLng = bounds.getCenter();
     // var marker = new L.marker([latLng.lat, latLng.lng], { opacity: 0})
     // marker.bindTooltip(feature.properties.Name, { permanent: true, direction: "center", className: "IndigLandLabel", offset: [0, 0] });
-    // marker.addTo(map);
+    // marker.addTo(timelineMap);
 
     // Hover Tooltiups are much less demanding computationally
     layer.bindTooltip(`
@@ -752,13 +753,13 @@ var onEachFeatureIndigLands = function (feature, layer) {
 }
 
 // Change styling based on zoom (essentially like breakpoints)
-// timelineMap.on("zoomend", checkAndChangeStylingParameters());
-// timelineMap.on("baselayerchange", checkAndChangeStylingParameters());
-
-function checkAndChangeStylingParameters() {
+// timelineMap.on("zoomend", checkAndChangeStylingParameters(timelineMap));
+// timelineMap.on("baselayerchange", checkAndChangeStylingParameters(timelineMap));
+// Function not working
+function checkAndChangeStylingParameters(map) {
     var zoomLevel = map.getZoom();
 
-    if (timelineMap.hasLayer(cadasterLayer)) {
+    if (map.hasLayer(cadasterLayer)) {
         if (zoomLevel <= 7) {
             cadasterLayer.setStyle(
                 {
@@ -767,16 +768,7 @@ function checkAndChangeStylingParameters() {
             )
         }
     }
-    if (geocoding_map.hasLayer(cadasterLayer)) {
-        if (zoomLevel <= 7) {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 0
-                }
-            )
-        }
-    }
-    if (timelineMap.hasLayer(Esri_WorldImagery) && timelineMap.hasLayer(cadasterLayer)) {
+    if (map.hasLayer(Esri_WorldImagery) && map.hasLayer(cadasterLayer)) {
         if (zoomLevel == 12) {
             cadasterLayer.setStyle(
                 {
@@ -807,7 +799,7 @@ function checkAndChangeStylingParameters() {
             }
         )
 
-    } if (geoco.hasLayer(Esri_WorldImagery) && timelineMap.hasLayer(cadasterLayer)) {
+    } if (map.hasLayer(Esri_WorldImagery) && map.hasLayer(cadasterLayer)) {
         if (zoomLevel == 12) {
             cadasterLayer.setStyle(
                 {
@@ -861,6 +853,15 @@ function turnOnMapInteraction(map, mapid) {
     if (map.tap) map.tap.enable();
     document.getElementById(mapid).style.cursor = 'grab';
 }
+function scrollToTop() {
+    main = document.querySelector("main")
+    main.scrollTo(0, 0);
+}
+
+function scrollToBottom() {
+    main = document.querySelector("main")
+    main.scrollTo(0, 100000);
+}
 
 turnOffMapInteraction(timelineMap, "timeline-map")
 // Initialize the map with data, The order added affects which is on top of the other
@@ -869,4 +870,4 @@ addKanehsatakeToMain();
 addCadaster(geocoding_map);
 addInvisibleCadaster(timelineMap)
 var markerGroup = L.layerGroup().addTo(geocoding_map);
-$(document).ready(function () { setTimeout(() => {startTimeDisplay()}, "1500"); })
+$(document).ready(function () { setTimeout(() => { startTimeDisplay() }, "1500"); })

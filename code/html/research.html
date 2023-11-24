@@ -52,8 +52,7 @@
         </a>
         <!-- Language switch -->
         <div class="switch">
-            <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox"
-                oninput="changeLanguage()">
+            <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox" oninput="changeLanguage()">
             <label for="language-toggle"></label>
             <span class="on">EN</span>
             <span class="off">FR</span>
@@ -61,191 +60,315 @@
     </nav>
 
     <main>
-        <div class="french" style="color: red; height: 200px;"></div>
-        <div id="landing" class="english">
+        <div id="landing">
             <div class="spacer"></div>
             <div class="introduction-text">
-                <h1 class="title">RESEARCH METHODOLOGY</h1>
+                <h1 class="title english" style="justify-content: center;">RESEARCH METHODOLOGY</h1>
+                <h1 class="title french" style="justify-content: center;">MÉTHODOLOGIE </h1>
                 <div class="spacer"></div>
-                <p>
+                <p class="english">
                     Louis Guy, then general surveyor, created the first cadaster for the Seminary of Saint Sulpice
                     in 1798.
                     To define our area of study, we had to georeference the digital image of Louis Guy’s
                     1798 cadaster of the Seigneurie du Lac des Deux Montagnes.
                 </p>
+                <p class="french">
+                    Louis Guy, arpenteur général, créa le premier cadastre pour le Séminaire de Saint-Sulpice en 1798.
+                    Pour définir notre champ d'étude dans la Seigneurie du Lac des Deux Montagnes, nous avons dû
+                    géoréférencer l'image numérique de ce cadastre.
+                </p>
                 <br>
 
-                <h2 class="title">What is georeferencing?</h1>
-                    <div class="spacer"></div>
+                <h2 class="title english" style="justify-content: center;">What is georeferencing?</h2>
+                <h2 class="title french" style="justify-content: center;">Qu'est-ce que le géoréférencement?</h2>
+                <div class="spacer"></div>
 
-                    <p>
-                        Georeferencing is the name given to the process of transforming a scanned map or aerial
-                        photograph, so it appears “in place” in a Geographic Information System (GIS). By associating
-                        features on the scanned image with real-world x and y coordinates, the software can
-                        progressively warp the image, so it fits to other spatial datasets. The result will create a new
-                        raster dataset for use in GIS.
-                    </p>
+                <p class="english">
+                    Georeferencing is the name given to the process of transforming a scanned map or aerial
+                    photograph, so it appears “in place” in a Geographic Information System (GIS). By associating
+                    features on the scanned image with real-world x and y coordinates, the software can
+                    progressively warp the image, so it fits to other spatial datasets. The result will create a new
+                    raster dataset for use in GIS.
+                </p>
+                <p class="french">
+                    Le géoréférencement désigne le procédé par lequel une carte ou une photographie aérienne numérisée
+                    sont transformées de manière à s'intégrer correctement dans un système d'information géographique
+                    (SIG). En reliant les caractéristiques de l'image numérisée à des coordonnées réelles en x et y, un
+                    logiciel peut graduellement ajuster l'image pour qu'elle concorde avec d'autres jeux de données
+                    spatiales. Le résultat donne naissance à un nouvel ensemble de données matricielles exploitable au
+                    sein d'un SIG.
+                </p>
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img src="../../assets/Research_Methodology/Deux_Montagnes_Louis_Guy.jpg">
-                    </div>
-                    <div class="img-container">
-                        <img style="width: 100%;"
-                            src="../../assets/Research_Methodology/Louis Guy_Georeferenced Cadaster_Full.jpg">
-                    </div>
-                    <div class="caption">Louis Guy’s cadaster georeferenced in GIS.</div>
-                    <div class="spacer"></div>
-                    <p>
-                        Luis Guy’s cadaster does not chart all the land in the seigneurie. To obtain the full cadaster,
-                        we had to complement it with information from <a href="sources.html">10 other cadasters</a> of
-                        the area obtained at
-                        Quebec’s National Library and Archives.
-                        In the case below we can see the larger map of the Seigneurie of Lac-des-Deux-Montagnes (1798)
-                        overlayed with smaller map of Paroisse de L’Annonciation du Lac (1879).
-                    </p>
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;" src="../../assets/Research_Methodology/Two_cadasters_overlay.jpg">
-                    </div>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img src="../../assets/Research_Methodology/Deux_Montagnes_Louis_Guy.jpg">
+                </div>
+                <div class="img-container">
+                    <img style="width: 100%;"
+                        src="../../assets/Research_Methodology/Louis Guy_Georeferenced Cadaster_Full.jpg">
+                </div>
+                <div class="caption english">Louis Guy’s cadaster georeferenced in GIS.</div>
+                <div class="caption french">Le cadastre de Louis Guy géoréférencé dans un système d'information
+                    géographique.</div>
+                <div class="spacer"></div>
+                <p class="english">
+                    Luis Guy’s cadaster does not chart all the land in the seigneurie. To obtain the full cadaster,
+                    we had to complement it with information from <a href="sources.html">10 other cadasters</a> of
+                    the area obtained at
+                    Quebec’s National Library and Archives.
+                    In the case below we can see the larger map of the Seigneurie of Lac-des-Deux-Montagnes (1798)
+                    overlayed with smaller map of Paroisse de L’Annonciation du Lac (1879).
+                </p>
+                <p class="french">
+                    Le cadastre de Louis Guy ne couvre pas la totalité des terres de la seigneurie. Afin d'obtenir une
+                    représentation complète, nous avons dû l'enrichir en intégrant les données de 10 autres cadastres de
+                    la région provenant des collections de la Bibliothèque nationale et des Archives du Québec. Dans
+                    l'exemple ci-dessous, vous pouvez observer la superposition de la grande carte de la Seigneurie du
+                    Lac-des-Deux-Montagnes (1798) avec une plus petite carte de la Paroisse de L'Annonciation du Lac
+                    (1879).
+                </p>
 
-                    <p>
-                        Once the reconstituted cadaster was completed and georeferenced, we traced each lot as
-                        rectangular polygons. Doing this precisely was only possible because most of the lots in the
-                        seigneurie were designed for agricultural use. The lot borders have been maintained for 250
-                        years without too much interference and are still visible today on a satellite image.
-                        Unfortunately, precision faltered around the Maribel Airport area which drastically changed the
-                        landscape in the 1970s.</p>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/Two_cadasters_overlay.jpg">
+                </div>
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;" src="../../assets/Research_Methodology/cadaster_with_lots_traced.jpg">
-                    </div>
+                <p class="english">
+                    Once the reconstituted cadaster was completed and georeferenced, we traced each lot as
+                    rectangular polygons. Doing this precisely was only possible because most of the lots in the
+                    seigneurie were designed for agricultural use. The lot borders have been maintained for 250
+                    years without too much interference and are still visible today on a satellite image.
+                    Unfortunately, precision faltered around the Maribel Airport area which drastically changed the
+                    landscape in the 1970s.
+                </p>
+                <p class="french">
+                    Après avoir reconstitué et géoréférencé le cadastre au complet, nous avons tracé chaque parcelle
+                    sous forme de polygones rectangulaires. Cette précision a pu être atteinte en grande partie grâce à
+                    la vocation agricole de la plupart des parcelles au sein de la seigneurie. Les limites des parcelles
+                    ont été préservées pendant une période de 250 ans, subissant peu d'altérations, et sont toujours
+                    observables de nos jours sur des images satellites. Malheureusement, la précision a été compromise
+                    dans la zone aéroportuaire de Maribel, sa construction ayant radicalement modifié le paysage dans
+                    les années 1970.
+                </p>
 
-                    <p>
-                        To draw the original lots in the municipality of Oka, we overlayed a current dataset from
-                        Natural
-                        Resources Canada with the cadaster of Oka made in 1879. From this overlay, we were able to trace
-                        the original larger lot, out of which smaller lots would eventually be taken. A handful of lots
-                        needed to be completely redrawn. Like puzzle pieces, the checkered pattern of the cadaster
-                        helped us infer where the lot could be in comparison to other known lots.
-                    </p>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/cadaster_with_lots_traced.jpg">
+                </div>
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;"
-                            src="../../assets/Research_Methodology/Oka_cadaster_with_red_overlay.jpg">
-                    </div>
-                    <div class="caption">Paroisse de L’Annonciation du Lac (1879) overlayed with current lots of the
-                        municipality of Oka from Natural Resources Canada (in red). </div>
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;" src="../../assets/Research_Methodology/Oka_tracing_result.jpg">
-                    </div>
-                    <div class="caption">Tracing result.</div>
+                <p class="english">
+                    To draw the original lots in the municipality of Oka, we overlayed a current dataset from
+                    Natural
+                    Resources Canada with the cadaster of Oka made in 1879. From this overlay, we were able to trace
+                    the original larger lot, out of which smaller lots would eventually be taken. A handful of lots
+                    needed to be completely redrawn. Like puzzle pieces, the checkered pattern of the cadaster
+                    helped us infer where the lot could be in comparison to other known lots.
+                </p>
+                <p class="french">
+                    Pour cartographier les parcelles d'origine de la municipalité d'Oka, nous avons réalisé une
+                    superposition entre les données actuelles fournies par Ressources naturelles Canada et le cadastre
+                    d'Oka datant de 1879. Cette superposition nous a permis de délimiter la parcelle initiale, de plus
+                    grande taille, à partir de laquelle les parcelles plus petites ont été subdivisées. Certaines de ces
+                    parcelles ont nécessité une refonte totale. Telles les pièces d'un vaste puzzle, la trame en damier
+                    du cadastre a été d'une grande utilité pour déterminer la position des parcelles vis-à-vis d'autres
+                    déjà répertoriées.
+                </p>
 
-                    <p>When the 10 cadasters had been georeferenced and each lot traced, we obtained 1830 lots. </p>
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;" src="../../assets/Research_Methodology/1830_lots_traced.jpg">
-                    </div>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/Oka_cadaster_with_red_overlay.jpg">
+                </div>
+                <div class="caption english">
+                    Paroisse de L’Annonciation du Lac (1879) overlayed with current lots of the
+                    municipality of Oka from Natural Resources Canada (in red).
+                </div>
+                <div class="caption french">
+                    Paroisse de L'Annonciation du Lac (1879) superposée aux parcelles actuelles de la municipalité d'Oka
+                    provenant de Ressources naturelles Canada (en rouge).
+                </div>
 
-                    <p>
-                        In collaboration with the Kanehsatakeró:non Land Defender, we decided which archival data were
-                        important to map and which aspects were outside the scope of the research. Our first decision
-                        was to focus on mapping the first act of concession/sale rather than trace the history of
-                        transactions for each lot from its creation to today. This is because the size of the area, the
-                        time frame, the list of owners in a single lot and the number of subdivisions were too extensive
-                        for more detail. It became more pertinent to visualize the moment the land was transferred to
-                        the possession of settlers and made inaccessible to the Kanehsatakeró:non. We associated each of
-                        the deeds of concession to their corresponding lots on the map.
-                        <br><br>
-                        For instance, this deed of concession tells us the lot number 137, which can be found on the
-                        cadaster. We can then attach the name of the Sulpician, Etienne Montgolfier, the date of
-                        concession June 9th 1780 and the name of the settler, Henri Grandmaison to the attribute table
-                        in GIS.
-                    </p>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/Oka_tracing_result.jpg">
+                </div>
+                <div class="caption english">Tracing result.</div>
+                <div class="caption french">Résultat du traçage.</div>
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;"
-                            src="../../assets/Research_Methodology/deed_to_cadaster_association.jpg">
-                    </div>
-                    <p>
-                        The area that eventually became the municipality of Oka consisted of 333 individual lots, and
-                        these were not part of the land concessions granted in the 18th and 19th centuries. Instead,
-                        these lots were sold individually, with transactions occurring between 1846 and 1930. To
-                        incorporate this information into the map, we had to access the Quebec Land Registry.
-                        <br><br>
-                        In this excerpt from the Quebec Land Registry Database, the original deed of sale from the
-                        Seminary to a settler is highlighted along with the deed registration number and date.
-                    </p>
+                <p class="english">
+                    When the 10 cadasters had been georeferenced and each lot traced, we obtained 1830 lots.
+                </p>
+                <p class="french">
+                    Après avoir géoréférencé les 10 cadastres et tracé chaque parcelle, nous obtenons 1830 parcelles.
+                </p>
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;"
-                            src="../../assets/Research_Methodology/index_aux_immeuble_Quebec_Land_Registry.jpg">
-                    </div>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/1830_lots_traced.jpg">
+                </div>
 
-                    <p>
-                        Finding the original sale of certain properties in the Quebec Land Registry before 1880 could be
-                        tricky. This is because the index of properties, known as the 'index aux immeubles,' only
-                        started in 1880. So, any sales made by the Sulpicians before that year wouldn't show up in the
-                        index.
-                        <br><br>
-                        Sometimes, even when a sale is recorded, it might only cover a portion of the land. For
-                        instance, if the Sulpicians sold a piece of land in 1870, and the buyer didn't sell it until
-                        1890, the index would only show the 1890 sale, not the 1870 one. This means that the Sulpicians'
-                        transactions might not be visible in these cases.
-                        <br><br>
-                        Additionally, there's a possibility that the 1870 sale was for the entire property, but the 1890
-                        sale only covered a part of it. To work around this issue, we spent hours examining handwritten
-                        deeds of sale. These documents sometimes mention the previous owner if the notary had been
-                        thorough in their work. This helped us trace back the history of these properties more
-                        accurately.
-                        <br><br>
-                        In this case, the notary, Joseph Girard, recorded the name of the owners, the Sulpicians, and
-                        the person who purchased this lot, Regis Lefebrve.
-                    </p>
+                <p class="english">
+                    In collaboration with the Kanehsatakeró:non Land Defender, we decided which archival data were
+                    important to map and which aspects were outside the scope of the research. Our first decision
+                    was to focus on mapping the first act of concession/sale rather than trace the history of
+                    transactions for each lot from its creation to today. This is because the size of the area, the
+                    time frame, the list of owners in a single lot and the number of subdivisions were too extensive
+                    for more detail. It became more pertinent to visualize the moment the land was transferred to
+                    the possession of settlers and made inaccessible to the Kanehsatakeró:non. We associated each of
+                    the deeds of concession to their corresponding lots on the map.
+                    <br><br>
+                    For instance, this deed of concession tells us the lot number 137, which can be found on the
+                    cadaster. We can then attach the name of the Sulpician, Etienne Montgolfier, the date of
+                    concession June 9th 1780 and the name of the settler, Henri Grandmaison to the attribute table
+                    in GIS.
+                </p>
+                <p class="french">
+                    En partenariat avec le Défenseur des terres Kanehsatakeró:non, nous avons de manière collaborative
+                    déterminé quelles données d'archives devaient être cartographiées et quelles informations n'étaient
+                    pas pertinentes pour notre recherche. Notre première décision a été de nous focaliser sur la
+                    cartographie du premier acte de concession ou de vente, au lieu de retracer l'historique des
+                    transactions pour chaque parcelle depuis sa création jusqu'à aujourd'hui. La superficie de la zone,
+                    la période temporelle concernée, la multitude de propriétaires pour une même parcelle, ainsi que le
+                    nombre de subdivisions, rendaient une analyse détaillée inatteignable. Il était davantage pertinent
+                    de mettre en lumière le moment où les terres ont été cédées aux colons, devenant ainsi inaccessibles
+                    aux Kanehsatakeró:non. Nous avons établi une correspondance entre chaque acte de concession/vente et
+                    les parcelles correspondantes sur la carte.
+                    <br><br>
+                    À titre d'exemple, cet acte de concession nous fournit des informations telles que le numéro de lot
+                    137, correspondant à celui du cadastre. Nous sommes ainsi en mesure d'associer le nom du Sulpicien,
+                    Étienne Montgolfier, la date de concession du 9 juin 1780, ainsi que le nom du colon, Henri
+                    Grandmaison, dans la table attributaire du Système d'Information Géographique (SIG).
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;"
-                            src="../../assets/Research_Methodology/handwritten_deed_of_sale_page.jpg">
-                    </div>
+                </p>
 
-                    <p>
-                        When we couldn’t find the dates and names in the deeds of concession or the Quebec Land
-                        Registry, we turned to the Bibliothèque et Archives nationales du Québec. We found 41 Names in
-                        the “livres de renvoi and cadastres abrégés”.
-                    </p>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/deed_to_cadaster_association.jpg">
+                </div>
+                <p class="english">
+                    The area that eventually became the municipality of Oka consisted of 333 individual lots, and
+                    these were not part of the land concessions granted in the 18th and 19th centuries. Instead,
+                    these lots were sold individually, with transactions occurring between 1846 and 1930. To
+                    incorporate this information into the map, we had to access the Quebec Land Registry.
+                    <br><br>
+                    In this excerpt from the Quebec Land Registry Database, the original deed of sale from the
+                    Seminary to a settler is highlighted along with the deed registration number and date.
+                </p>
+                <p class="french">
+                    Le territoire qui deviendra la municipalité d'Oka est constitué de 333 parcelles individuelles qui
+                    ne font pas partie des concessions de terres accordées aux 18e et 19e siècles. Ces parcelles ont
+                    plutôt été vendus individuellement entre 1846 et 1930. Afin d'intégrer cette information sur la
+                    carte, nous avons dû consulter le Registre foncier du Québec.
+                    <br><br>
+                    Dans cet extrait de la base de données du Registre foncier du Québec, l'acte de vente initial (acte
+                    initial de vente ou acte de vente initiale) du Séminaire à un colon est identifié en surbrillance,
+                    incluant numéro d'enregistrement de l'acte et de sa date.
+                </p>
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img style="width: 100%;" src="../../assets/Research_Methodology/Livre_de_revoi.jpg">
-                    </div>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;"
+                        src="../../assets/Research_Methodology/index_aux_immeuble_Quebec_Land_Registry.jpg">
+                </div>
 
-                    <p>
-                        In the end, we managed to trace the original names and dates of concession/sale for 1696 of the
-                        1830 lots that compose the seigneurie, a success rate of 93% overall. However, this certainty
-                        rate is not evenly distributed across time periods.
-                    </p>
+                <p class="english">
+                    Finding the original sale of certain properties in the Quebec Land Registry before 1880 could be
+                    tricky. This is because the index of properties, known as the 'index aux immeubles,' only
+                    started in 1880. So, any sales made by the Sulpicians before that year wouldn't show up in the
+                    index.
+                    <br><br>
+                    Sometimes, even when a sale is recorded, it might only cover a portion of the land. For
+                    instance, if the Sulpicians sold a piece of land in 1870, and the buyer didn't sell it until
+                    1890, the index would only show the 1890 sale, not the 1870 one. This means that the Sulpicians'
+                    transactions might not be visible in these cases.
+                    <br><br>
+                    Additionally, there's a possibility that the 1870 sale was for the entire property, but the 1890
+                    sale only covered a part of it. To work around this issue, we spent hours examining handwritten
+                    deeds of sale. These documents sometimes mention the previous owner if the notary had been
+                    thorough in their work. This helped us trace back the history of these properties more
+                    accurately.
+                    <br><br>
+                    In this case, the notary, Joseph Girard, recorded the name of the owners, the Sulpicians, and
+                    the person who purchased this lot, Regis Lefebrve.
+                </p>
+                <p class="french">
+                    Il peut s'avérer complexe de retrouver la vente initiale de certaines parcelles dans le Registre
+                    foncier du Québec. Cette difficulté découle du fait que l'index des propriétés, appelé "index aux
+                    immeubles", n'a été établi qu'à partir de 1880. Par conséquent, toute vente effectuée par les
+                    Sulpiciens avant cette année-là n'apparaît pas dans l'index.
+                    <br><br>
+                    De plus, même lorsque la vente est enregistrée, elle ne couvre parfois qu'une partie du terrain. Par
+                    exemple, si les Sulpiciens ont vendu une parcelle en 1870 et que l'acquéreur ne l'a revendue qu'en
+                    1890, seule la transaction de 1890 apparaîtra dans l'index, excluant ainsi la vente de 1870. De
+                    telles transactions des Sulpiciens restent donc invisibles dans l’index.
+                    <br><br>
+                    Il est également possible que la vente de 1870 ait pu porter sur l'ensemble de la propriété et que
+                    la vente de 1890 n'ait concerné qu'une partie de celle-ci. Pour contourner ce problème, nous avons
+                    consacré des heures à examiner des actes de vente manuscrits. Ces documents mentionnent parfois
+                    l'ancien propriétaire si le notaire a été rigoureux lors de la réalisation de l’acte. Cela nous a
+                    permis de mieux retracer l'histoire de ces parcelles.
+                    <br><br>
+                    Dans ce cas précis, le notaire Joseph Girard a inscrit les noms des propriétaires, les Sulpiciens,
+                    ainsi que celui de l'acheteur de la parcelle, Régis Lefebrve.
+                </p>
 
-                    <div class="spacer"></div>
-                    <div class="img-container">
-                        <img src="../../assets/Research_Methodology/Graph_orignial_act_of_sale_found.jpg">
-                    </div>
-                    <div class="caption">Number of original deeds of sale/concession found for each lot per year (1780 -
-                        1960).</div>
-                        <br>
-                    <p>If you’d like to know more about this methodology, it is laid out more fully in
-                        Denieul-Pinsky, L. 2023. (Re)purposing cadasters: When ecclesiastical archives advocate for
-                        Indigenous land rights. Canadian Geographies / Géographies canadiennes,1-17.
-                        <br>
-                        <a href="https://doi.org/10.1111/cag.12883"
-                            target="_blank">https://doi.org/10.1111/cag.12883</a>
-                    </p>
-                    <div style="height: 10vh;"></div>
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/handwritten_deed_of_sale_page.jpg">
+                </div>
+
+                <p class="english">
+                    When we couldn’t find the dates and names in the deeds of concession or the Quebec Land
+                    Registry, we turned to the Bibliothèque et Archives nationales du Québec. We found 41 Names in
+                    the “livres de renvoi and cadastres abrégés”.
+                </p>
+                <p class="french">
+                    Lorsque les dates et les noms des colons ne figuraient pas dans les actes de concession ou dans le
+                    Registre foncier du Québec, nous avons consulté la Bibliothèque et des Archives nationales du
+                    Québec. C'est ainsi que nous avons pu identifier 41 noms dans les "livres de renvoi et cadastres
+                    abrégés".
+                </p>
+
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img style="width: 100%;" src="../../assets/Research_Methodology/Livre_de_revoi.jpg">
+                </div>
+
+                <p class="english">
+                    In the end, we managed to trace the original names and dates of concession/sale for 1696 of the
+                    1830 lots that compose the seigneurie, a success rate of 93% overall. However, this certainty
+                    rate is not evenly distributed across time periods.
+                </p>
+                <p class="french">
+                    Finalement, nous sommes parvenus à recueillir les noms des premiers colons ainsi que les dates de
+                    concession ou de vente de 1696 sur les 1830 parcelles qui composent la Seigneurie. Ce résultat
+                    équivaut à un taux de succès de 93% pour l'ensemble de ces parcelles. Il est toutefois important de
+                    noter que ce taux de réussite n'est pas uniformément réparti dans le temps.
+                </p>
+
+                <div class="spacer"></div>
+                <div class="img-container">
+                    <img src="../../assets/Research_Methodology/Graph_orignial_act_of_sale_found.jpg">
+                </div>
+                <div class="caption english">
+                    Number of original deeds of sale/concession found for each lot per year (1780 - 1960).
+                </div>
+                <div class="caption french">
+                    Nombre d'actes de vente ou de concession retrouvés pour chaque parcelle par année (1780 - 1960).
+                </div>
+                <br>
+                <p class="english">
+                    If you’d like to know more about this methodology, it is laid out more fully in the following
+                    document :
+                </p>
+                <p class="french">
+                    Si vous souhaitez en savoir plus sur cette méthodologie, elle est exposée plus en détail dans le
+                    document suivant :
+                </p>
+                <br>
+                <p>Denieul-Pinsky, L. 2023. (Re)purposing cadasters: When ecclesiastical archives advocate for
+                    Indigenous land rights. Canadian Geographies / Géographies canadiennes,1-17.</p>
+                <a href="https://doi.org/10.1111/cag.12883" target="_blank">https://doi.org/10.1111/cag.12883</a>
+                <div style="height: 10vh;"></div>
             </div>
     </main>
 

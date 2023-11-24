@@ -27,7 +27,7 @@
     height: 257px !important;
 }
 
-.leaflet-left > .legend{
+.leaflet-left > .year-legend{
     background-color: transparent;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 39px;

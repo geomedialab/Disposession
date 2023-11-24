@@ -1,3 +1,9 @@
 data/shp/*
 data/notebooks/*
+data/geojson/indigenousTerritories.geojson
+data/geojson/Indig_lands_clipped.geojson
+data/geojson/mergedCadaster.geojson
+data/geojson/NA_merged.geojson
+data/geojson/north-america.geojson
+
 MeetingNotes

@@ -11,7 +11,7 @@
     max-height: 80vh;
     max-width: 52vw;
     overflow-y: scroll;
-    right: 5vw;
+    right: 25px;
     top: 2vh;
 
 
@@ -32,7 +32,7 @@
 
     width: fit-content;
     height: fit-content;
-    right: 5vw;
+    right: 25px;
     top: 2vh;
     
     background-color: var(--black-color);
@@ -123,7 +123,7 @@ table#intro-table {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.5rem;
     font-weight: 400;
-    padding: 0.4rem;
+    padding: 2px 15px;
     border-radius: var(--radius);
     -webkit-border-radius: 2rem
 }

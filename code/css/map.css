@@ -36,11 +36,41 @@ path:focus {
 }
 
 .legend i {
-    width: 18px;
-    height: 18px;
+    width: 40px;
+    height: 5px;
     float: left;
     margin: 0 8px 0 0;
     opacity: 0.7;
+    margin-top: 9px;
+}
+
+
+.leaflet-bottom.leaflet-left {
+    white-space: nowrap;
+}
+
+.leaflet-bottom.leaflet-left div:first-of-type {
+    top: 25px;
+    left: 50px;
+}
+
+/* initialize zoom to not be visible on timeline map */
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+    display: none;
+}
+.leaflet-touch .leaflet-bar a{
+    /* opacity: 0.9; */
+    background-color: #D4D4D4;
+}
+
+
+.leaflet-touch .leaflet-bar > a > span {
+    color: #333333;
+}
+
+.legend.gradient-line {
+    width: 50px;
+    height: 10px;
 }
 
 .legend i.icon {
@@ -75,10 +105,6 @@ path:focus {
     font-size: 20px;
     opacity: 60;
     background-color: transparent;
-}
-
-.circle {
-    border-radius: 50px;
 }
 
 .dotted {
