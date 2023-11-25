@@ -16,7 +16,6 @@ function viewFullMap() {
     var queryBox = document.querySelector("#query-box");
 
     // Turn on/off legend and zoom things
-    var timelineLegend = document.getElementById("timeline-legend");
     var zoomControl = document.querySelector(".leaflet-control-zoom.leaflet-bar.leaflet-control");
     var baselayerControl = document.querySelector(".leaflet-control-layers");
 
@@ -26,7 +25,6 @@ function viewFullMap() {
     var language = checkCookie();
     function setUpQueryMap() {
         resetTimeline();
-        timelineLegend.style.opacity = 0
         timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] });
         addCadasterToTimeline();
         addKanehsatakeToTimeline();
@@ -47,7 +45,6 @@ function viewFullMap() {
             state2.innerHTML = "LA CHRONOLOGIE";
         } else {
             startTimeDisplay();
-            timelineLegend.opacity = 100;
 
             introBox.style.opacity = 100;
             queryBox.style.opacity = 0;
@@ -474,7 +471,6 @@ function timeDisplay(data, previousYear, liveYear, index) {
     } else {
         // Remove bottom left year range if it exists
         var elements = document.querySelector('year-legend');
-        console.log(elements)
         addKanehsatakeToTimeline();
         setTimeout(startTimeDisplay, 7000);
     }
@@ -860,6 +856,63 @@ function scrollToTop() {
 function scrollToBottom() {
     main = document.querySelector("main")
     main.scrollTo(0, 100000);
+}
+
+function addPhaseLayer(phaseLayerName) {
+    resetTimeline();
+    resetLayersTimeline();
+    // document.getElementsByClassName(".leaflet-bottom.leaflet-left .year-legend")[0].style.display = 'none';
+    console.log(document.getElementsByClassName(".leaflet-bottom.leaflet-left .year-legend"))
+
+    phaseNumber = phaseLayerName.split("_")[0]
+
+    var minSliderTextValue = document.getElementById("minRangeValue")
+    var maxSliderTextValue = document.getElementById("maxRangeValue")
+    var minSliderValue = document.getElementById("min-slider")
+    var maxSliderValue = document.getElementById("max-slider")
+
+    var yearLegend = L.control({ position: 'bottomleft' });
+    yearLegend.onAdd = function () {
+        const div = L.DomUtil.create('div', 'info legend year-legend');
+        if (phaseNumber == "First") {
+            startDate = 1780
+            endDate = 1809
+            // Having the french english divs gets complicated, maybe just show the years the user knows which phase they clicked
+            div.innerHTML = `<div class="english" style="font-size:2.5rem;">First Phase</div><div class="french" style="font-size:2.5rem;">Première Phase</div><div style="font-size:2rem; text-align:right;">${startDate} - ${endDate}</div>`
+        } else if (phaseNumber == "Second") {
+            startDate = 1820
+            endDate = 1829
+            div.innerHTML = `<div class="english" style="font-size:2.5rem;">Second Phase</div><div class="french" style="font-size:2.5rem;">Seconde Phase</div><div style="font-size:2rem;  text-align:right;">${startDate} - ${endDate}</div>`
+        } else if (phaseNumber == "Third") {
+            startDate = 1860
+            endDate = 1889
+            div.innerHTML = `<div class=""english" style="font-size:2.5rem;">Third Phase</div><div class="french" style="font-size:2.5rem;">Troisième Phase</div><div style="font-size:2rem;  text-align:right;">${startDate} - ${endDate}</div>`
+        }
+
+        document.getElementById("greyed-out").style["z-index"] = -9999;
+        document.getElementById("omit-year-query").checked = false;
+        minSliderTextValue.innerHTML = startDate
+        maxSliderTextValue.innerHTML = endDate
+        minSliderValue.value = startDate
+        maxSliderValue.value = endDate
+        return div
+    }
+    yearLegend.addTo(timelineMap);
+
+    fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
+        .then((response) => response.json())
+        .then((r) => phaseLayerData = r)
+        .then(() => {
+            L.geoJSON(
+                phaseLayerData,
+                setOptions = {
+                    style: queryStyle,
+                    onEachFeature: onEachFeature
+                }
+            ).addTo(timelineMap);
+        });
+    timelineMap.fitBounds(cadasterLayer.getBounds());
+    scrollToTop();
 }
 
 turnOffMapInteraction(timelineMap, "timeline-map")

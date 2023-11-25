@@ -49,15 +49,11 @@ path:focus {
     white-space: nowrap;
 }
 
-.leaflet-bottom.leaflet-left div:first-of-type {
+.leaflet-bottom.leaflet-left .year-legend {
     top: 25px;
     left: 50px;
 }
 
-/* initialize zoom to not be visible on timeline map */
-.leaflet-control-zoom.leaflet-bar.leaflet-control {
-    display: none;
-}
 .leaflet-touch .leaflet-bar a{
     /* opacity: 0.9; */
     background-color: #D4D4D4;
