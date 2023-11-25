@@ -5,8 +5,9 @@ function callNominatim() {
 
     // Show loading UI
     var loading = document.getElementById("loading");
-    var submit = document.getElementById("submit-address");
-    submit.innerText = "";
+    console.log(loading);
+    var submit = document.getElementById("enter-address");
+    submit.style.display = "none";
     loading.style.display = "block";
 
     fetch(`https://nominatim.openstreetmap.org/?format=json&limit=10&q=${address}&viewbox=-73.94872447814616,45.800160073566694,-74.2476919394601,
@@ -17,8 +18,7 @@ function callNominatim() {
 
             // Remove loading UI
             loading.style.display = "none";
-            submit.innerText = "Submit Address";
-            submit.appendChild(loading);
+            submit.style.display = "block";
 
             const indexData = []
             for (i = 0; i < addressData.length; i++) {

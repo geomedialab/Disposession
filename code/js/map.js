@@ -15,9 +15,7 @@ function viewFullMap() {
     var introBox = document.querySelector("#intro-box");
     var queryBox = document.querySelector("#query-box");
 
-    // Turn on/off legend and zoom things
-    var zoomControl = document.querySelector(".leaflet-control-zoom.leaflet-bar.leaflet-control");
-    var baselayerControl = document.querySelector(".leaflet-control-layers");
+    document.getElementById("kanehsatake-legend-item").style.opacity = 1;
 
     var state = document.querySelector("#state");
     var state2 = document.querySelector("#state2");
@@ -26,10 +24,8 @@ function viewFullMap() {
     function setUpQueryMap() {
         resetTimeline();
         timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] });
-        addCadasterToTimeline();
+        addCadaster(timelineMap);
         addKanehsatakeToTimeline();
-        zoomControl.style.display = "block";
-        baselayerControl.style.clear = "none";
 
         introBox.style.opacity = 0;
         queryBox.style.opacity = 100;
@@ -41,6 +37,7 @@ function viewFullMap() {
 
     if (language == "french") {
         if (state2.innerHTML == "LA CARTE") {
+            console.log("hi")
             setUpQueryMap();
             state2.innerHTML = "LA CHRONOLOGIE";
         } else {
@@ -142,20 +139,22 @@ function addIndigLands() {
             );
             // The order within these determines which is initalized on top.
             // The lower one gets rendered as on top of the other ones so is the first layer the user will see.
-            const basemaps1 = {
-                "Satellite Basemap": Esri_WorldImagery1,
-                "Dark Basemap": darkBasemap1,
-            }
             const overlays1 = {
-                "Mohawk Indigenous Lands<br>&emsp;&nbsp;sourced from <a href='https://native-land.ca/' target='_blank'>Native-Land.ca</a>": indigLandsLayer
+                "<p class='english'>Mohawk Indigenous Lands<br>Source: <a style='display: contents' href='https://native-land.ca/' target='_blank'>Native-Land.ca</a></p>\
+                <p class='french'>Terres autochtones Mohawks<br>Source: <a style='display: contents' href='https://native-land.ca/' target='_blank'>Native-Land.ca</a></p>": indigLandsLayer
+            }
+            const basemaps1 = {
+                "<p class='english'>Satellite Basemap</p><p class='french'>Carte de base satellite</p>": Esri_WorldImagery1,
+                "<p class='english'>Dark Basemap</p><p class='french'>Carte de base noir</p>": darkBasemap1,
             }
 
             const basemaps2 = {
-                "Satellite Basemap": Esri_WorldImagery2,
-                "Dark Basemap": darkBasemap2,
+                "<p class='english'>Satellite Basemap</p><p class='french'>Carte de base satellite</p>": Esri_WorldImagery2,
+                "<p class='english'>Dark Basemap</p><p class='french'>Carte de base noir</p>": darkBasemap2,
             }
             const overlays2 = {
-                "North American Indigenous Lands<br>&emsp;&nbsp;sourced from Native-Land.ca": indigLandsLayer
+                "<p class='english'>Mohawk Indigenous Lands<br>Source: <a style='display: contents' href='https://native-land.ca/' target='_blank'>Native-Land.ca</a></p>\
+                <p class='french'>Terres autochtones Mohawks<br>Source: <a style='display: contents' href='https://native-land.ca/' target='_blank'>Native-Land.ca</a></p>": indigLandsLayer
             }
 
             L.control.layers(basemaps1, overlays1, { position: 'topleft' }).addTo(timelineMap);
@@ -271,29 +270,6 @@ function addInvisibleCadaster(map) {
         });
 }
 
-function addCadasterToTimeline() {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
-        .then((response) => response.json())
-        .then((data) => cadasterData = data)
-        .then(() => {
-            // Dynamically build selection options for queries
-            // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
-            createSoldToIndex("buyerQuery")
-            createConceededByIndex("conceededByQuery")
-            createorigAIndex("originalAQuery")
-            createNumEnregiIndex("numEnregiQuery");
-
-            // Create the popups
-            cadasterLayer = L.geoJSON(
-                cadasterData,
-                setOptions = {
-                    style: fullCadasterStyle,
-                    onEachFeature: onEachFeatureCadaster,
-                }
-            ).addTo(timelineMap);
-        });
-}
-
 
 function addKanehsatakeToMain() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
@@ -350,7 +326,7 @@ function pointInPoly(marker) {
     }
 }
 
-// Top left legend details
+// Bottom left legend details
 const cadasterLegend = L.control({ position: 'bottomleft' });
 cadasterLegend.onAdd = function () {
     var div = L.DomUtil.create('div', 'info legend');
@@ -361,7 +337,7 @@ cadasterLegend.onAdd = function () {
     labels = [],
         categories = [
             '<i class="gradient-line" style="background-image: linear-gradient(to right, #1c1c1c, #FFFFFF);"></i>' + '<div class="english machina">Mohawk Land granted to settlers</div><div class="french machina">La terre des Mohawks accordée aux colons</div>',
-            '<i style="background:' + purpleColor + '"></i>' + '<div class="english machina">Kanehsatà:ke today</div><div class="french machina">Kanehsatà:ke aujourd\'hui</div>',
+            '<div id="kanehsatake-legend-item" style="opacity: 0;"><i style="background:' + purpleColor + '"></i>' + '<div class="english machina">Kanehsatà:ke today</div><div class="french machina">Kanehsatà:ke aujourd\'hui</div></div>',
         ];
 
     for (var i = 0; i < categories.length; i++) {
@@ -468,10 +444,11 @@ function timeDisplay(data, previousYear, liveYear, index) {
     if (liveYear <= 1960) {
         timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval);
     } else {
-        // Remove bottom left year range if it exists
-        var elements = document.querySelector('year-legend');
+        // Remove bottom left year range
+        document.getElementById('year-legend').style.display = "none";
         addKanehsatakeToTimeline();
-        setTimeout(startTimeDisplay, 7000);
+        document.getElementById("kanehsatake-legend-item").style.opacity = 1;
+        setTimeout(startTimeDisplay, 10000);
     }
 }
 
@@ -566,6 +543,7 @@ function displayQueryResults(queryResults, map) {
     // Remove General Legend
     // document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
     document.getElementById("no-data").style.display = "none";
+    document.getElementById("timeline-legend").style.display = "none";
     if (map == timelineMap) {
         resetLayersTimeline();
         resetTimeline();
@@ -872,7 +850,7 @@ function addPhaseLayer(phaseLayerName) {
     var maxSliderTextValue = document.getElementById("maxRangeValue");
     var minSliderValue = document.getElementById("min-slider");
     var maxSliderValue = document.getElementById("max-slider");
-    
+
     var elements = document.getElementById("phase-legend");
     if (elements) {
         elements.style.display = "none"
@@ -937,9 +915,9 @@ function addPhaseLayer(phaseLayerName) {
     scrollToTop();
 }
 
+addIndigLands();
 turnOffMapInteraction(timelineMap, "timeline-map")
 // Initialize the map with data, The order added affects which is on top of the other
-addIndigLands();
 addKanehsatakeToMain();
 addCadaster(geocoding_map);
 addInvisibleCadaster(timelineMap)

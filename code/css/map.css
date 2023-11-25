@@ -113,8 +113,34 @@ path:focus {
     opacity: 0.5;
 }
 
+.leaflet-control-layers.leaflet-control {
+    clear: none;
+}
+
 .geocoding-button-container {
     display: flex;
     flex-direction: row;
     align-self: center;
 }
+
+/* Styling overlays labels */
+.leaflet-control-layers-base > label > span {
+    display: flex;
+}
+
+.leaflet-control-layers-overlays > label > span {
+    display: flex;
+}
+
+.leaflet-control-layers-base > label > span > span {
+    position: relative;
+    left: 5px;
+    top: 3px;
+}
+
+.leaflet-control-layers-overlays > label > span > span {
+    position: relative;
+    left: 5px;
+    top: 2px;
+}
+/* Done styling overlays labels */

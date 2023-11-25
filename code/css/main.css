@@ -161,13 +161,13 @@ nav>a {
 }
 
 nav>a>p {
-  font-size: 1.4rem;
+  font-size: 1.3vw;
   font-family: Neue-Machina;
 }
 
 @media only screen and (max-width: 1200px) {
   nav>a>p {
-    font-size: 1.2rem;
+    font-size: calc(1.3vw);
     text-align: center;
     font-family: Neue-Machina;
   }

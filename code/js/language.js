@@ -9,13 +9,13 @@ function changeLanguage() {
             englishDivs[i].style.display = "none";
         }
         for (i = 0; i < frenchDivs.length; i++) {
-            frenchDivs[i].style.display = "flex";
+            frenchDivs[i].style.display = "block";
         }
         document.cookie = "Language=french;"
     }
     else {
         for (i = 0; i < englishDivs.length; i++) {
-            englishDivs[i].style.display = "flex";
+            englishDivs[i].style.display = "block";
         }
         for (i = 0; i < frenchDivs.length; i++) {
             frenchDivs[i].style.display = "none";
