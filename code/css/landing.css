@@ -7,7 +7,6 @@
     justify-content: space-between;
 
     width: fit-content;
-    height: fit-content;
     max-height: 80vh;
     max-width: 52vw;
     overflow-y: scroll;
@@ -27,11 +26,8 @@
     position: absolute;
     z-index: 2;
 
-
     display: none;
-
     width: fit-content;
-    height: fit-content;
     right: 25px;
     top: 2vh;
     
@@ -108,7 +104,6 @@ table#intro-table {
 
 
 #view-full-map {
-    outline: 2px solid var(--black-color);
     vertical-align: middle;
     text-align: center;
     position: fixed;
@@ -125,8 +120,22 @@ table#intro-table {
     font-weight: 400;
     padding: 2px 15px;
     border-radius: var(--radius);
-    -webkit-border-radius: 2rem
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem
 }
+
+#view-full-map::after {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    border: 2px solid var(--black-color);
+    border-radius: var(--radius);
+    -webkit-border-radius: 2rem;
+  }
 
 .grow {
     transition: all 0.2s ease-in-out;
