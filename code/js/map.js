@@ -37,7 +37,6 @@ function viewFullMap() {
 
     if (language == "french") {
         if (state2.innerHTML == "LA CARTE") {
-            console.log("hi")
             setUpQueryMap();
             state2.innerHTML = "LA CHRONOLOGIE";
         } else {
@@ -442,7 +441,7 @@ function timeDisplay(data, previousYear, liveYear, index) {
     fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 0.8, 0.01, interval / 100)
     // Recursive call 
     if (liveYear <= 1960) {
-        timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval);
+        timer = setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval + 500);
     } else {
         // Remove bottom left year range
         document.getElementById('year-legend').style.display = "none";
@@ -577,7 +576,7 @@ function displayQueryResults(queryResults, map) {
     map.flyToBounds(queryLayer.getBounds(), { duration: 1.5 });
 }
 
-// Build popup and tooltips
+// Build popup and tooltips FOR QUERY ONLY  
 var onEachFeature = function (feature, layer) {
     // Capitalize the first word of original deed sale variable
     const word = feature.properties.ORIGINAL_A
@@ -590,24 +589,31 @@ var onEachFeature = function (feature, layer) {
                                  <div class="french"> Par: ${feature.properties.CONCEDED_B}
                                  <br>À: ${feature.properties.CONCEDED_T}</div>`
     } else {
-        var wayOfSale = 'Sold'
-        var soldOrConceeded = `<br>By ${feature.properties.SOLD_BY}
-                                <br>To: ${feature.properties.SOLD_TO}`
+        var wayOfSale = '<div class"english">First sold on</div>\
+                         <div class="french">Vendu</div>'
+        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.SOLD_BY}
+                                <br>To: ${feature.properties.SOLD_TO}</div>\
+                                <div class="french"> Par: ${feature.properties.SOLD_BY}
+                                <br>À: ${feature.properties.SOLD_TO}</div>`
     }
     if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
-        var partOfLotString = 'Part of lot number'
+        var partOfLotString = '<div class="english">Part of lot number</div>\
+                               <div class="french">Partie de</div>'
     }
     else {
-        var partOfLotString = 'Lot number'
+        var partOfLotString = 'Lot'
     }
 
 
     layer.bindPopup(
         // English popup
-        `<p class="english"><center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
+        `<center>\
+            <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>\
+        </center>` +
 
         // Correct order
-        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
+        `<br>${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}\
+        <br><div class="english">Lot size of</div>${(feature.properties.Area_new_1 / 0.0247105).toFixed(2)} acres<br></b><br>` +
 
         '<i>Information from the Land Registry of Quebec.</i><br>' +
 
@@ -627,6 +633,19 @@ var onEachFeature = function (feature, layer) {
      <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
 }
+
+timelineMap.on('popupopen', function (e) {
+    var language = checkCookie();
+    console.log(language)
+
+    if (language == "english") {
+        changeToEnglish();
+    }
+    else if (language == "french") {
+        console.log("here")
+        changeToFrench();
+    }
+});
 
 // Build popup and tooltips specific to Cadaster layer
 var onEachFeatureCadaster = function (feature, layer) {
@@ -650,33 +669,44 @@ var onEachFeatureCadaster = function (feature, layer) {
     });
 
     if (feature.properties.CONCEDED_T != null) {
-        var wayOfSale = 'Conceded'
+        var wayOfSale = '<p class="english">Conceded</p><p class="french">Concédé</p>'
         var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.CONCEDED_B}
-                                 <br>To: ${feature.properties.CONCEDED_T}</div>`
+                                 <br>To: ${feature.properties.CONCEDED_T}</div>\
+                                 <div class="french"> Par: ${feature.properties.CONCEDED_B}
+                                 <br>À: ${feature.properties.CONCEDED_T}</div>`
     } else {
-        var wayOfSale = 'Sold'
-        var soldOrConceeded = `<div class="english"><br>By ${feature.properties.SOLD_BY}
-                                <br>To: ${feature.properties.SOLD_TO}</div>`
+        var wayOfSale = '<div class"english">First sold on</div>\
+                         <div class="french">Vendu</div>'
+        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.SOLD_BY}
+                                <br>To: ${feature.properties.SOLD_TO}</div>\
+                                <div class="french"> Par: ${feature.properties.SOLD_BY}
+                                <br>À: ${feature.properties.SOLD_TO}</div>`
     }
     if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
-        var partOfLotString = 'Part of lot number'
+        var partOfLotString = '<div class="english">Part of lot number</div>\
+                               <div class="french">Partie de</div>'
     }
     else {
-        var partOfLotString = 'Lot number'
+        var partOfLotString = '<div class="english">Lot number</div><div class ="french">Lot numero</div>'
     }
 
 
     layer.bindPopup(
-        `<center><h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2><h3></center>` +
+        // English popup
+        `<center>\
+            <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>\
+        </center>` +
 
         // Correct order
-        `<br>First ${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}<br>Lot size of ${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
+        `<br>${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}\
+        <br><div class="english">Lot size of</div>${(feature.properties.Area_new_1 / 0.0247105).toFixed(2)} acres<br></b><br>` +
 
         '<i>Information from the Land Registry of Quebec.</i><br>' +
 
         `Lot registration number: ${feature.properties.NUM_ENREGI}
                      <br>Found original sale: ${capitalized}
-                     <br>Notes: ${feature.properties.NOTES}`,
+                     <br>Notes: ${feature.properties.NOTES}
+                     </p>`,
         // Styling tooltip Options
         {
             sticky: false,
@@ -686,7 +716,7 @@ var onEachFeatureCadaster = function (feature, layer) {
     );
     layer.bindTooltip(`
      <center>
-     <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>
+     <h2>Lot ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
 }
 
@@ -923,3 +953,4 @@ addCadaster(geocoding_map);
 addInvisibleCadaster(timelineMap)
 var markerGroup = L.layerGroup().addTo(geocoding_map);
 $(document).ready(function () { setTimeout(() => { startTimeDisplay() }, "1500"); })
+document.cookie = 'Language=english;'
