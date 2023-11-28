@@ -695,6 +695,19 @@ var onEachFeatureCadaster = function (feature, layer) {
      <center>
      <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
+     
+    layer.on('mouseover', function () {
+        this.setStyle({
+            'fillColor': queryColor,
+            'color': queryColor,
+        });
+    });
+    layer.on('mouseout', function () {
+        this.setStyle({
+            'fillColor': cadasterColor,
+            'color': cadasterColor,
+        });
+    });
 }
 
 
