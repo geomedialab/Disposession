@@ -54,7 +54,9 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
         pElement.innerHTML = newValue;
 
         inputElement.addEventListener("keydown", function () {
-            parentLabel.style.display = 'none';
+            if (parentLabel) {
+                parentLabel.style.display = 'none';
+            }
         });
 
         spanElement.addEventListener("click", function () {
@@ -80,6 +82,12 @@ function createPElementsForSearch(array, ulId, inputId, labelId) {
 
         container.classList.add("machina")
         spanElement.appendChild(pElement);
+        spanElement.addEventListener("mouseenter", (event => {
+            document.body.style.cursor = "pointer"
+        }))
+        spanElement.addEventListener("mouseleave", (event => {
+            document.body.style.cursor = "auto"
+        }))
     }
 }
 

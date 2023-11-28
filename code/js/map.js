@@ -567,7 +567,7 @@ function displayQueryResults(queryResults, map) {
         queryResults,
         setOptions = {
             style: queryStyle,
-            onEachFeature: onEachFeatureCadaster
+            onEachFeature: onEachFeatureQuery
         });
 
     ghostLayer = L.geoJSON(
@@ -642,33 +642,75 @@ timelineMap.on('popupopen', function (e) {
 
 // Build popup and tooltips specific to Cadaster layer
 var onEachFeatureCadaster = function (feature, layer) {
+    buildPopup(feature, layer)
+    layer.on('mouseover', function () {
+        this.setStyle({
+            'fillColor': queryColor,
+            'color': queryColor,
+        });
+    });
+    layer.on('mouseout', function () {
+        this.setStyle({
+            'fillColor': cadasterColor,
+            'color': cadasterColor,
+        });
+    });
+}
+
+var onEachFeatureQuery = function (feature, layer) {
+    buildPopup(feature, layer)
+    console.log(queryColor)
+    layer.on('mouseover', function () {
+        this.setStyle({
+            'fillColor': "#923633",
+        });
+    });
+    layer.on('mouseout', function () {
+        this.setStyle({
+            'fillColor': queryColor,
+            'color': queryColor,
+        });
+    });
+}
+
+timelineMap.on('popupopen', function (e) {
+    var language = checkLanguage();
+
+    if (language == "english") {
+        changeToEnglish();
+    }
+    else if (language == "french") {
+        console.log("here")
+        changeToFrench();
+    }
+});
+
+function buildPopup(feature, layer) {
     // Capitalize the first word of original deed sale variable
     const word = feature.properties.ORIGINAL_A
     const capitalized = word.charAt(0) + word.slice(1).toLowerCase()
 
     if (feature.properties.CONCEDED_T != null) {
         var wayOfSale = '<p class="english">Conceded</p><p class="french">Concédé</p>'
-        var soldOrConceeded = `<p class="english"><br>By: ${feature.properties.CONCEDED_B}
-                                 <br>To: ${feature.properties.CONCEDED_T}</p>\
-                                 <p class="french"> Par: ${feature.properties.CONCEDED_B}
-                                 <br>À: ${feature.properties.CONCEDED_T}</p>`
+        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.CONCEDED_B}
+                                     <br>To: ${feature.properties.CONCEDED_T}</div>\
+                                     <div class="french"> Par: ${feature.properties.CONCEDED_B}
+                                     <br>À: ${feature.properties.CONCEDED_T}</div>`
     } else {
-        var wayOfSale = '<p class"english">First sold on</p>\
-                         <p class="french">Vendu</p>'
-        var soldOrConceeded = `<p class="english"><br>By: ${feature.properties.SOLD_BY}
-                                <br>To: ${feature.properties.SOLD_TO}</p>\
-                                <p class="french"> Par: ${feature.properties.SOLD_BY}
-                                <br>À: ${feature.properties.SOLD_TO}</p>`
+        var wayOfSale = '<div class"english">First sold on</div>\
+                             <div class="french">Vendu</div>'
+        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.SOLD_BY}
+                                    <br>To: ${feature.properties.SOLD_TO}</div>\
+                                    <div class="french"> Par: ${feature.properties.SOLD_BY}
+                                    <br>À: ${feature.properties.SOLD_TO}</div>`
     }
     if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
-        var partOfLotString = '<p class="english">Part of lot number</p>\
-                               <p class="french">Partie de</p>'
+        var partOfLotString = '<div class="english">Part of lot number</div>\
+                                   <div class="french">Partie de</div>'
     }
     else {
         var partOfLotString = 'Lot'
     }
-
-
     layer.bindPopup(
         // English popup
         `<center>\
@@ -676,7 +718,8 @@ var onEachFeatureCadaster = function (feature, layer) {
         </center>` +
 
         // Correct order
-        `<br>${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}\<br><div class="english">Lot size of</div>${(feature.properties.Area_new_1).toFixed(2)} acres<br></b><br>` +
+        `<br>${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}\
+        <br><div class="english">Lot size of</div>${(feature.properties.Area_new_1 / 0.0247105).toFixed(2)} acres<br></b><br>` +
 
         '<i>Information from the Land Registry of Quebec.</i><br>' +
 
@@ -695,19 +738,6 @@ var onEachFeatureCadaster = function (feature, layer) {
      <center>
      <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
-     
-    layer.on('mouseover', function () {
-        this.setStyle({
-            'fillColor': queryColor,
-            'color': queryColor,
-        });
-    });
-    layer.on('mouseout', function () {
-        this.setStyle({
-            'fillColor': cadasterColor,
-            'color': cadasterColor,
-        });
-    });
 }
 
 
