@@ -5,8 +5,13 @@ function callNominatim() {
 
     // Show loading UI
     var loading = document.getElementById("loading");
-    console.log(loading);
-    var submit = document.getElementById("enter-address");
+    var language = checkLanguage();
+    if (language == "french") {
+        var submit = document.getElementById("enter-address-french");
+    } else {
+        var submit = document.getElementById("enter-address");
+    }
+    
     submit.style.display = "none";
     loading.style.display = "block";
 

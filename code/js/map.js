@@ -19,10 +19,13 @@ function viewFullMap() {
 
     var state = document.querySelector("#state");
     var state2 = document.querySelector("#state2");
-
-    var language = checkCookie();
+    if (document.getElementById("phase-legend")) {
+        document.getElementById("phase-legend").style.display = "none";
+    }
+    var language = checkLanguage();
     function setUpQueryMap() {
         resetTimeline();
+        resetLayersTimeline();
         timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] });
         addCadaster(timelineMap);
         addKanehsatakeToTimeline();
@@ -495,6 +498,14 @@ function startTimeDisplay() {
         .then(() => {
             resetLayersTimeline();
             cadasterLegend.addTo(timelineMap);
+            var language = checkLanguage();
+
+            if (language == "french") {
+                changeToFrench();
+            }
+            if (document.getElementById("query-legend")) {
+                document.getElementById("query-legend").style.display = "none";
+            }
 
             // Start the timeline animation
             timeDisplay(cadasterData, earliestDate, (earliestDate + range), 0);
@@ -519,40 +530,44 @@ function resetMap() {
     resetLayersTimeline();
     resetInputs();
     turnOnMapInteraction(timelineMap, "timeline-map");
+    if (document.getElementById("phase-legend")) {
+        document.getElementById("phase-legend").style.display = "none";
+    }
+
     // Re-add stuff
     timelineMap.addLayer(kanehsatakeLayer);
     timelineMap.addLayer(cadasterLayer);
 
     document.getElementById("no-data").style.display = "none";
+    document.getElementById("no-data-french").style.display = "none";
+
     // document.getElementById("no-address").style.display = "none";
     // document.getElementById("not-in-polygon").style.display = "none";
 
     document.getElementById("omit-year-query").checked = true;
     document.getElementById("greyed-out").style.zIndex = 9999;
 
-    document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'block';
-    document.getElementsByClassName("leaflet-top leaflet-right")[0].style.display = 'block';
-    document.getElementsByClassName("leaflet-control-layers leaflet-control")[0].style.display = 'block';
+    document.getElementById("timeline-legend").style.display = "block";
+    if (document.getElementById("query-legend")) {
+        document.getElementById("query-legend").style.display = "none";
+    }
+
+    var language = checkLanguage();
+    if (language == "french") {
+        changeToFrench();
+    }
 
     scrollToTop();
     timelineMap.fitBounds(cadasterLayer.getBounds(), { paddingBottomRight: [400, 0] })
 }
 
 function displayQueryResults(queryResults, map) {
-    // Remove General Legend
-    // document.getElementsByClassName("leaflet-top leaflet-left")[0].style.display = 'none';
-    document.getElementById("no-data").style.display = "none";
-    document.getElementById("timeline-legend").style.display = "none";
-    if (map == timelineMap) {
-        resetLayersTimeline();
-        resetTimeline();
-    }
-
+    // Styling variables
     queryLayer = L.geoJSON(
         queryResults,
         setOptions = {
             style: queryStyle,
-            onEachFeature: onEachFeature
+            onEachFeature: onEachFeatureCadaster
         });
 
     ghostLayer = L.geoJSON(
@@ -566,39 +581,88 @@ function displayQueryResults(queryResults, map) {
             }
         }
     )
+    var language = checkLanguage();
+
+    // I split this up because the geocoding mapo also uses this function to style its display
+    if (map == timelineMap) {
+        map.addLayer(ghostLayer);
+        map.addLayer(queryLayer);
+        // Prevent duplicate legends on consecutive queries
+        if (document.getElementById("query-legend")) {
+            document.getElementById("query-legend").style.display = "none";
+        }
+
+        resetLayersTimeline();
+        resetTimeline();
+
+        document.getElementById("no-data").style.display = "none";
+        document.getElementById("timeline-legend").style.display = "none";
+
+        // Build legend for bottom left
+        const queryLegend = L.control({ position: 'bottomleft' });
+        queryLegend.onAdd = function () {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.id = "query-legend"
+            div.style.backgroundColor = "transparent";
+            div.style.color = cadasterColor;
+            div.style.whitespace = "nowrap";
+
+
+            if (queryResults.length === 1) {
+                var queryString = queryResults.length + " lot"
+            } else {
+                var queryString = queryResults.length + " lots"
+            }
+            div.innerHTML = '<div class="machina" id="query-legend-item"><i style="background:' + queryColor + '"></i>' + `<div class="english">Query results - ${queryString}</div><div class="french">Résultats de la requête - ${queryString}</div></div>`;
+            return div;
+        }
+
+        queryLegend.addTo(timelineMap);
+        if (language == "french") {
+            changeToFrench();
+        }
+    }
 
     map.addLayer(ghostLayer);
     map.addLayer(queryLayer);
-    ghostLayer.bringToFront();
-    queryLayer.bringToFront();
-
     // Center slightly to the right of cadaster to account for intro/query box
     map.flyToBounds(queryLayer.getBounds(), { duration: 1.5 });
 }
 
-// Build popup and tooltips FOR QUERY ONLY  
-var onEachFeature = function (feature, layer) {
+timelineMap.on('popupopen', function (e) {
+    var language = checkLanguage();
+
+    if (language == "english" || language == null) {
+        changeToEnglish();
+    }
+    else if (language == "french") {
+        changeToFrench();
+    }
+});
+
+// Build popup and tooltips specific to Cadaster layer
+var onEachFeatureCadaster = function (feature, layer) {
     // Capitalize the first word of original deed sale variable
     const word = feature.properties.ORIGINAL_A
     const capitalized = word.charAt(0) + word.slice(1).toLowerCase()
 
     if (feature.properties.CONCEDED_T != null) {
         var wayOfSale = '<p class="english">Conceded</p><p class="french">Concédé</p>'
-        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.CONCEDED_B}
-                                 <br>To: ${feature.properties.CONCEDED_T}</div>\
-                                 <div class="french"> Par: ${feature.properties.CONCEDED_B}
-                                 <br>À: ${feature.properties.CONCEDED_T}</div>`
+        var soldOrConceeded = `<p class="english"><br>By: ${feature.properties.CONCEDED_B}
+                                 <br>To: ${feature.properties.CONCEDED_T}</p>\
+                                 <p class="french"> Par: ${feature.properties.CONCEDED_B}
+                                 <br>À: ${feature.properties.CONCEDED_T}</p>`
     } else {
-        var wayOfSale = '<div class"english">First sold on</div>\
-                         <div class="french">Vendu</div>'
-        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.SOLD_BY}
-                                <br>To: ${feature.properties.SOLD_TO}</div>\
-                                <div class="french"> Par: ${feature.properties.SOLD_BY}
-                                <br>À: ${feature.properties.SOLD_TO}</div>`
+        var wayOfSale = '<p class"english">First sold on</p>\
+                         <p class="french">Vendu</p>'
+        var soldOrConceeded = `<p class="english"><br>By: ${feature.properties.SOLD_BY}
+                                <br>To: ${feature.properties.SOLD_TO}</p>\
+                                <p class="french"> Par: ${feature.properties.SOLD_BY}
+                                <br>À: ${feature.properties.SOLD_TO}</p>`
     }
     if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
-        var partOfLotString = '<div class="english">Part of lot number</div>\
-                               <div class="french">Partie de</div>'
+        var partOfLotString = '<p class="english">Part of lot number</p>\
+                               <p class="french">Partie de</p>'
     }
     else {
         var partOfLotString = 'Lot'
@@ -612,8 +676,7 @@ var onEachFeature = function (feature, layer) {
         </center>` +
 
         // Correct order
-        `<br>${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}\
-        <br><div class="english">Lot size of</div>${(feature.properties.Area_new_1 / 0.0247105).toFixed(2)} acres<br></b><br>` +
+        `<br>${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}\<br><div class="english">Lot size of</div>${(feature.properties.Area_new_1).toFixed(2)} acres<br></b><br>` +
 
         '<i>Information from the Land Registry of Quebec.</i><br>' +
 
@@ -631,92 +694,6 @@ var onEachFeature = function (feature, layer) {
     layer.bindTooltip(`
      <center>
      <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>
-     </center>`);
-}
-
-timelineMap.on('popupopen', function (e) {
-    var language = checkCookie();
-    console.log(language)
-
-    if (language == "english") {
-        changeToEnglish();
-    }
-    else if (language == "french") {
-        console.log("here")
-        changeToFrench();
-    }
-});
-
-// Build popup and tooltips specific to Cadaster layer
-var onEachFeatureCadaster = function (feature, layer) {
-    // Capitalize the first word of original deed sale variable
-    const word = feature.properties.ORIGINAL_A
-    const capitalized =
-        word.charAt(0)
-        + word.slice(1).toLowerCase()
-
-    layer.on('mouseover', function () {
-        this.setStyle({
-            'fillColor': queryColor,
-            'color': queryColor,
-        });
-    });
-    layer.on('mouseout', function () {
-        this.setStyle({
-            'fillColor': cadasterColor,
-            'color': cadasterColor,
-        });
-    });
-
-    if (feature.properties.CONCEDED_T != null) {
-        var wayOfSale = '<p class="english">Conceded</p><p class="french">Concédé</p>'
-        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.CONCEDED_B}
-                                 <br>To: ${feature.properties.CONCEDED_T}</div>\
-                                 <div class="french"> Par: ${feature.properties.CONCEDED_B}
-                                 <br>À: ${feature.properties.CONCEDED_T}</div>`
-    } else {
-        var wayOfSale = '<div class"english">First sold on</div>\
-                         <div class="french">Vendu</div>'
-        var soldOrConceeded = `<div class="english"><br>By: ${feature.properties.SOLD_BY}
-                                <br>To: ${feature.properties.SOLD_TO}</div>\
-                                <div class="french"> Par: ${feature.properties.SOLD_BY}
-                                <br>À: ${feature.properties.SOLD_TO}</div>`
-    }
-    if (feature.properties.NOTES != null && feature.properties.NOTES.includes('part')) {
-        var partOfLotString = '<div class="english">Part of lot number</div>\
-                               <div class="french">Partie de</div>'
-    }
-    else {
-        var partOfLotString = '<div class="english">Lot number</div><div class ="french">Lot numero</div>'
-    }
-
-
-    layer.bindPopup(
-        // English popup
-        `<center>\
-            <h2>${partOfLotString} ${feature.properties.LOT_NUMBER}</h2>\
-        </center>` +
-
-        // Correct order
-        `<br>${wayOfSale} on ${feature.properties.DATE_MM_DD}${soldOrConceeded}\
-        <br><div class="english">Lot size of</div>${(feature.properties.Area_new_1 / 0.0247105).toFixed(2)} acres<br></b><br>` +
-
-        '<i>Information from the Land Registry of Quebec.</i><br>' +
-
-        `Lot registration number: ${feature.properties.NUM_ENREGI}
-                     <br>Found original sale: ${capitalized}
-                     <br>Notes: ${feature.properties.NOTES}
-                     </p>`,
-        // Styling tooltip Options
-        {
-            sticky: false,
-            opacity: 0.8,
-            closeButton: true
-        }
-    );
-    layer.bindTooltip(`
-     <center>
-     <h2>Lot ${feature.properties.LOT_NUMBER}</h2>
      </center>`);
 }
 
@@ -865,13 +842,14 @@ function scrollToBottom() {
 
 function addPhaseLayer(phaseLayerName) {
     resetTimeline();
-
-    // Set mape state to Query map
-    var state = document.querySelector("#state");
-    var state2 = document.querySelector("#state2");
-    if ((state.innerHTML == "VIEW FULL MAP") || (state2.innerHTML == "LA CARTE")) {
-        // viewFullMap();
+    if (document.getElementById("query-legend")) {
+        document.getElementById("query-legend").style.display = "none";
     }
+
+    document.getElementById("intro-box").style.display = "none";
+    document.getElementById("query-box").style.display = "none";
+    document.getElementById("timeline-legend").style.display = "none";
+
     resetLayersTimeline();
 
     phaseNumber = phaseLayerName.split("_")[0]
@@ -886,36 +864,6 @@ function addPhaseLayer(phaseLayerName) {
         elements.style.display = "none"
     }
 
-    var yearLegend = L.control({ position: 'bottomleft' });
-    yearLegend.onAdd = function () {
-        const div = L.DomUtil.create('div', 'info legend year-legend');
-        div.id = "phase-legend"
-        if (phaseNumber == "First") {
-            startDate = 1780
-            endDate = 1809
-            // Having the french english divs gets complicated, maybe just show the years the user knows which phase they clicked
-            div.innerHTML = `<div class="english" style="font-size:2.5rem;">First Phase</div><div class="french" style="font-size:2.5rem;">Première Phase</div><div style="font-size:2rem; justify-content: center">${startDate} - ${endDate}</div>`
-        } else if (phaseNumber == "Second") {
-            startDate = 1820
-            endDate = 1829
-            div.innerHTML = `<div class="english" style="font-size:2.5rem;">Second Phase</div><div class="french" style="font-size:2.5rem;">Seconde Phase</div><div style="font-size:2rem;">${startDate} - ${endDate}</div>`
-        } else if (phaseNumber == "Third") {
-            startDate = 1860
-            endDate = 1889
-            div.innerHTML = `<div class=""english" style="font-size:2.5rem;">Third Phase</div><div class="french" style="font-size:2.5rem;">Troisième Phase</div><div style="font-size:2rem;">${startDate} - ${endDate}</div>`
-        }
-
-        document.getElementById("greyed-out").style["z-index"] = -9999;
-        document.getElementById("omit-year-query").checked = false;
-        minSliderTextValue.innerHTML = startDate
-        maxSliderTextValue.innerHTML = endDate
-        minSliderValue.value = startDate
-        maxSliderValue.value = endDate
-        return div
-    }
-    yearLegend.addTo(timelineMap);
-    timelineMap.eachLayer(function (layer) { console.log(layer) })
-
     fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
         .then((response) => response.json())
         .then((r) => phaseLayerData = r)
@@ -924,11 +872,52 @@ function addPhaseLayer(phaseLayerName) {
                 phaseLayerData,
                 setOptions = {
                     style: queryStyle,
-                    onEachFeature: onEachFeature
+                    onEachFeature: onEachFeatureCadaster
                 }
             ).addTo(timelineMap);
-        });
+            console.log(phaseLayerData.features.length)
 
+            // Build legend now
+
+            var yearLegend = L.control({ position: 'bottomleft' });
+            yearLegend.onAdd = function () {
+                const div = L.DomUtil.create('div', 'info legend year-legend');
+                div.id = "phase-legend"
+                div.style = "margin-bottom: 25px; left: 0"
+                if (phaseNumber == "First") {
+                    startDate = 1780
+                    endDate = 1809
+                    // Having the french english divs gets complicated, maybe just show the years the user knows which phase they clicked
+                    div.innerHTML = `<div class="english" style="font-size:2.5rem;">First Phase</div>\
+                                     <div class="french" style="font-size:2.5rem;">Première Phase</div>\
+                                     <div style="font-size:2rem;">${startDate} - ${endDate}</div>\
+                                     <div style="font-size:1.2rem">${phaseLayerData.features.length} Lots</div>`
+                } else if (phaseNumber == "Second") {
+                    startDate = 1820
+                    endDate = 1829
+                    div.innerHTML = `<div class="english" style="font-size:2.5rem;">Second Phase</div>\
+                                    <div class="french" style="font-size:2.5rem;">Seconde Phase</div>\
+                                    <div style="font-size:2rem;">${startDate} - ${endDate}</div>\
+                                    <div style="font-size:1.2rem">${phaseLayerData.features.length} Lots</div>`
+                } else if (phaseNumber == "Third") {
+                    startDate = 1860
+                    endDate = 1889
+                    div.innerHTML = `<div class="english" style="font-size:2.5rem;">Third Phase</div>\
+                                     <div class="french" style="font-size:2.5rem;">Troisième Phase</div>\
+                                     <div style="font-size:2rem;">${startDate} - ${endDate}</div>\
+                                     <div style="font-size:1.2rem">${phaseLayerData.features.length} Lots</div>`
+                }
+
+                document.getElementById("greyed-out").style["z-index"] = -9999;
+                document.getElementById("omit-year-query").checked = false;
+                minSliderTextValue.innerHTML = startDate
+                maxSliderTextValue.innerHTML = endDate
+                minSliderValue.value = startDate
+                maxSliderValue.value = endDate
+                return div
+            }
+            yearLegend.addTo(timelineMap);
+        });
     ghostLayer = L.geoJSON(
         cadasterData,
         setOptions = {
@@ -941,8 +930,12 @@ function addPhaseLayer(phaseLayerName) {
         }
     ).addTo(timelineMap);
 
-    timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] });
+    timelineMap.flyToBounds(cadasterLayer);
     scrollToTop();
+    var language = checkLanguage();
+    if (language == "french") {
+        changeToFrench();
+    }
 }
 
 addIndigLands();
@@ -953,4 +946,3 @@ addCadaster(geocoding_map);
 addInvisibleCadaster(timelineMap)
 var markerGroup = L.layerGroup().addTo(geocoding_map);
 $(document).ready(function () { setTimeout(() => { startTimeDisplay() }, "1500"); })
-document.cookie = 'Language=english;'

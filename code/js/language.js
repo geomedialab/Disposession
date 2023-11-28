@@ -1,17 +1,11 @@
-
 function changeLanguage() {
-    var language = checkCookie();
-    console.log(language)
+    var language = checkLanguage();
 
-    if (language == "english") {
+    if (language == "english" || language == null) {
         changeToFrench();
     }
     else if (language == "french") {
         changeToEnglish();
-    }
-    var noData = document.getElementById("no-data");
-    if (noData !== null) {
-        noData.style.display = "none";
     }
 }
 
@@ -19,6 +13,7 @@ function changeToFrench() {
     const englishDivs = document.getElementsByClassName("english");
     const frenchDivs = document.getElementsByClassName("french");
 
+    // change styles of english and french divs
     for (i = 0; i < englishDivs.length; i++) {
         englishDivs[i].style.display = "none";
     }
@@ -26,13 +21,26 @@ function changeToFrench() {
         frenchDivs[i].style.display = "block";
     }
 
-    document.cookie = 'Language=french; domain=https://spencermartel.github.io/Disposession/'
+    // remove any no-data elements so they don't blink uneccessarily
+    var noDataFrench = document.getElementById("no-data-french");
+    var noDataEnglish = document.getElementById("no-data");
+    
+    if (noDataFrench !== null) {
+        noDataFrench.style.display = "none";
+    }
+    if (noDataEnglish !== null) {
+        noDataEnglish.style.display = "none";
+    }
+
+    localStorage.setItem("Language", "french")
+    console.log("Language set to french")
 }
 
 function changeToEnglish() {
     const englishDivs = document.getElementsByClassName("english");
     const frenchDivs = document.getElementsByClassName("french");
 
+    // change styles of english and french divs
     for (i = 0; i < englishDivs.length; i++) {
         englishDivs[i].style.display = "block";
     }
@@ -40,21 +48,31 @@ function changeToEnglish() {
         frenchDivs[i].style.display = "none";
     }
 
-    document.cookie = 'Language=english; doimain=https://spencermartel.github.io/Disposession/'
+    // remove any no-data elements so they don't blink uneccessarily
+    var noDataFrench = document.getElementById("no-data-french");
+    var noDataEnglish = document.getElementById("no-data");
+    console.log(noDataEnglish)
+    if (noDataFrench !== null) {
+        noDataFrench.style.display = "none";
+    }
+    if (noDataEnglish !== null) {
+        noDataEnglish.style.display = "none";
+    }
+
+    // Set local storage data
+    localStorage.setItem("Language", "english")
+    console.log("Language set to english")
 }
 
-function checkCookie() {
-    var cookies = document.cookie.split("; ");
-    var language = cookies[0].split("=")[1];
-    console.log(cookies)
+function checkLanguage() {
+    var language = localStorage.getItem("Language")
     return language;
 }
 
 
 function pageLoadLanguageCheck() {
     var languageSwitch = document.getElementById("language-toggle");
-    var language = checkCookie();
-    console.log(language);
+    var language = checkLanguage();
 
     if (language == "french") {
         languageSwitch.click()

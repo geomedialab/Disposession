@@ -232,7 +232,8 @@
                         </div>
                     </div>
                     <!-- TODO add a french no-data -->
-                    <div id="no-data" class="english machina">No lots in the cadaster match your query.</div>
+                    <div class="no-data english machina" id="no-data">No lots in the cadaster match your query.</div>
+                    <div class="no-data french machina" id="no-data-french">Aucun lot du cadastre ne correspond<br>à votre demande.</div>
                     <div id="button-container">
                         <div id="button-decorators">
                             <button class="button machina grow" onclick="filterQuery()"
@@ -754,8 +755,10 @@
                 </div>
                 <div class="decoration">
                     <div id="address">
-                        <div id="no-address" class="machina"
-                            style="color: var(--black-color); position: absolute; top: 46px;">Address not found.</div>
+                        <div id="no-address" class="machina" style="color: var(--black-color); position: absolute; top: 46px;">
+                            <p class="english">Address not found</p>
+                            <p class="french">Adresse non trouvée</p>
+                        </div>
                         <div id="not-in-polygon" class="machina"
                             style="color: var(--black-color); position: absolute; top: 46px;">Location is not within
                             area of study.</div>
@@ -763,13 +766,14 @@
                             <input type="search" id="geocoding-search" name="geocoding-search" style="border-radius: 8px;" oninput="hideGeocodingLabel()">
                             <label id="geocoding-search-label" for="geocoding-search" class="query-label" style="top: 0;">
                                         <p class="english machina" style="padding-top: 4px">&ensp;Enter address on this territory</p>
-                                        <p class="french machina" style="padding-top: 4px">&ensp;Rechercher un addresse sur ce territoire</p>
+                                        <p class="french machina" style="padding-top: 4px">&ensp;Rechercher un addresse</p>
                                         </label>
                             <ul class="queryList" id="geocodingUL"></ul>
                             <div id="button-decorators" style="margin-top: 0;">
                                 <button id="submit-address" class="button grow machina" onclick="callNominatim()"
                                     style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color);">
-                                    <div class="english" id="enter-address">ENTER ADDRESS</div>
+                                    <div class="english" id="enter-address">SUBMIT</div>
+                                    <div class="french" id="enter-address-french">SOUMETTRE</div>
                                     <i class="fa fa-circle-o-notch fa-spin" id="loading"></i></button>
                             </div>
                         </div>

@@ -89,8 +89,7 @@
 #query-decorator>ul {
     list-style-type: none;
     position: absolute;
-    padding: 0;
-    margin: 0;
+
     height: 220%;
     width: 100%;
     overflow-y: scroll;
@@ -168,13 +167,13 @@ button:hover {
     cursor: pointer;
 }
 
-#no-data {
-    position: relative;
+.no-data {
     color: var(--white-color);
     display: none;
     margin: auto;
     z-index: 2;
     text-align: center;
+
     animation: transparency-change 0.7s 2 forwards;
 }
 

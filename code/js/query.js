@@ -150,7 +150,15 @@ function filterQuery() {
         displayQueryResults(queryResults, timelineMap)
     } else {
         resetLayersTimeline();
-        document.getElementById("no-data").style.display = "block"
+        if (document.getElementById("query-legend")) {
+            document.getElementById("query-legend").style.display = "none";
+        }
+        var language = checkLanguage();
+        if (language == "french") {
+            document.getElementById("no-data-french").style.display = "block"
+        } else {
+            document.getElementById("no-data").style.display = "block"
+        }
     }
 }
 
