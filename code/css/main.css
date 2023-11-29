@@ -16,27 +16,27 @@
 
 html {
   line-height: 2.2rem;
-  -ms-overflow-style: none;
   scroll-behavior: smooth;
-  overflow: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  scrollbar-width: 0px;
+}
+
+main {
+  overflow: overlay;
 }
 
 
-::-webkit-scrollbar {
+*::-webkit-scrollbar {
+  background-color: transparent;
   width: 8px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: transparent;
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: none !important;
+  background-color: transparent !important;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--cadaster-color);
+  background: var(--dark-grey-color);
   border-radius: 18px;
 }
 
@@ -44,7 +44,6 @@ html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  scroll-margin-top: 7vh;
 }
 
 @font-face {
@@ -91,22 +90,12 @@ a.anchor {
   position: fixed;
   top: 8vh;
   z-index: 10000;
-  ;
 }
-
-body {
-  padding: 0;
-  min-height: 100%;
-}
-
 
 main {
   scroll-behavior: smooth;
   position: relative;
-  height: 100vh;
-  overflow-y: scroll;
   margin-top: 7vh;
-  overflow: overlay;
 }
 
 nav {

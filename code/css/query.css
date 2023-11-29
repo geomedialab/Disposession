@@ -55,6 +55,7 @@
 }
 
 
+
 #query-text {
     align-items: start;
     color: var(--white-color);
@@ -96,7 +97,8 @@
     display: none;
     z-index: 99999;
 
-    border-radius: 0 0 var(--radius) var(--rad);
+    border-radius: 0 0 4px 4px;
+    outline: 2px solid #444444;
     top: 70px;
 }
 

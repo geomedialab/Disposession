@@ -306,10 +306,10 @@ table#intro-table {
 }
 
 #address>#query-decorator>ul {
-    top: 38px;
+    top: 35px;
     width: 30vw;
-    height: 20vh;
     z-index: 9999;
+    outline: none;
 }
 
 .data-table {
@@ -347,10 +347,6 @@ table#intro-table {
     100% {
         transform: translateY(0);
     }
-}
-
-figure {
-    height: 100%;
 }
 
 .caption {

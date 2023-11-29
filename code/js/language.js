@@ -18,13 +18,18 @@ function changeToFrench() {
         englishDivs[i].style.display = "none";
     }
     for (i = 0; i < frenchDivs.length; i++) {
-        frenchDivs[i].style.display = "block";
+        // Specific check for content of leaflet popup so I can style it properly
+        if (frenchDivs[i].parentElement.classList.contains('leaflet-popup-content')) {
+            frenchDivs[i].style.display = "inline";
+        } else {
+            frenchDivs[i].style.display = "block";
+        }
     }
 
     // remove any no-data elements so they don't blink uneccessarily
     var noDataFrench = document.getElementById("no-data-french");
     var noDataEnglish = document.getElementById("no-data");
-    
+
     if (noDataFrench !== null) {
         noDataFrench.style.display = "none";
     }
@@ -42,7 +47,12 @@ function changeToEnglish() {
 
     // change styles of english and french divs
     for (i = 0; i < englishDivs.length; i++) {
-        englishDivs[i].style.display = "block";
+        // Specific check for content of leaflet popup so I can style it properly
+        if (englishDivs[i].parentElement.classList.contains('leaflet-popup-content')) {
+            englishDivs[i].style.display = "inline";
+        } else {
+            englishDivs[i].style.display = "block";
+        }
     }
     for (i = 0; i < frenchDivs.length; i++) {
         frenchDivs[i].style.display = "none";
@@ -51,7 +61,7 @@ function changeToEnglish() {
     // remove any no-data elements so they don't blink uneccessarily
     var noDataFrench = document.getElementById("no-data-french");
     var noDataEnglish = document.getElementById("no-data");
-    console.log(noDataEnglish)
+
     if (noDataFrench !== null) {
         noDataFrench.style.display = "none";
     }
