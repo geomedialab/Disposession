@@ -89,3 +89,25 @@ function pageLoadLanguageCheck() {
         changeToFrench();
     }
 }
+
+window.addEventListener("resize", function (event) {
+    phoneCheckAndChange();
+}
+)
+window.onload = function() {
+    phoneCheckAndChange();
+    pageLoadLanguageCheck();
+}
+
+function phoneCheckAndChange() {
+    console.log("Checking screen size")
+    var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
+    if (vw <= 850) {
+        this.document.body.innerHTML =
+            '<div class="machina" style="width: 100vw; height: 100vh; color: var(--white-color); background-color: var(--black-color); text-align: center; display: flex; align-items: center; justify-content: center; padding: 10px; flex-direction: column;">\
+            <p>This website is not designed for mobile, our apologies.<br><br>\
+            <p>Ce site n\'est pas conçu pour les téléphones portables, veuillez nous en excuser.</p>\
+            </div>'
+    }
+}
