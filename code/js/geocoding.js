@@ -3,7 +3,7 @@ function callNominatim() {
     document.getElementById("no-address").style.display = "none";
     document.getElementById("not-in-polygon").style.display = "none";
 
-    // Show loading UI
+    // Show loading UI in button, remove submit text
     var loading = document.getElementById("loading");
     var language = checkLanguage();
     if (language == "french") {
@@ -15,7 +15,7 @@ function callNominatim() {
     submit.style.display = "none";
     loading.style.display = "block";
 
-    fetch(`https://nominatim.openstreetmap.org/?format=json&limit=10&q=${address}&viewbox=-73.94872447814616,45.800160073566694,-74.2476919394601,
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=10&q=${address}&viewbox=-73.94872447814616,45.800160073566694,-74.2476919394601,
     45.458188453350466&bounded=1`)
         .then((response) => response.json())
         .then((data) => addressData = data)

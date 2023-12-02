@@ -7,7 +7,7 @@ var center = [45.631550, -73.509463];
 const interval = 1000;
 const earliestDate = 1770;
 const range = 10;
-// Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with setTimeout ID
+// Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with multiple timeout IDs
 var timeouts = [];
 
 function viewFullMap() {
@@ -98,6 +98,9 @@ var geocoding_map = L.map('geocoding-map',
         zoomControl: false,
         fullScreenControl: false,
     });
+L.control.zoom({
+    position: 'topleft'
+}).addTo(geocoding_map)
 
 // Layer control must reference different layers see #3 : https://store.extension.iastate.edu/product/15632.pdf
 // Layer control is actually created and added in the addIndigLands function
@@ -280,6 +283,7 @@ function addKanehsatakeToMain() {
         });
 }
 
+// Used to fade in the Kanehsatake layer in timeline
 function addKanehsatakeToTimeline() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
@@ -512,9 +516,9 @@ function startTimeDisplay() {
 }
 
 function resetTimeline() {
-     for (var i=0; i<timeouts.length; i++) {
+    for (var i = 0; i < timeouts.length; i++) {
         clearTimeout(timeouts[i]);
-      }
+    }
     var elements = document.getElementById("year-legend")
     elements.style.display = "none"
 }
@@ -730,7 +734,7 @@ function buildPopup(feature, layer) {
 
         // Correct order
         `<br>${wayOfSale} <span>${feature.properties.DATE_MM_DD}${soldOrConceeded}</span>\
-        <br><div class="english">Lot size: </div><div class="french">Taille du lot: </div>${(feature.properties.Area_new_1 /40.469).toFixed(2)} acres<br></b><br>` +
+        <br><div class="english">Lot size: </div><div class="french">Taille du lot: </div>${(feature.properties.Area_new_1 / 40.469).toFixed(2)} acres<br></b><br>` +
 
         '<i class="english">Information from the Land Registry of Quebec.</i>\
         <i class="french">Informations provenant du Registre foncier du Québec.</i><br>' +
