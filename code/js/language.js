@@ -94,7 +94,7 @@ window.addEventListener("resize", function (event) {
     phoneCheckAndChange();
 }
 )
-window.onload = function() {
+window.onload = function () {
     phoneCheckAndChange();
     pageLoadLanguageCheck();
 }

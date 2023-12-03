@@ -19,10 +19,6 @@ html {
   scroll-behavior: smooth;
 }
 
-main {
-  overflow: overlay;
-}
-
 
 *::-webkit-scrollbar {
   background-color: transparent;

@@ -115,6 +115,7 @@ path:focus {
 
 .leaflet-control-layers.leaflet-control {
     clear: none;
+    float: right;
 }
 
 .geocoding-button-container {
@@ -144,3 +145,8 @@ path:focus {
     top: 2px;
 }
 /* Done styling overlays labels */
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+    clear: none;
+    float: left;
+}

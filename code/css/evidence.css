@@ -7,31 +7,52 @@
 #evidence-table {
     color: var(--white-color);
     font-family: Neue-Machina;
-    vertical-align: top;
-    text-align: left;
-    border-collapse: collapse;
-    /* border-style: hidden; */
+
+    border-collapse: separate;
+    border-spacing: 0;
     align-self: center;
+
 
     width: 90%;
     margin-bottom: 10vh;
 }
 
 #evidence-table td, #evidence-table th {
-    border: 3px solid rgb(178, 178, 178);
+    border-top: 3px solid rgb(178, 178, 178);
+    border-bottom: 3px solid rgb(178, 178, 178);
+
 }
 
 #evidence-table tr:first-of-type {
     text-align: center;
     font-weight: bold;
     border-top: 0;
-    background-color: #c36aed80;
+    background-color: #60008d;
+    position: sticky;
+    top: calc(7vh - 1px);
+    border-top: 3px solid rgb(178, 178, 178);
+    border-bottom: 3px solid rgb(178, 178, 178);
 }
 
 /* Target first row (headers) */
 #evidence-table tr:first-child>th {
+    padding: 20px 10px;
+}
+
+#evidence-table tr:first-child>th:first-of-type {
+    border-left: 3px solid rgb(178, 178, 178);
+}
+
+#evidence-table tr:first-child>th:last-of-type {
+    border-right: 3px solid rgb(178, 178, 178);
+}
+
+#evidence-table tr:first-child>th div:nth-child(odd) {
     font-size: 1.3rem;
-    padding: 10px;
+}
+
+#evidence-table tr:first-child>th div:nth-child(even) {
+    font-weight: 300;
 }
 
 /* Target every row but first one */
@@ -43,14 +64,12 @@
 
 #evidence-table tr:not(:first-child)>th:first-child {
     border-left: 3px solid rgb(178, 178, 178);
-    border-right: none;
 }
 #evidence-table tr:not(:first-child)>th:last-child {
     border-right: 3px solid rgb(178, 178, 178);
-    border-left: none;
 }
 
-#evidence-table tr:not(:first-child)>th:not(:first-child):not(:last-child) {
-    border-right: 1px solid var(--light-grey-color);
-    border-left: 1px solid var(--light-grey-color);
+#evidence-table th {
+    border-right: 1px solid rgb(178, 178, 178);
+    border-left: 1px solid rgb(178, 178, 178);
 }

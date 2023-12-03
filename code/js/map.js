@@ -35,6 +35,7 @@ function viewFullMap() {
 
         introBox.style.display = 'none';
         queryBox.style.display = 'block';
+        zoomControl.addTo(timelineMap)
         turnOnMapInteraction(timelineMap, "timeline-map")
     }
 
@@ -44,6 +45,7 @@ function viewFullMap() {
             state2.innerHTML = "LA CHRONOLOGIE";
         } else {
             startTimeDisplay();
+            timelineMap.removeControl(zoomControl)
 
             introBox.style.opacity = 100;
             queryBox.style.opacity = 0;
@@ -62,6 +64,7 @@ function viewFullMap() {
             // Show Timeline
         } else {
             startTimeDisplay();
+            timelineMap.removeControl(zoomControl)
 
             introBox.style.opacity = 100;
             queryBox.style.opacity = 0;
@@ -87,9 +90,9 @@ var timelineMap = L.map('timeline-map',
         attributionControl: false
     });
 timelineMap.scrollWheelZoom.disable();
-L.control.zoom({
+const zoomControl = L.control.zoom({
     position: 'topleft'
-}).addTo(timelineMap)
+})
 
 var geocoding_map = L.map('geocoding-map',
     {
