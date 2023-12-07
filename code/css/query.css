@@ -1,23 +1,13 @@
-#no-address {
-    position: relative;
+.warning {
     color: white;
     display: none;
     margin: auto;
     z-index: 2;
     text-align: center;
     animation: transparency-change 0.7s 2 forwards;
+    position: absolute;
+    top: -32px
 }
-
-#not-in-polygon {
-    position: relative;
-    color: white;
-    display: none;
-    margin: auto;
-    z-index: 2;
-    text-align: center;
-    animation: transparency-change 0.7s 2 forwards;
-}
-
 
 .decoration {
     display: flex;
@@ -33,11 +23,7 @@
 }
 
 #cadaster-query {
-    display: flex;
-    flex-direction: column;
     padding: 10px;
-    align-items: self-start;
-    max-height: 100%;
 }
 
 #cadaster-query>div:last-of-type {
@@ -126,7 +112,7 @@ ul :hover {
 
 input[type="checkbox"] {
     accent-color: var(--white-color)
-    }
+}
 
 #input-container {
     display: flex;
@@ -139,7 +125,7 @@ input[type="checkbox"] {
 
 #all-queries {
     overflow-y: scroll;
-    max-height: 50vh;
+    height: 47vh;
 }
 
 #button-decorators {
@@ -162,9 +148,11 @@ input[type="checkbox"] {
     border-radius: 20px;
     transition: all 0.2s ease;
 }
+
 #editing-view-port>div {
     font-family: Neue-Machina;
 }
+
 button:hover {
     cursor: pointer;
 }
@@ -228,8 +216,8 @@ label>p {
 
 #geocoding-decoration {
     position: absolute;
-    right: 3vw;
-    top: 75vh;
+    right: 1vw;
+    top: calc(79vh - 10px);
     z-index: 5;
     display: none;
 }

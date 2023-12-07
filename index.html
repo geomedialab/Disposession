@@ -137,7 +137,8 @@
                         </div>
                         <div class="dividing-line"></div>
                         <div id="how-to">
-                            <p class="english machina">Search the database by</p>
+                            <p class="english machina">Search the data by</p>
+                            <p class="french machina">Rechercher les données par</p>
                         </div>
                         <div id="all-queries">
                             <!-- Year slider -->
@@ -213,7 +214,6 @@
                                     <ul class="queryList" id="numEnregiUL">
                                     </ul>
                                 </div>
-                                <div class="spacer"></div>
                                 <div id="query-decorator">
                                     <p class="english machina">With original deed of sale</p>
                                     <p class="french machina">Première conceession</p>
@@ -251,17 +251,17 @@
             </div>
             <div class="decoration" id="geocoding-decoration">
                 <div id="address">
-                    <div id="no-address" class="machina"
-                        style="color: var(--white-color); position: absolute; top: 46px;">
+                    <div id="no-address" class="machina warning"
+                        style="color: var(--white-color);">
                         <p class="english">Address not found</p>
                         <p class="french">Adresse non trouvée</p>
                     </div>
-                    <div id="not-in-polygon" class="machina"
-                        style="color: var(--white-color); position: absolute; top: 46px;">
-                        <p class="english">Le lieu n'est pas situé dans la zone d'étude.</p>
-                        <p class="french"> </p>
+                    <div id="not-in-polygon" class="machina warning"
+                        style="color: var(--white-color);">
+                        <p class="english">Address is not in study area.</p>
+                        <p class="french">Le lieu n'est pas situé dans la zone d'étude.</p>
                     </div>
-                    <div id="query-decorator">
+                    <div id="query-decorator" style="margin: 0;">
                         <input type="search" id="geocoding-search" name="geocoding-search" style="border-radius: 8px;"
                             oninput="hideGeocodingLabel()">
                         <label id="geocoding-search-label" for="geocoding-search" class="query-label"

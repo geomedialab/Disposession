@@ -236,7 +236,7 @@ function addInvisibleCadaster(map) {
                 }
             ).addTo(map);
 
-            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [700, 0] })
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [550, 0] })
             timelineMap.removeLayer(cadasterLayer);
         });
 }

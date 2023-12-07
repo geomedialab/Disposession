@@ -52,5 +52,5 @@ function placeMapMarker(newValue) {
             );
         }
     }
-    pointInPoly(geocodedMarker)
+    pointInPoly(geocodedMarker);
 }
