@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/landing.css">
     <link rel="stylesheet" href="../css/evidence.css">
+    <link rel="stylesheet" href="../css/fadeIn.css">
     <title>Disposession</title>
 
 </head>
@@ -58,7 +59,7 @@
         </div>
     </nav>
 
-    <main>
+    <main style="background-color: var(--black-color); height: 100vh;">
         <div id="evidence">
             <div class="spacer"></div>
             <h1 class="title english" style="color: var(--white-color); justify-content: center;">EVIDENCE</h1>
@@ -139,15 +140,14 @@
                         <div class="french">Actes de concession<br>(1780 - 1847)</div>
                     </th>
                     <th>
-                        <div class="english">Primary source - copies from the Livre Terrier de la Seigneurie du Lac des
+                        <div class="english">Primary source: copies from the Livre Terrier de la Seigneurie du Lac des
                             Deux-Montagnes</div>
-                        <div class="french">Source primaire : copie du Livre Terrier de la Seigneurie du Lac des
+                        <div class="french">Source primaire: copie du Livre Terrier de la Seigneurie du Lac des
                             Deux-Montagnes</div>
                     </th>
                     <th>
                         <div class="english">Data was consistently recorded. 38 out of 1328 deeds missing.
                             <br><br>Lot number, settler and Sulpician priest names’ clearly identifiable.
-                            <br><br>Lot numbers refer to Louis Guy’s cadaster.
                         </div>
                         <div class="french">
                             Les données ont été consignées de manière cohérente. 38 actes manquants sur 1328.
@@ -162,7 +162,7 @@
                         </div>
                         <div class="french">
                             Accès gratuit sur demande
-                            <br><br>Numérisé
+                            <br><br>Documents numérisé
                         </div>
                     </th>
                 </tr>
@@ -178,11 +178,11 @@
                     </th>
                     <th>
                         <div class="english">
-                            Primary source - copies from the Livre Terrier de la Seigneurie du Lac des
+                            Primary source: copies from the Livre Terrier de la Seigneurie du Lac des
                             Deux-Montagnes.
                         </div>
                         <div class="french">
-                            Source primaire : copie du Livre Terrier de la Seigneurie du Lac des Deux-Montagnes.
+                            Source primaire: copie du Livre Terrier de la Seigneurie du Lac des Deux-Montagnes.
                         </div>
                     </th>
                     <th>
@@ -203,7 +203,7 @@
                     </th>
                     <th>
                         <div class="english">Restricted access
-                            <br><br>Printed
+                            <br><br>Printed documents
                             <br><br>25$/h fee to consult the archivist once request is approved.
                         </div>
                         <div class="french">
@@ -214,40 +214,34 @@
                     </th>
                 </tr>
                 <!-- Third row -->
-                <tr>
-                    <th>
+                <tr style="vertical-align: top;">
+                    <th style="border-bottom: none;">
                         <div class="english">Quebec Land Registry</div>
                         <div class="french">Registre Foncier du Quebec</div>
                     </th>
-                    <th>
+                    <th style="border-bottom: none;">
                         <div class="english">Deeds of sale
                             <br>(1857 - 1960)
-                            <br><br>Official Cadaster of the Paroisse de l’Annonciation 1879
                         </div>
                         <div class="french">
                             Actes de vente
-                            <br><br>(1857 - 1960)
-                            <br><br>Cadastre Officiel de la Paroisse de l’Annonciation 1879
+                            <br>(1857 - 1960)
                         </div>
                     </th>
-                    <th>
+                    <th style="border-bottom: none;">
                         <div class="english">
-                            Primary source - copies from the Livre Terrier de la Seigneurie du Lac des Deux-Montagnes
-                            <br><br>Secondary source - certified reconstituted document
+                            Primary source: copies from the Livre Terrier de la Seigneurie du Lac des Deux-Montagnes
                         </div>
                         <div class="french">
-                            Source primaire : copie du Livre Terrier de la Seigneurie du Lac des Deux-Montagnes
-                            <br><br>Source secondaire - Carte reconstituée et certifiée équivalente à l’originale
+                            Source primaire: copie du Livre Terrier de la Seigneurie du Lac des Deux-Montagnes
                         </div>
                     </th>
-                    <th>
+                    <th style="border-bottom: none;">
                         <div class="english">333 lots.
                             <br><br>Deeds of sale are handwritten, can be hard to decipher.
                             <br><br>No dimensions given to lots sold in part.
                             <br><br>Sale amounts are included but recorded consistently. Currency units changed
                             overtime.
-                            <br><br>Georeferenced - Used current lot borders from Natural Resources Canada to trace lots
-                            more precisely.
                         </div>
                         <div class="french">
                             333 lots.
@@ -256,89 +250,177 @@
                             <br><br>Les montants des ventes sont inclus mais ne sont pas comptabilisés de manière
                             cohérente. Les
                             unités monétaires changent au fil du temps.
-                            <br><br>Géoréférencement - Utilisation des limites de lots actuelles fournies par Ressources
-                            naturelles Canada pour retracer les lots avec plus de précision
                         </div>
                     </th>
-                    <th>
+                    <th style="border-bottom: none;">
                         <div class="english">
                             Restricted access
-                            <br><br>Digitized
+                            <br><br>Documents are digitized
                             <br><br>$95 for a monthly subscription and $995 for a year - free for research purposes once
                             request is approved.
-                            <br><br>266$ to obtain a full geodatabase of Oka’s current cadastral layout.
                         </div>
                         <div class="french">
                             Accès restreint
-                            <br><br>Numérisé
+                            <br><br>Documents numérisé
                             <br><br>95 $ pour un abonnement mensuel et 995 $ pour un abonnement annuel - gratuit à des
                             fins de
                             recherche une fois la demande approuvée.
-                            <br><br>266 $ pour obtenir une base de données complète du plan cadastral actuel d'Oka.
+                        </div>
+                    </th>
+                </tr>
+                <!-- Hidden third row for styling purposes -->
+                <tr style="vertical-align: top;">
+                    <th style="border-top: none">
+                        <div class="english">Quebec Land Registry</div>
+                        <div class="french">Registre Foncier du Quebec</div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            Official Cadaster of the Paroisse de l’Annonciation 1879.
+                        </div>
+                        <div class="french">
+                            Cadastre Officiel de la Paroisse de l’Annonciation 1879.
+                        </div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            Secondary source: certified reconstituted document.
+                        </div>
+                        <div class="french">
+                            Source secondaire: Carte reconstituée et certifiée équivalente à l’originale.
+                        </div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            Cadaster is georeferenced - Used current lot borders from Natural Resources Canada to trace
+                            lots
+                            more precisely.
+                        </div>
+                        <div class="french">
+                            Géoréférencement - Utilisation des limites de lots actuelles fournies par Ressources
+                            naturelles Canada pour retracer les lots avec plus de précision.
+                        </div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            266$ to obtain a full geodatabase of Oka’s current cadastral layout.
+                        </div>
+                        <div class="french">
+                            266 $ pour obtenir une base de données complète du plan cadastral actuel d'Oka.
                         </div>
                     </th>
                 </tr>
                 <!-- Fourth row -->
-                <tr>
-                    <th>
+                <tr style="vertical-align: top;">
+                    <th style="border-bottom: none;">
                         <div class="english">Quebec National Library and Archives (BanQ)</div>
                         <div class="french">Bibliothèque et Archives Nationales du Quebec (BanQ)</div>
                     </th>
-                    <th>
+                    <th style="border-bottom: none;">
                         <div class="english">
                             Map of the seigneury of Lac-des-Deux-Montagnes - Louis Guy 1798
                             <br><br>Paroisse de Saint-Benoit 1878
-                            <br>Paroisse de Saint-Canut 1879
-                            <br>Paroisse de Saint-Colomban 1879
-                            <br>Paroisse de Saint-Jerome 1877
-                            <br>Paroisse de Saint-Joseph du Lac 1878
-                            <br>Paroisse de Saint-Monique 1877
-                            <br>Paroisse de Saint-Placide 1879
-                            <br>Paroisse de Saint-Placide 1879
-                            <br>Paroisse Saint-Hermas 1879
-                            <br>Correspondence with the National
-                            <br><br>Commission for the Repurchase of Seigneurial Rents (SNRRS) 1936
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Canut 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Colomban 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Jerome 1877
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Joseph du Lac 1878
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Monique 1877
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Placide 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Placide 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse Saint-Hermas 1879
                         </div>
                         <div class="french">
                             Cadastre de la seigneurie du Lac-des-Deux-Montagnes - Louis Guy 1798
-                            <br>Paroisse de Saint-Benoit 1878
-                            <br>Paroisse de Saint-Canut 1879
-                            <br>Paroisse de Saint-Colomban 1879
-                            <br>Paroisse de Saint-Jerome 1877
-                            <br>Paroisse de Saint-Joseph du Lac 1878
-                            <br>Paroisse de Saint-Monique 1877
-                            <br>Paroisse de Saint-Placide 1879
-                            <br>Paroisse de Saint-Placide 1879
-                            <br>Paroisse Saint-Hermas 1879
-                            <br><br>Syndicat national du rachat des rentes seigneuriales 1936
+                            <br><br>Paroisse de Saint-Benoit 1878
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Canut 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Colomban 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Jerome 1877
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Joseph du Lac 1878
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Monique 1877
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Placide 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse de Saint-Placide 1879
+                            <br>
+                            <div class="spacer"></div>Paroisse Saint-Hermas 1879
                         </div>
                     </th>
-                    <th>
+                    <th style="border-bottom: none;">
                         <div class="english">Secondary sources - certified reconstituted documents</div>
                         <div class="french">Sources secondaires - Cartes reconstituées et certifiées équivalentes aux
                             l’originales</div>
                     </th>
-                    <th>
-                        <div class="english">Georeferenced - precision was best in agricultural areas where the lot
+                    <th style="border-bottom: none;">
+                        <div class="english">Maps were georeferenced - precision was best in agricultural areas where the lot
                             borders haven’t changed.
-                            <br><br>Precise. Gave specific amounts per municipality constituting the Seigneurie.
                         </div>
                         <div class="french">
                             Géoréférencé - La précision est plus élevée dans les zones agricoles où les limites des
                             parcelles n'ont pas été modifiées.
-                            <br><br>Précis - Fournit des chiffres précis pour chaque municipalité qui compose la
-                            Seigneurie.
                         </div>
                     </th>
-                    <th>
+                    <th style="border-bottom: none;">
                         <div class="english">Free access but only in French.
-                            <br><br>Digitized
+                            <br><br>Documents are digitized.
                             <br><br>11 pages for 5.50$
                         </div>
                         <div class="french">
                             Accès gratuit mais uniquement en français.
-                            <br><br>Numérisé
-                            <br><br>11 pages pour 5.50$
+                        </div>
+                    </th>
+                </tr>
+                <!-- Hidden Row -->
+                <tr style="vertical-align: top;">
+                    <th style="border-top: none">
+                        <div class="english">Quebec National Library and Archives (BanQ)</div>
+                        <div class="french">Bibliothèque et Archives Nationales du Quebec (BanQ)</div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            Correspondence with the National Commission for the Repurchase of Seigneurial Rents (SNRRS) 1936.
+                        </div>
+                        <div class="french">
+                            Syndicat national du rachat des rentes seigneuriales 1936.
+                        </div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            Primary source.
+                        </div>
+                        <div class="french">
+                            Source primaire.
+                        </div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            Precise. Documents gave specific amounts per municipality constituting the Seigneurie.
+                        </div>
+                        <div class="french">
+                            Précis - Documents fournit des montants précis pour chaque municipalité qui compose la
+                            Seigneurie.
+                        </div>
+                    </th>
+                    <th style="border-top: 2px dotted rgba(255, 255, 255, 0.226);" 1>
+                        <div class="english">
+                            Documents are digitized
+                            <br><br>11 pages for 5.50$
+                        </div>
+                        <div class="french">
+                            Documents numérisés
+                            <br><br>11 pages for 5.50$
                         </div>
                     </th>
                 </tr>

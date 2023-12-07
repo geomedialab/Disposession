@@ -1,4 +1,4 @@
-#evidence{
+#evidence {
     background-color: var(--black-color);
     display: flex;
     flex-direction: column;
@@ -11,16 +11,16 @@
     border-collapse: separate;
     border-spacing: 0;
     align-self: center;
+    table-layout: fixed;
 
 
     width: 90%;
     margin-bottom: 10vh;
 }
 
-#evidence-table td, #evidence-table th {
-    border-top: 3px solid rgb(178, 178, 178);
-    border-bottom: 3px solid rgb(178, 178, 178);
-
+#evidence-table th {
+    border-top: 2px solid rgb(178, 178, 178);
+    border-bottom: 2px solid rgb(178, 178, 178);
 }
 
 #evidence-table tr:first-of-type {
@@ -29,9 +29,8 @@
     border-top: 0;
     background-color: #60008d;
     position: sticky;
-    top: calc(7vh - 1px);
-    border-top: 3px solid rgb(178, 178, 178);
-    border-bottom: 3px solid rgb(178, 178, 178);
+    top: 6.9vh;
+
 }
 
 /* Target first row (headers) */
@@ -49,6 +48,7 @@
 
 #evidence-table tr:first-child>th div:nth-child(odd) {
     font-size: 1.3rem;
+    font-weight: 100;
 }
 
 #evidence-table tr:first-child>th div:nth-child(even) {
@@ -57,19 +57,20 @@
 
 /* Target every row but first one */
 #evidence-table tr:not(:first-child)>th {
-    padding: 10px;
+    padding: 45px 10px;
     text-align: center;
     font-weight: 300;
+    line-height: 1.5;
 }
 
 #evidence-table tr:not(:first-child)>th:first-child {
     border-left: 3px solid rgb(178, 178, 178);
 }
+
 #evidence-table tr:not(:first-child)>th:last-child {
     border-right: 3px solid rgb(178, 178, 178);
 }
 
 #evidence-table th {
     border-right: 1px solid rgb(178, 178, 178);
-    border-left: 1px solid rgb(178, 178, 178);
 }

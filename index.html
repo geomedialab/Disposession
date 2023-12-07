@@ -94,11 +94,10 @@
                         PAR LES PRÊTRES SULPICIENS
                     </h1>
                     <div class="spacer"></div>
-                    <h2 class="english">Visualize how contractually promised land was taken from the Mohawk of
-                        Kanehsatà:ke
-                        over the course of 200 years.</h2>
-                    <h2 class="french">Visualisez comment les Mohawks de Kanehsatà:ke ont été dépossédés de leurs terres
-                        pendant 200 ans.</h2>
+                    <h2 class="english">Visualize how the Mohawk of Kanehsatà:ke were dispossessed of their land parcel
+                        by parcel, to make way for expanding colonial settlement</h2>
+                    <h2 class="french">Visualiser comment les Mohawks de Kanehsatà:ke ont été dépossédés de leurs
+                        terres, parcelle par parcelle, au profit du colonialisme d'implantation.</h2>
                     <div class="spacer"></div>
                     <table id="intro-table">
                         <tr>
@@ -233,11 +232,11 @@
                     </div>
                     <!-- TODO add a french no-data -->
                     <div class="no-data english machina" id="no-data">No lots in the cadaster match your query.</div>
-                    <div class="no-data french machina" id="no-data-french">Aucun lot du cadastre ne correspond<br>à votre demande.</div>
+                    <div class="no-data french machina" id="no-data-french">Aucun lot du cadastre ne correspond<br>à
+                        votre demande.</div>
                     <div id="button-container">
                         <div id="button-decorators">
-                            <button class="button machina grow" onclick="filterQuery()"
-                                style="font-size: 1.2rem;">
+                            <button class="button machina grow" onclick="filterQuery()" style="font-size: 1.2rem;">
                                 <p class="english">Search</p>
                                 <p class="french">Soumettre</p>
                             </button>
@@ -245,6 +244,39 @@
                                 id="reset-map">
                                 <p class="english">Reset Map</p>
                                 <p class="french">Réinitialiser</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="decoration" id="geocoding-decoration">
+                <div id="address">
+                    <div id="no-address" class="machina"
+                        style="color: var(--white-color); position: absolute; top: 46px;">
+                        <p class="english">Address not found</p>
+                        <p class="french">Adresse non trouvée</p>
+                    </div>
+                    <div id="not-in-polygon" class="machina"
+                        style="color: var(--white-color); position: absolute; top: 46px;">
+                        <p class="english">Le lieu n'est pas situé dans la zone d'étude.</p>
+                        <p class="french"> </p>
+                    </div>
+                    <div id="query-decorator">
+                        <input type="search" id="geocoding-search" name="geocoding-search" style="border-radius: 8px;"
+                            oninput="hideGeocodingLabel()">
+                        <label id="geocoding-search-label" for="geocoding-search" class="query-label"
+                            style="top: 0; left: 0;">
+                            <p class="english machina" style="padding-top: 4px">&ensp;Enter address on this territory
+                            </p>
+                            <p class="french machina" style="padding-top: 4px">&ensp;Rechercher un addresse</p>
+                        </label>
+                        <ul class="queryList" id="geocodingUL"></ul>
+                        <div id="button-decorators" style="margin-top: 0;">
+                            <button id="submit-address" class="button grow machina" onclick="callNominatim()"
+                                style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color);">
+                                <div class="english" id="enter-address">SUBMIT</div>
+                                <div class="french" id="enter-address-french">SOUMETTRE</div>
+                                <i class="fa fa-circle-o-notch fa-spin" id="loading"></i>
                             </button>
                         </div>
                     </div>
@@ -745,7 +777,7 @@
                         between 1780 and 1960.
 
                         <!-- Profits image english -->
-                        <img src="assets/profits_english.png" style="display: block; margin: auto;">
+                        <img src="assets/ProfitsEnglish.svg" style="display: block; margin: auto;">
                     </div>
 
                     <div class="french">
@@ -755,37 +787,10 @@
                         financement dont disposaient les Sulpiciens entre 1780 et 1960.
 
                         <!-- Profits image french -->
-                        <img src="assets/profits_french.png" style="display: block; margin: auto;">
+                        <img src="assets/ProfitsFrench.svg" style="display: block; margin: auto;">
                     </div>
                     <br><br>
                 </div>
-                <div class="decoration">
-                    <div id="address">
-                        <div id="no-address" class="machina" style="color: var(--black-color); position: absolute; top: 46px;">
-                            <p class="english">Address not found</p>
-                            <p class="french">Adresse non trouvée</p>
-                        </div>
-                        <div id="not-in-polygon" class="machina"
-                            style="color: var(--black-color); position: absolute; top: 46px;">Location is not within
-                            area of study.</div>
-                        <div id="query-decorator">
-                            <input type="search" id="geocoding-search" name="geocoding-search" style="border-radius: 8px;" oninput="hideGeocodingLabel()">
-                            <label id="geocoding-search-label" for="geocoding-search" class="query-label" style="top: 0; left: 0;">
-                                        <p class="english machina" style="padding-top: 4px">&ensp;Enter address on this territory</p>
-                                        <p class="french machina" style="padding-top: 4px">&ensp;Rechercher un addresse</p>
-                                        </label>
-                            <ul class="queryList" id="geocodingUL"></ul>
-                            <div id="button-decorators" style="margin-top: 0;">
-                                <button id="submit-address" class="button grow machina" onclick="callNominatim()"
-                                    style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color);">
-                                    <div class="english" id="enter-address">SUBMIT</div>
-                                    <div class="french" id="enter-address-french">SOUMETTRE</div>
-                                    <i class="fa fa-circle-o-notch fa-spin" id="loading"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="geocoding-map"></div>
             </div>
         </div>
     </main>

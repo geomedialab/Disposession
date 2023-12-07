@@ -224,6 +224,12 @@ label>p {
     position: absolute;
     top: 35px;
     left: 10px;
-    /* transform: translate(0.7rem, -2.3rem); */
-    /* transition: all 0.2s ease-out; */
+}
+
+#geocoding-decoration {
+    position: absolute;
+    right: 3vw;
+    top: 75vh;
+    z-index: 5;
+    display: none;
 }

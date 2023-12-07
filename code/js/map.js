@@ -14,6 +14,8 @@ function viewFullMap() {
     scrollToTop();
     var introBox = document.querySelector("#intro-box");
     var queryBox = document.querySelector("#query-box");
+    var geocoding = document.getElementById("geocoding-decoration");
+
 
     document.getElementById("kanehsatake-legend-item").style.opacity = 1;
 
@@ -24,6 +26,8 @@ function viewFullMap() {
     }
     var language = checkLanguage();
     function setUpQueryMap() {
+        document.getElementById("no-address").style.display = "none";
+        document.getElementById("not-in-polygon").style.display = "none";
         resetTimeline();
         resetLayersTimeline();
         timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] });
@@ -32,6 +36,7 @@ function viewFullMap() {
 
         introBox.style.opacity = 0;
         queryBox.style.opacity = 100;
+        geocoding.style.display = "block"
 
         introBox.style.display = 'none';
         queryBox.style.display = 'block';
@@ -40,9 +45,12 @@ function viewFullMap() {
     }
 
     if (language == "french") {
+        // Show query map
         if (state2.innerHTML == "LA CARTE") {
             setUpQueryMap();
             state2.innerHTML = "LA CHRONOLOGIE";
+
+            // Show Timeline
         } else {
             startTimeDisplay();
             timelineMap.removeControl(zoomControl)
@@ -51,6 +59,7 @@ function viewFullMap() {
             queryBox.style.opacity = 0;
             introBox.style.display = "block";
             queryBox.style.display = "none";
+            geocoding.style.display = "none";
 
             timelineMap.flyTo([45.631550, -73.709463], 10.5);
             state2.innerHTML = "LA CARTE";
@@ -61,6 +70,7 @@ function viewFullMap() {
         if (state.innerHTML == "VIEW FULL MAP") {
             setUpQueryMap();
             state.innerHTML = "VIEW TIMELINE"
+
             // Show Timeline
         } else {
             startTimeDisplay();
@@ -70,6 +80,7 @@ function viewFullMap() {
             queryBox.style.opacity = 0;
             introBox.style.display = "block";
             queryBox.style.display = "none";
+            geocoding.style.display = "none";
 
             timelineMap.flyTo([45.631550, -73.709463], 10.5);
             state.innerHTML = "VIEW FULL MAP"
@@ -94,17 +105,6 @@ const zoomControl = L.control.zoom({
     position: 'topleft'
 })
 
-var geocoding_map = L.map('geocoding-map',
-    {
-        zoom: 10,
-        center: [45.631550, -74.009463],
-        zoomControl: false,
-        fullScreenControl: false,
-    });
-L.control.zoom({
-    position: 'topleft'
-}).addTo(geocoding_map)
-
 // Layer control must reference different layers see #3 : https://store.extension.iastate.edu/product/15632.pdf
 // Layer control is actually created and added in the addIndigLands function
 
@@ -112,9 +112,6 @@ const Esri_WorldImagery1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/r
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 }).addTo(timelineMap);
 
-const Esri_WorldImagery2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-}).addTo(geocoding_map);
 
 var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -122,13 +119,6 @@ var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{
     maxZoom: 20,
     zIndex: 10,
 }).addTo(timelineMap);
-
-var darkBasemap2 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
-}).addTo(geocoding_map);
-
 
 
 // This is a convoluted function that adds IndigLandsLayer to the basemaps but is also in charge of creating the basemap control features
@@ -156,17 +146,7 @@ function addIndigLands() {
                 "<p class='english'>Dark Basemap</p><p class='french'>Carte de base noir</p>": darkBasemap1,
             }
 
-            const basemaps2 = {
-                "<p class='english'>Satellite Basemap</p><p class='french'>Carte de base satellite</p>": Esri_WorldImagery2,
-                "<p class='english'>Dark Basemap</p><p class='french'>Carte de base noir</p>": darkBasemap2,
-            }
-            const overlays2 = {
-                "<p class='english'>Mohawk Indigenous Lands<br>Source: <a style='display: contents' href='https://native-land.ca/' target='_blank'>Native-Land.ca</a></p>\
-                <p class='french'>Terres autochtones Mohawks<br>Source: <a style='display: contents' href='https://native-land.ca/' target='_blank'>Native-Land.ca</a></p>": indigLandsLayer
-            }
-
             L.control.layers(basemaps1, overlays1, { position: 'topleft' }).addTo(timelineMap);
-            L.control.layers(basemaps2, overlays2, { position: 'topleft' }).addTo(geocoding_map);
 
         });
 }
@@ -222,14 +202,6 @@ function addCadaster(map) {
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
-            // Dynamically build selection options for queries
-            // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
-            createSoldToIndex("buyerQuery")
-            createConceededByIndex("conceededByQuery")
-            createorigAIndex("originalAQuery")
-            createNumEnregiIndex("numEnregiQuery");
-
-
             // Create the popups
             cadasterLayer = L.geoJSON(
                 cadasterData,
@@ -256,7 +228,7 @@ function addInvisibleCadaster(map) {
 
 
             // Create the popups
-            var invisibleCadasterLayer = L.geoJSON(
+            cadasterLayer = L.geoJSON(
                 cadasterData,
                 setOptions = {
                     style: invisibleCadasterStyle,
@@ -264,25 +236,8 @@ function addInvisibleCadaster(map) {
                 }
             ).addTo(map);
 
-            timelineMap.flyToBounds(invisibleCadasterLayer, { paddingBottomRight: [700, 0] })
-            timelineMap.removeLayer(invisibleCadasterLayer);
-            delete cadasterData;
-            delete invisibleCadasterLayer;
-        });
-}
-
-
-function addKanehsatakeToMain() {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
-        .then((response) => response.json())
-        .then((r) => kanehsatakeData = r)
-        .then(() => {
-            kanehsatakeLayer = L.geoJSON(
-                kanehsatakeData,
-                setStyle = {
-                    style: kanehsatakeStyle
-                }
-            ).addTo(geocoding_map);
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [700, 0] })
+            timelineMap.removeLayer(cadasterLayer);
         });
 }
 
@@ -311,14 +266,13 @@ function addKanehsatakeToTimeline() {
 function pointInPoly(marker) {
     const latLng = marker.getLatLng();
     var numberOfLots = 0
-    resetLayersGeocoding();
     cadasterLayer.eachLayer(function (indivLot) {
         if (indivLot.contains(latLng)) {
 
-            displayQueryResults(indivLot.feature, geocoding_map)
+            displayQueryResults([indivLot.feature], timelineMap)
             numberOfLots += 1
-            marker.addTo(geocoding_map);
-            scrollToBottom();
+            marker.addTo(timelineMap);
+            scrollToTop();
         }
     })
     if (numberOfLots == 0) {
@@ -481,16 +435,6 @@ function resetLayersTimeline() {
     });
 }
 
-function resetLayersGeocoding() {
-    geocoding_map.eachLayer(function (layer) {
-        if (layer != darkBasemap2) {
-            if (layer != Esri_WorldImagery2) {
-                geocoding_map.removeLayer(layer);
-            }
-        }
-    });
-}
-
 function startTimeDisplay() {
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
@@ -542,9 +486,10 @@ function resetMap() {
 
     document.getElementById("no-data").style.display = "none";
     document.getElementById("no-data-french").style.display = "none";
+    document.getElementById("geocoding-search").value = "";
 
-    // document.getElementById("no-address").style.display = "none";
-    // document.getElementById("not-in-polygon").style.display = "none";
+    document.getElementById("no-address").style.display = "none";
+    document.getElementById("not-in-polygon").style.display = "none";
 
     document.getElementById("omit-year-query").checked = true;
     document.getElementById("greyed-out").style.zIndex = 9999;
@@ -585,47 +530,45 @@ function displayQueryResults(queryResults, map) {
     )
     var language = checkLanguage();
 
-    // I split this up because the geocoding mapo also uses this function to style its display
-    if (map == timelineMap) {
-        map.addLayer(ghostLayer);
-        map.addLayer(queryLayer);
-        // Prevent duplicate legends on consecutive queries
-        if (document.getElementById("query-legend")) {
-            document.getElementById("query-legend").style.display = "none";
-        }
 
-        resetLayersTimeline();
-        resetTimeline();
-
-        document.getElementById("no-data").style.display = "none";
-        document.getElementById("timeline-legend").style.display = "none";
-
-        // Build legend for bottom left
-        const queryLegend = L.control({ position: 'bottomleft' });
-        queryLegend.onAdd = function () {
-            var div = L.DomUtil.create('div', 'info legend');
-            div.id = "query-legend"
-            div.style.backgroundColor = "transparent";
-            div.style.color = cadasterColor;
-            div.style.whitespace = "nowrap";
-
-
-            if (queryResults.length === 1) {
-                var queryString = queryResults.length + " lot"
-            } else {
-                var queryString = queryResults.length + " lots"
-            }
-            div.innerHTML = '<div class="machina" id="query-legend-item"><i style="background:' + queryColor + '"></i>' + `<div class="english">Query results - ${queryString}</div><div class="french">Résultats de la requête - ${queryString}</div></div>`;
-            return div;
-        }
-
-        queryLegend.addTo(timelineMap);
-        if (language == "french") {
-            changeToFrench();
-        }
-        // Center slightly to the right of cadaster to account for intro/query box
-        map.flyToBounds(queryLayer.getBounds(), { duration: 1.5, paddingBottomRight: [500, 0] });
+    map.addLayer(ghostLayer);
+    map.addLayer(queryLayer);
+    // Prevent duplicate legends on consecutive queries
+    if (document.getElementById("query-legend")) {
+        document.getElementById("query-legend").style.display = "none";
     }
+
+    resetLayersTimeline();
+    resetTimeline();
+
+    document.getElementById("no-data").style.display = "none";
+    document.getElementById("timeline-legend").style.display = "none";
+
+    // Build legend for bottom left
+    const queryLegend = L.control({ position: 'bottomleft' });
+    queryLegend.onAdd = function () {
+        var div = L.DomUtil.create('div', 'info legend');
+        div.id = "query-legend"
+        div.style.backgroundColor = "transparent";
+        div.style.color = cadasterColor;
+        div.style.whitespace = "nowrap";
+
+        if (queryResults.length === 1) {
+            var queryString = queryResults.length + " lot"
+        } else {
+            var queryString = queryResults.length + " lots"
+        }
+        div.innerHTML = '<div class="machina" id="query-legend-item"><i style="background:' + queryColor + '"></i>' + `<div class="english">Query results - ${queryString}</div><div class="french">Résultats de la requête - ${queryString}</div></div>`;
+        return div;
+    }
+
+    queryLegend.addTo(timelineMap);
+    if (language == "french") {
+        changeToFrench();
+    }
+    // Center slightly to the right of cadaster to account for intro/query box
+    map.flyToBounds(queryLayer.getBounds(), { duration: 1.5, paddingBottomRight: [500, 0] });
+
 
     map.addLayer(ghostLayer);
     map.addLayer(queryLayer);
@@ -679,17 +622,6 @@ var onEachFeatureQuery = function (feature, layer) {
 }
 
 timelineMap.on('popupopen', function (e) {
-    var language = checkLanguage();
-
-    if (language == "english") {
-        changeToEnglish();
-    }
-    else if (language == "french") {
-        changeToFrench();
-    }
-});
-
-geocoding_map.on('popupopen', function (e) {
     var language = checkLanguage();
 
     if (language == "english") {
@@ -910,6 +842,8 @@ function addPhaseLayer(phaseLayerName) {
     document.getElementById("intro-box").style.display = "none";
     document.getElementById("query-box").style.display = "none";
     document.getElementById("timeline-legend").style.display = "none";
+    document.getElementById("geocoding-decoration").style.display = "none";
+    
 
     resetLayersTimeline();
 
@@ -1001,9 +935,6 @@ function addPhaseLayer(phaseLayerName) {
 
 addIndigLands();
 turnOffMapInteraction(timelineMap, "timeline-map")
-// Initialize the map with data, The order added affects which is on top of the other
-addKanehsatakeToMain();
-addCadaster(geocoding_map);
 addInvisibleCadaster(timelineMap)
-var markerGroup = L.layerGroup().addTo(geocoding_map);
+
 $(document).ready(function () { setTimeout(() => { startTimeDisplay() }, "1500"); })
