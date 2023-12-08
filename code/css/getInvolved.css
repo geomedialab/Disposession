@@ -1,18 +1,7 @@
 .action-container {
-    display: grid;
-    height: fit-content;
-    grid-template-columns: 40% 40%;
-    gap: 4vw;
-    justify-content: center;
-}
-
-.action-item {
-    object-fit: contain;
-    align-items: center;
-}
-
-.action-item img {
-    border: 4px solid var(--white-color);
-    height: 300px;
-    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    margin: auto;
+    border-collapse: separate; 
+    border-spacing: 20px;
 }

@@ -701,14 +701,6 @@ var onEachFeatureIndigLands = function (feature, layer) {
         'dashArray': '5',
     })
 
-    // Trying to add labels to markers to show indig names on map, REALLY affects performance
-    // var bounds = layer.getBounds();
-    // var latLng = bounds.getCenter();
-    // var marker = new L.marker([latLng.lat, latLng.lng], { opacity: 0})
-    // marker.bindTooltip(feature.properties.Name, { permanent: true, direction: "center", className: "IndigLandLabel", offset: [0, 0] });
-    // marker.addTo(timelineMap);
-
-    // Hover Tooltiups are much less demanding computationally
     layer.bindTooltip(`
     <center>
     <h2>${feature.properties.Name}</h2>
@@ -720,87 +712,6 @@ var onEachFeatureIndigLands = function (feature, layer) {
         });
 
 
-}
-
-// Change styling based on zoom (essentially like breakpoints)
-// timelineMap.on("zoomend", checkAndChangeStylingParameters(timelineMap));
-// timelineMap.on("baselayerchange", checkAndChangeStylingParameters(timelineMap));
-// Function not working
-function checkAndChangeStylingParameters(map) {
-    var zoomLevel = map.getZoom();
-
-    if (map.hasLayer(cadasterLayer)) {
-        if (zoomLevel <= 7) {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 0
-                }
-            )
-        }
-    }
-    if (map.hasLayer(Esri_WorldImagery) && map.hasLayer(cadasterLayer)) {
-        if (zoomLevel == 12) {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 1.5
-                }
-            )
-
-        } if (zoomLevel > 12) {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 5
-                }
-            )
-
-        } else {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 0.5
-                }
-            )
-
-        }
-        // Reset them
-    } else {
-        cadasterLayer.setStyle(
-            {
-                "weight": 0.5
-            }
-        )
-
-    } if (map.hasLayer(Esri_WorldImagery) && map.hasLayer(cadasterLayer)) {
-        if (zoomLevel == 12) {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 1.5
-                }
-            )
-
-        } if (zoomLevel > 12) {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 5
-                }
-            )
-
-        } else {
-            cadasterLayer.setStyle(
-                {
-                    "weight": 0.5
-                }
-            )
-
-        }
-        // Reset them
-    } else {
-        cadasterLayer.setStyle(
-            {
-                "weight": 0.5
-            }
-        )
-
-    }
 }
 
 function turnOffMapInteraction(map, mapid) {

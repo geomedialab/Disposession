@@ -227,7 +227,46 @@
                                     <ul class="queryList" id="originalAUL">
                                     </ul>
                                 </div>
+                                <div class="decoration" id="geocoding-decoration">
+                                    <div id="address">
+                                        <div id="query-decorator">
+                                            <p class="english machina">Your address</p>
+                                            <p class="french machina">Votre adresse</p>
+                                            <input type="search" id="geocoding-search" name="geocoding-search"
+                                                oninput="hideGeocodingLabel()">
+                                            <label id="geocoding-search-label" for="geocoding-search"
+                                                class="query-label" style="left: 0;">
+                                                <p class="english machina" style="padding-top: 4px">&ensp;Address</p>
+                                                <p class="french machina" style="padding-top: 4px">&ensp;Addresse</p>
+                                            </label>
+                                            <div class="spacer"></div>
+                                            <ul class="queryList" id="geocodingUL"></ul>
+                                            <!-- No data warnings -->
+                                            <div id="no-address" class="machina warning"
+                                                style="color: var(--white-color);">
+                                                <p class="english">Address not found</p>
+                                                <p class="french">Adresse non trouvée</p>
+                                            </div>
+                                            <div id="not-in-polygon" class="machina warning"
+                                                style="color: var(--white-color);">
+                                                <p class="english">Address is not in study area.</p>
+                                                <p class="french">Le lieu n'est pas situé dans la zone d'étude.</p>
+                                            </div>
+                                            <div id="button-decorators" style="margin-top: 0;">
+                                                <button id="submit-address" class="button grow machina"
+                                                    onclick="callNominatim()"
+                                                    style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color); width: 11rem;">
+                                                    <div class="english" id="enter-address">SUBMIT ADDRESS</div>
+                                                    <div class="french" id="enter-address-french">SOUMETTRE ADDRESSE
+                                                    </div>
+                                                    <i class="fa fa-circle-o-notch fa-spin" id="loading"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <!-- TODO add a french no-data -->
@@ -244,39 +283,6 @@
                                 id="reset-map">
                                 <p class="english">Reset Map</p>
                                 <p class="french">Réinitialiser</p>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="decoration" id="geocoding-decoration">
-                <div id="address">
-                    <div id="no-address" class="machina warning"
-                        style="color: var(--white-color);">
-                        <p class="english">Address not found</p>
-                        <p class="french">Adresse non trouvée</p>
-                    </div>
-                    <div id="not-in-polygon" class="machina warning"
-                        style="color: var(--white-color);">
-                        <p class="english">Address is not in study area.</p>
-                        <p class="french">Le lieu n'est pas situé dans la zone d'étude.</p>
-                    </div>
-                    <div id="query-decorator" style="margin: 0;">
-                        <input type="search" id="geocoding-search" name="geocoding-search" style="border-radius: 8px;"
-                            oninput="hideGeocodingLabel()">
-                        <label id="geocoding-search-label" for="geocoding-search" class="query-label"
-                            style="top: 0; left: 0;">
-                            <p class="english machina" style="padding-top: 4px">&ensp;Enter address on this territory
-                            </p>
-                            <p class="french machina" style="padding-top: 4px">&ensp;Rechercher un addresse</p>
-                        </label>
-                        <ul class="queryList" id="geocodingUL"></ul>
-                        <div id="button-decorators" style="margin-top: 0;">
-                            <button id="submit-address" class="button grow machina" onclick="callNominatim()"
-                                style="background-color: var(--purple-color); border: 2px solid var(--black-color); color: var(--black-color);">
-                                <div class="english" id="enter-address">SUBMIT</div>
-                                <div class="french" id="enter-address-french">SOUMETTRE</div>
-                                <i class="fa fa-circle-o-notch fa-spin" id="loading"></i>
                             </button>
                         </div>
                     </div>

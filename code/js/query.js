@@ -158,6 +158,8 @@ function filterQuery() {
         displayQueryResults(queryResults, timelineMap)
     } else {
         resetLayersTimeline();
+            document.querySelector("all-queries").scrollTo(1000, 0);
+
         if (document.getElementById("query-legend")) {
             document.getElementById("query-legend").style.display = "none";
         }

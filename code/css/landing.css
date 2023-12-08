@@ -285,28 +285,9 @@ table#intro-table {
     padding: 0rem 7vw;
 }
 
-
-#address>#query-decorator>input {
-    width: 300px;
-}
-
-#address {
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-#address>#query-decorator {
-    flex-direction: row;
-    gap: 1em
-}
-
 #address>#query-decorator>ul {
-    top: 35px;
-    width: 300px;
+    top: 71px;
+    width: 100%;
     z-index: 9999;
     outline: none;
     z-index: 11;
