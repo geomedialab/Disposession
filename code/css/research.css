@@ -5,3 +5,21 @@
 .img-container img {
     width: 100%;
 }
+
+.imgLink { border: none; background: none; }
+.imgLink img
+{
+  width: 100%;
+  /* animation: 0.5s all ease; */
+  transition-property: transform;
+  transition-duration: 1s;
+}
+.imgLink:active img, .imgLink:focus img
+{
+  transform: scale(1.7);
+}
+
+.full-image:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
