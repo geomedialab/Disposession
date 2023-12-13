@@ -30,7 +30,11 @@
     background-color: #60008d;
     position: sticky;
     top: 6.9vh;
+}
 
+#evidence-table tr:not(:first-of-type) {
+    text-align: center;
+    vertical-align: top;
 }
 
 /* Target first row (headers) */
