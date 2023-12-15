@@ -61,7 +61,7 @@ function viewFullMap() {
             queryBox.style.display = "none";
             geocoding.style.display = "none";
 
-            timelineMap.flyTo([45.631550, -73.709463], 10.5);
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [550, 0] })
             state2.innerHTML = "LA CARTE";
             turnOffMapInteraction(timelineMap, "timeline-map")
         }
@@ -82,7 +82,7 @@ function viewFullMap() {
             queryBox.style.display = "none";
             geocoding.style.display = "none";
 
-            timelineMap.flyTo([45.631550, -73.709463], 10.5);
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [550, 0] })
             state.innerHTML = "VIEW FULL MAP"
             turnOffMapInteraction(timelineMap, "timeline-map")
         }
@@ -98,7 +98,8 @@ var timelineMap = L.map('timeline-map',
         zoom: zoom,
         zoomControl: false,
         fullScreenControl: false,
-        attributionControl: false
+        attributionControl: false,
+        zoomSnap: 0.25,
     });
 timelineMap.scrollWheelZoom.disable();
 const zoomControl = L.control.zoom({
@@ -236,7 +237,7 @@ function addInvisibleCadaster(map) {
                 }
             ).addTo(map);
 
-            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [550, 0] })
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] })
             timelineMap.removeLayer(cadasterLayer);
         });
 }

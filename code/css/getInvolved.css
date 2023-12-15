@@ -5,3 +5,24 @@
     border-collapse: separate; 
     border-spacing: 20px;
 }
+
+.action-container a {
+    text-decoration: none;
+}
+
+.action-container img {
+    border-radius: 18px 18px 0 0;
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+}
+
+.action-container .action-text {
+    padding: 10px;
+    color: black;
+    background-color: purple;
+    position: relative;
+    top: -16px;
+    border-radius: 0 0 18px 18px
+}
