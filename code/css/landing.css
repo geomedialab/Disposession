@@ -184,6 +184,21 @@ table#intro-table {
     align-self: center;
 }
 
+@media only screen and (max-width: 1200px) {
+    .introduction-text {
+        width: 62%;
+    }
+    #left-figure {
+        left: 15px !important;
+    }
+    #right-figure {
+        right: 15px !important;
+    }
+    .chart {
+        left: -1vw !important;
+    }
+  }
+
 .chart {
     width: 65vw;
     position: relative;
@@ -334,7 +349,7 @@ table#intro-table {
     color: var(--light-grey-color);
     font-size: 0.8rem;
     line-height: 1.3;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .fun-figure {
@@ -456,4 +471,14 @@ ul li::before {
 
 ul li:hover {
     background-color: transparent;
+}
+
+#left-figure {
+    position: absolute;
+    left: 5vw;
+}
+
+#right-figure {
+    position: absolute;
+    right: 5vw;
 }

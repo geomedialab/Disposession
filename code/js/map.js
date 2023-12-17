@@ -588,6 +588,8 @@ timelineMap.on('popupopen', function (e) {
     }
 });
 
+L.control.scale({position: "bottomright"}).addTo(timelineMap);
+
 // Build popup and tooltips specific to Cadaster layer
 var onEachFeatureCadaster = function (feature, layer) {
     buildPopup(feature, layer)

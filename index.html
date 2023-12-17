@@ -345,7 +345,7 @@
                 </div>
                 <br>
 
-                <figure style="position: absolute; left: 5vw;">
+                <figure id="left-figure">
                     <img style="max-width: 15vw; height: auto;" src="assets/sulpician.png">
                     <figcaption class="caption english">Credit : Sulpicien XVIIe siècle. Henri Beau, aquarelle<br>
                         Copyright : © Bibliothèque et Archives Canada<br>
@@ -410,7 +410,7 @@
                 <br>
 
 
-                <figure style="position: absolute; right: 5vw;">
+                <figure id="right-figure">
                     <img style="max-width: 15vw; height: auto;" src="assets/Joseph_Swan_with_Wampum.jpg">
                     <figcaption class="caption english">Kanien'kehá:ka [Mohawk] chief Joseph Swan Onasakenrat carrying
                         the "two-dog wampum" from Kanesatake, circa 1868.<br>
@@ -768,34 +768,353 @@
                 </div>
             </div>
             <div id="profit-generated">
-                <div id="profits-generated-text">
+                <div class="introduction-text">
                     <br>
                     <h1 class="title english" style="text-align: left;">HOW MUCH PROFIT WAS GENERATED?</h1>
                     <h1 class="title french" style="text-align: left;">QUEL EST LE MONTANT DES BÉNÉFICES RÉALISÉS ?</h1>
-                    <div class="spacer"></div>
-                    <div class="english">
-                        <!-- It's hard to say how much was made because land sale amounts were not consistently recorded.
-                        Based
-                        on
-                        the evidence we have gathered, this visual illustrates the different funding streams the
-                        Sulpicians
-                        had
-                        between 1780 and 1960. -->
 
-                        <!-- Profits image english -->
-                        <img src="assets/ProfitsEnglish.svg" style="display: block; margin: auto;">
+                    <!-- Trying to recreate SVG -->
+                    <div style="display: flex; flex-direction: row; gap: 3rem; width: 95%; margin: 20px auto;">
+                        <div class="english" style="width: 60%;">
+                            It's hard to say how much was made because land sale amounts were not
+                            consistently recorded. Based on the evidence we have gathered, this visual illustrates the
+                            different funding streams the
+                            Sulpicians had between 1780 and 1960.
+                        </div>
+                        <div class="french" style="width: 60%;">
+                            Il est difficile de déterminer avec précision le montant des recettes, car les chiffres
+                            relatifs aux ventes de terres n'ont pas été consignés de manière uniforme. Cependant, en se
+                            basant sur les données que nous avons pu recueillir, ce graphique met en évidence les
+                            diverses sources de financement dont disposaient les Sulpiciens entre 1780 et 1960.
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin: auto;">
+                            <div style="display: flex; flex-direction: row; gap: 1rem;">
+                                <img src="assets/money_bag.png" style="height: 70px;">
+                                <div class="english"
+                                    style="margin-top: auto; margin-bottom: auto; color: var(--red-color);">
+                                    Represents $100,000
+                                </div>
+                                <div class="french"
+                                    style="margin-top: auto; margin-bottom: auto; color: var(--red-color);">
+                                    Représente 100 000$
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: row; gap: 1rem;">
+                                <img src="assets/give-money.svg" style="height: 70px;">
+                                <div class="english" style="margin: auto;color: var(--red-color);">
+                                    Represents 1 year of taxes
+                                </div>
+                                <div class="french" style="margin: auto; color: var(--red-color);">
+                                    Représente une anée de taxes
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="french">
-                        Il est difficile de déterminer avec précision le montant des recettes, car les chiffres relatifs
-                        aux ventes de terres n'ont pas été consignés de manière uniforme. Cependant, en se basant sur
-                        les données que nous avons pu recueillir, ce graphique met en évidence les diverses sources de
-                        financement dont disposaient les Sulpiciens entre 1780 et 1960.
-
-                        <!-- Profits image french -->
-                        <img src="assets/ProfitsFrench.svg" style="display: block; margin: auto;">
+                    <div class="dividing-line" style="background-color:rgb(175 0 27 / 37%); height: 2px; width: 100%;">
                     </div>
-                    <br><br>
+                    <!-- LAND GRANTS PORTION -->
+                    <div style="display: flex; flex-direction: row; gap: 2rem; margin: 20px">
+                        <div style="margin: auto;">
+                            <div class="english"
+                                style="font-size: 50px; font-weight: bold; line-height: 1; text-align: center; margin: 10px;">
+                                Land<br>Grants
+                            </div>
+                            <div class="french"
+                                style="font-size: 50px; font-weight: bold; line-height: 1; text-align: center; margin: 10px;">
+                                Terres<br>Octroyées
+                            </div>
+                        </div>
+                        <div class="english">
+                            In 1717 Governor Philippe de Rigaud de Vaudreuil grants the Seigneurie du Lacs des
+                            Deux Montagnes to the Sulpician Priests.
+                            <br>
+                            <div class="spacer"></div>
+                            In 1733, Governor Beauharnois enlarges the grant by 40%.
+                            <br>
+                            <p style="display: inline; color: var(--red-color);">In total the sulpicians were given
+                                540km<sup>2</sup> of Indigenous land.</p>
+                            <br>
+                            An untold number of Canadians will come to "own" these lands.
+                        </div>
+                        <div class="french">
+                            En 1717, le gouverneur Philippe de Rigaud de Vaudreuil octroie la Seigneurie
+                            du Lac des Deux Montagnes aux Prêtres Sulpiciens.
+                            <br>
+                            <div class="spacer"></div>
+                            En 1733, le gouverneur Beauharnois élargit la concession de 40%.
+                            <br>
+                            <p style="display: inline; color: var(--red-color);">
+                                Au total, les Sulpiciens reçoivent 540km<sup>2</sup> de terres Mohawk.
+                            </p>
+                            <br>
+                            Un nombre incalculable de Candaiens deviendront "propriétaires" de ces terres.
+                        </div>
+                    </div>
+                    <div class="dividing-line" style="background-color:rgb(175 0 27 / 37%); height: 2px; width: 100%;">
+                    </div>
+                    <!-- TAXES PORTION -->
+                    <div style="display: flex; flex-direction: row; gap: 2rem; margin: 20px;">
+                        <div style="margin: auto;">
+                            <div class="english"
+                                style="font-size: 50px; font-weight: bold; line-height: 1; text-align: center; margin: 22px;">
+                                Taxes
+                            </div>
+                            <div class="french"
+                                style="font-size: 50px; font-weight: bold; line-height: 1; text-align: center; margin: 62px;">
+                                Taxes
+                            </div>
+                        </div>
+                        <div class="english">
+                            From 1790 to 1935 settlers paid taxes to live on the land.
+                            <br>
+                            Those taxes are called le champart, les banalités, les droits
+                            casuels, les cens et rentes.
+                            <br>
+                            <div class="spacer"></div>
+                            <p style="display: inline; color: var(--red-color);">
+                                From 1790 to 1824, the Sulpicians make roughly $4,396,361</p>
+                            <p style="display: inline;">(290,027 livres)</p>
+                            <p style="display: inline; color: var(--red-color);">by collecting these taxes.</p>
+                        </div>
+                        <div class="french">
+                            De 1790 à 1935, les colons payaient des taxes pour vivre sur la terre.
+                            <br>
+                            Ces taxes s'appellent le champart, les banalités, les droits
+                            casuels, les cens et rentes.
+                            <br>
+                            <div class="spacer"></div>
+                            <p style="display: inline; color: var(--red-color);">
+                                De 1790 à 1824, les Sulpiciens ont en caissé environ 4 396 361$</p>
+                            <p style="display: inline;">(290,027 livres)</p>
+                            <p style="display: inline; color: var(--red-color);">en collectant ces taxes.</p>
+                        </div>
+                    </div>
+                    <!-- Money bags -->
+                    <div>
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                        <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png"
+                            style="height: 60px;">
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <div class="english">
+                            In 1854, the seigneural system is abolished but the act didn't actually come into effect.
+                            80%
+                            of settlers did not have the capacity to buy the land from the Sulpicians. They continue to
+                            pay
+                            taxes
+                            for the next 80 years.
+                            <p style="display: inline; color: var(--red-color);">
+                                In total, the settlers paid taxes for 145 years to the Sulpicians to live on the land.
+                                The Mohawk of Kanehsatà:ke never received a penny.
+                            </p>
+                        </div>
+                        <div class="french">
+                            En 1845, le régime seigneural est aboli mais la loi ne rentre pas en vigeur. 80% des
+                            colons ne sont pas en mesure d'acheter les terres aux Sulpiciens. Ils continuent à payer des
+                            taxes pendent encore 80 ans.
+                            <p style="display: inline; color: var(--red-color);">
+                                Au total, les colons ont payé 145 années de taxes aux Sulpiciens poit vivre sur leurs
+                                terres.
+                                Les Mohawks of Kanehsatà:ke n'ont pas touché un centime.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- 145 hand images -->
+                    <div>
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;"><img src="assets/give-money.svg"
+                            style="height: 60px;"><img src="assets/give-money.svg" style="height: 60px;"><img
+                            src="assets/give-money.svg" style="height: 60px;">
+                        <img src="assets/give-money.svg" style="height: 60px;">
+                    </div>
+                    <div class="dividing-line"
+                        style="background-color:rgb(175 0 27 / 37%); height: 2px; width: 100%; margin-top: 20px;"></div>
+                    <div style="display: flex; flex-direction: row; gap: 2rem; margin: 20px">
+                        <div style="margin: auto;">
+                            <div class="english"
+                                style="font-size: 50px; font-weight: bold; line-height: 1; text-align: center; margin: 10px;">
+                                Legislation
+                            </div>
+                            <div class="french"
+                                style="font-size: 50px; font-weight: bold; line-height: 1; text-align: center; margin: 10px;">
+                                Législation
+                            </div>
+                        </div>
+                        <div class="english">
+                            At the end of the seigneurial regime, in 1845, an area corresponding to the current
+                            municipality of Oka has still not been distributed to settlers.
+                            <p style="display: inline; color: var(--red-color);">
+                                Instead of returning these lands to the Mohawk of Kanehsatà:ke, the legislators
+                                granted the Sulpicians full possession of these lands.
+                            </p>
+                            <br>
+                            <div class="spacer"></div>
+                            To make up for the loss of tax income incurred by the end of the seigneurial regime,
+                            the government set up the National Comission for the Repurchase of Seigneurial Rents (SNRRS).
+                            <p style="display: inline; color: var(--red-color);">
+                                In 1935, the SNRRS paid the Sulpicians $1 101 448
+                            </p>
+                            ($51 845 at the time)
+                            <p style="display: inline; color: var(--red-color);">
+                                for the loss of seigneurial taxes.
+                            </p>
+                        </div>
+                        <div class="french">
+                            En 1854, à la fin du régime seigneurial, un territoire correspondant
+                            à l'actuelle municipalitéd'Oka n'a toujours pas été distribué aux colons.
+                            <p style="display: inline; color: var(--red-color);">
+                                Au lieu de rendre ces terres aux Mohawk de Kanehsatà:ke, les législateurs
+                                en conférant la pleine posession aux Sulpiciens.
+                            </p>
+                            <br>
+                            <div class="spacer"></div>
+                            Pour compenser la perte de revenues fonciers engendrée par la fin du
+                            régime seigneurial, le gouvernement crée la Syndicat national du rachat des rentes seigneuriales (SNRRS).
+                            <p style="display: inline; color: var(--red-color);">
+                                En 1935, le SNRRS verse aux Sulpiciens 1 101 448 $
+                            </p>
+                            (52 845 $ de l'époque)
+                            <p style="display: inline; color: var(--red-color);">
+                                pour la perte des taxes seigneuriales.
+                            </p>
+                        </div>
+                    </div>
+                    <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                    <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                    <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                    <img src="assets/money_bag.png" style="height: 60px;"><img src="assets/money_bag.png" style="height: 60px;">
+                    <br><br><br>
                 </div>
             </div>
         </div>
