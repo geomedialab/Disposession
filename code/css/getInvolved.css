@@ -21,7 +21,7 @@
 .action-container .action-text {
     padding: 10px;
     color: black;
-    background-color: purple;
+    background-color: var(--purple-color);
     position: relative;
     top: -16px;
     border-radius: 0 0 18px 18px
