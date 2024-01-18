@@ -61,7 +61,7 @@ function viewFullMap() {
             queryBox.style.display = "none";
             geocoding.style.display = "none";
 
-            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [550, 0] })
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [0, 0] })
             state2.innerHTML = "LA CARTE";
             turnOffMapInteraction(timelineMap, "timeline-map")
         }
@@ -82,7 +82,7 @@ function viewFullMap() {
             queryBox.style.display = "none";
             geocoding.style.display = "none";
 
-            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [550, 0] })
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [0, 0] })
             state.innerHTML = "VIEW FULL MAP"
             turnOffMapInteraction(timelineMap, "timeline-map")
         }
@@ -111,14 +111,13 @@ const zoomControl = L.control.zoom({
 
 const Esri_WorldImagery1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-}).addTo(timelineMap);
+})
 
 
-var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20,
-    zIndex: 10,
+var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
 }).addTo(timelineMap);
 
 
@@ -222,10 +221,10 @@ function addInvisibleCadaster(map) {
         .then(() => {
             // Dynamically build selection options for queries
             // This lets the data be "alive" by accepting any new geoJSON after being run through Exploration.ipynb
-            createSoldToIndex("buyerQuery")
-            createConceededByIndex("conceededByQuery")
-            createorigAIndex("originalAQuery")
-            createNumEnregiIndex("numEnregiQuery");
+            // createSoldToIndex("buyerQuery")
+            // createConceededByIndex("conceededByQuery")
+            // createorigAIndex("originalAQuery")
+            // createNumEnregiIndex("numEnregiQuery");
 
 
             // Create the popups
@@ -237,7 +236,7 @@ function addInvisibleCadaster(map) {
                 }
             ).addTo(map);
 
-            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [500, 0] })
+            timelineMap.flyToBounds(cadasterLayer, { paddingBottomRight: [0, 0] })
             timelineMap.removeLayer(cadasterLayer);
         });
 }
@@ -372,19 +371,19 @@ function timeDisplay(data, previousYear, liveYear, index) {
         if ((featureTime > previousYear) && (featureTime <= (previousYear + range))) {
             // Don't include only part of the sale lot (inclusion by Lea May 15th)
             // These lots more or less line up with Kanehsatake today
-            if (data.features[i].properties.ORIGINAL_A != "Only part of the lot") {
+            // if (data.features[i].properties.ORIGINAL_A != "Only part of the lot") {
                 correctArray.push(data.features[i])
-            }
+            // }
         }
     }
 
     var timelineStyle = {
 
-        "fillColor": timelineGradient[index],
+        "fillColor": "#000000",
         "fillOpacity": 0,
 
-        "color": "#000",
-        "weight": 1,
+        "color": "#000000",
+        "weight": 10,
         "opacity": 0,
 
         "interactive": false,
@@ -396,7 +395,7 @@ function timeDisplay(data, previousYear, liveYear, index) {
         timelineStyle
     ).addTo(timelineMap);
     // Fade that layer onto map over time
-    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 0.8, 0.01, interval / 100)
+    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 1, 0.01, interval / 100)
     // Recursive call 
     if (liveYear <= 1960) {
         timeouts.push(setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval + 500));
@@ -437,6 +436,23 @@ function resetLayersTimeline() {
 }
 
 function startTimeDisplay() {
+    fetch('../../data/geojson/mergedCadaster.geojson')
+        .then((response) => response.json())
+        .then((data) => mergedData = data)
+        .then(() => {
+            var merged_style = {
+
+                "fillColor": purpleColor,
+                "fillOpacity": 0.1,
+        
+                "color": purpleColor,
+                "weight": 1,
+                "opacity": 1,
+        
+                "interactive": false,
+            }
+            L.geoJSON(mergedData, merged_style).addTo(timelineMap)
+        })
     fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
@@ -453,12 +469,12 @@ function startTimeDisplay() {
             }
 
             // Start the timeline animation
-            timeDisplay(cadasterData, earliestDate, (earliestDate + range), 0);
+            timeDisplay(cadasterData, earliestDate, (earliestDate - range), 0);
 
             // If Reset Map is clicked during animation, end timeout
-            document.getElementById("reset-map").addEventListener("click", function () {
-                resetTimeline();
-            });
+            // document.getElementById("reset-map").addEventListener("click", function () {
+            //     resetTimeline();
+            // });
         }
         );
 }

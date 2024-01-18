@@ -147,3 +147,16 @@ path:focus {
     text-shadow: none !important;
     background: rgba(255, 255, 255, 0.6) !important;
 }
+
+#timeline-map {
+    background: black;
+    outline: 0;
+}
+
+.leaflet-bottom {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+    left: 400px !important;
+    bottom: 500px !important;
+}
