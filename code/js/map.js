@@ -199,7 +199,7 @@ const invisibleCadasterStyle = {
 
 
 function addCadaster(map) {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -216,7 +216,7 @@ function addCadaster(map) {
 
 // Only used to flyToBounds of cadaster layer on initial load so center and zoom of map are screen size appropriate
 function addInvisibleCadaster(map) {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -244,7 +244,7 @@ function addInvisibleCadaster(map) {
 
 // Used to fade in the Kanehsatake layer in timeline
 function addKanehsatakeToTimeline() {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/kanehsatake.geojson')
+    fetch('https://geomedialab.github.io/Disposession/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
@@ -437,7 +437,7 @@ function resetLayersTimeline() {
 }
 
 function startTimeDisplay() {
-    fetch('https://spencermartel.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -773,7 +773,7 @@ function addPhaseLayer(phaseLayerName) {
         elements.style.display = "none"
     }
 
-    fetch(`https://spencermartel.github.io/Disposession/data/geojson/${phaseLayerName}`)
+    fetch(`https://geomedialab.github.io/Disposession/data/geojson/${phaseLayerName}`)
         .then((response) => response.json())
         .then((r) => phaseLayerData = r)
         .then(() => {
