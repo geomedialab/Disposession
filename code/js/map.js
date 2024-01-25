@@ -361,7 +361,7 @@ function timeDisplay(data, previousYear, liveYear, index) {
         return div
     }
     yearLegend.addTo(timelineMap);
-
+ 
 
     // Check conditions, add to array
     const correctArray = [];
