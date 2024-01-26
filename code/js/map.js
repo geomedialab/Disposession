@@ -10,6 +10,8 @@ const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with multiple timeout IDs
 var timeouts = [];
 
+const dataBaseUrl = 'https://geomedialab.github.io/Kanehsatake-Land-Defense'
+
 function viewFullMap() {
     scrollToTop();
     var introBox = document.querySelector("#intro-box");
@@ -199,7 +201,7 @@ const invisibleCadasterStyle = {
 
 
 function addCadaster(map) {
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch(dataBaseUrl + '/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -216,7 +218,7 @@ function addCadaster(map) {
 
 // Only used to flyToBounds of cadaster layer on initial load so center and zoom of map are screen size appropriate
 function addInvisibleCadaster(map) {
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch(dataBaseUrl + '/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -244,7 +246,7 @@ function addInvisibleCadaster(map) {
 
 // Used to fade in the Kanehsatake layer in timeline
 function addKanehsatakeToTimeline() {
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/kanehsatake.geojson')
+    fetch(dataBaseUrl + '/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
@@ -437,7 +439,7 @@ function resetLayersTimeline() {
 }
 
 function startTimeDisplay() {
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch(dataBaseUrl + '/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -773,7 +775,7 @@ function addPhaseLayer(phaseLayerName) {
         elements.style.display = "none"
     }
 
-    fetch(`https://geomedialab.github.io/Disposession/data/geojson/${phaseLayerName}`)
+    fetch(dataBaseUrl + `/data/geojson/${phaseLayerName}`)
         .then((response) => response.json())
         .then((r) => phaseLayerData = r)
         .then(() => {
