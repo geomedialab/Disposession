@@ -113,8 +113,7 @@ const Esri_WorldImagery1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/r
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 })
 
-
-var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 20
@@ -167,7 +166,7 @@ var blackColor = getComputedStyle(document.documentElement)
 const fullCadasterStyle = {
     "color": cadasterColor,
     "weight": 0.5,
-    "opacity": 0.5,
+    "opacity": 1,
 };
 
 const queryStyle = {
@@ -198,7 +197,7 @@ const invisibleCadasterStyle = {
 
 
 function addCadaster(map) {
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch('https://geomedialab.github.io/Kanehsatake-Land-Defense/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -215,7 +214,7 @@ function addCadaster(map) {
 
 // Only used to flyToBounds of cadaster layer on initial load so center and zoom of map are screen size appropriate
 function addInvisibleCadaster(map) {
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch('https://geomedialab.github.io/Kanehsatake-Land-Defense/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -243,7 +242,7 @@ function addInvisibleCadaster(map) {
 
 // Used to fade in the Kanehsatake layer in timeline
 function addKanehsatakeToTimeline() {
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/kanehsatake.geojson')
+    fetch('https://geomedialab.github.io/Kanehsatake-Land-Defense/data/geojson/kanehsatake.geojson')
         .then((response) => response.json())
         .then((r) => kanehsatakeData = r)
         .then(() => {
@@ -356,7 +355,7 @@ function timeDisplay(data, previousYear, liveYear, index) {
         const div = L.DomUtil.create('div', 'info legend year-legend');
         div.id = "year-legend"
 
-        div.innerHTML = '' + previousYear + ' - ' + liveYear
+        div.innerHTML = "<br><p>Indigenous Controlled Land</p>"+  '10%<br>' + previousYear + ' - ' + liveYear
         return div
     }
     yearLegend.addTo(timelineMap);
@@ -379,11 +378,11 @@ function timeDisplay(data, previousYear, liveYear, index) {
 
     var timelineStyle = {
 
-        "fillColor": "#000000",
+        "fillColor": "#0A0A0A",
         "fillOpacity": 0,
 
-        "color": "#000000",
-        "weight": 1,
+        "color": "#0A0A0A",
+        "weight": 0,
         "opacity": 0,
 
         "interactive": false,
@@ -416,7 +415,8 @@ function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay)
         if (opacity < finalOpacity) {
             lyr.setStyle({
                 fillOpacity: opacity,
-                opacity: opacity
+                opacity: opacity,
+                weight: 1,
             });
             opacity = opacity + opacityStep
         }
@@ -443,7 +443,7 @@ function startTimeDisplay() {
             var merged_style = {
 
                 "fillColor": purpleColor,
-                "fillOpacity": 0.1,
+                "fillOpacity": 0.3,
         
                 "color": purpleColor,
                 "weight": 0.5,
@@ -453,7 +453,7 @@ function startTimeDisplay() {
             }
             L.geoJSON(mergedData, merged_style).addTo(timelineMap)
         })
-    fetch('https://geomedialab.github.io/Disposession/data/geojson/Full_Cadaster.geojson')
+    fetch('https://geomedialab.github.io/Kanehsatake-Land-Defense/data/geojson/Full_Cadaster.geojson')
         .then((response) => response.json())
         .then((data) => cadasterData = data)
         .then(() => {
@@ -604,7 +604,6 @@ timelineMap.on('popupopen', function (e) {
     }
 });
 
-L.control.scale({position: "bottomright"}).addTo(timelineMap);
 
 // Build popup and tooltips specific to Cadaster layer
 var onEachFeatureCadaster = function (feature, layer) {
@@ -789,7 +788,7 @@ function addPhaseLayer(phaseLayerName) {
         elements.style.display = "none"
     }
 
-    fetch(`https://geomedialab.github.io/Disposession/data/geojson/${phaseLayerName}`)
+    fetch(`https://geomedialab.github.io/Kanehsatake-Land-Defense/data/geojson/${phaseLayerName}`)
         .then((response) => response.json())
         .then((r) => phaseLayerData = r)
         .then(() => {
