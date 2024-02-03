@@ -378,19 +378,27 @@ function timeDisplay(data, previousYear, liveYear, index, accumulatedLandLoss) {
             // }
         }
     }
-    console.log(accumulatedLandLoss)
+
     landPercentRamaining = Math.round(((totalLand - accumulatedLandLoss) / totalLand) * 100, 4)
-    
-    document.getElementById("percent").innerHTML = landPercentRamaining
-    console.log(totalLand)
+    landPercentTaken = 100 - landPercentRamaining
+
+    console.log(landPercentRamaining)
+    if (landPercentRamaining == 0) {
+        document.getElementById("indigenous-percent").innerHTML = '1%'
+        document.getElementById("settler-percent").innerHTML = '99%'
+    } else {
+        document.getElementById("indigenous-percent").innerHTML = landPercentRamaining + '%'
+        document.getElementById("settler-percent").innerHTML = landPercentTaken + '%'
+    }
+
 
     var timelineStyle = {
 
-        "fillColor": "#808080",
+        "fillColor": "#090909",
         "fillOpacity": 0,
 
-        "color": "#0A0A0A",
-        "weight": 0,
+        "color": "#262626",
+        "weight": 1,
         "opacity": 0,
 
         "interactive": false,
@@ -402,7 +410,7 @@ function timeDisplay(data, previousYear, liveYear, index, accumulatedLandLoss) {
         timelineStyle
     ).addTo(timelineMap);
     // Fade that layer onto map over time
-    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 0.2, 0.0025, interval / 100)
+    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 1, 0.01, interval / 100)
     // Recursive call 
     if (liveYear <= 1960) {
         timeouts.push(setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1), accumulatedLandLoss); }, interval + 500));
@@ -410,7 +418,9 @@ function timeDisplay(data, previousYear, liveYear, index, accumulatedLandLoss) {
         // Remove bottom left year range
         document.getElementById('year-legend').style.display = "none";
         addKanehsatakeToTimeline();
-        document.getElementById("kanehsatake-legend-item").style.opacity = 1;
+        document.getElementById("indigenous-percent").innerHTML = '2%'
+        document.getElementById("settler-percent").innerHTML = '98%'
+        // document.getElementById("kanehsatake-legend-item").style.opacity = 1;
         timeouts.push(setTimeout(startTimeDisplay, 10000));
     }
 }
@@ -423,6 +433,7 @@ function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay)
         if (opacity < finalOpacity) {
             lyr.setStyle({
                 fillOpacity: opacity,
+                opacity: opacity - 0.4,
             });
             opacity = opacity + opacityStep
         }
@@ -464,7 +475,7 @@ function startTimeDisplay() {
         .then((data) => cadasterData = data)
         .then(() => {
             resetLayersTimeline();
-            cadasterLegend.addTo(timelineMap);
+            // cadasterLegend.addTo(timelineMap);
             var language = checkLanguage();
 
             if (language == "french") {

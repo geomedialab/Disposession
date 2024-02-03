@@ -157,6 +157,6 @@ path:focus {
     position: absolute;
     z-index: 1000;
     pointer-events: none;
-    left: 470px !important;
-    bottom: -10px !important;
+    left: 401px !important;
+    top: 100px !important;
 }
