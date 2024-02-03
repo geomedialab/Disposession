@@ -5,7 +5,7 @@ var center = [45.631550, -73.509463];
 
 // Variables for timeline
 const interval = 1000;
-const earliestDate = 1770;
+const earliestDate = 1760;
 const range = 10;
 // Used to cancel timeline animation if Reset Map is pressed, eventually gets populated with multiple timeout IDs
 var timeouts = [];
@@ -114,9 +114,9 @@ const Esri_WorldImagery1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/r
 })
 
 var darkBasemap1 = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	subdomains: 'abcd',
-	maxZoom: 20
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
 }).addTo(timelineMap);
 
 
@@ -257,6 +257,8 @@ function addKanehsatakeToTimeline() {
                 }
             ).addTo(timelineMap);
 
+            console.log(kanehsatakeData)
+
             fadeInLayerLeaflet(kanehsatakeLayer, 0, 0.5, 0.01, interval / 100);
         });
 }
@@ -342,7 +344,7 @@ var timelineGradient = gradient(linearStartStop[0], linearStartStop[1], 19)
 
 
 // Meat and potatoes of the timeline function
-function timeDisplay(data, previousYear, liveYear, index) {
+function timeDisplay(data, previousYear, liveYear, index, accumulatedLandLoss) {
 
     // Remove bottom left year range if it exists
     var elements = document.getElementsByClassName('year-legend');
@@ -355,30 +357,36 @@ function timeDisplay(data, previousYear, liveYear, index) {
         const div = L.DomUtil.create('div', 'info legend year-legend');
         div.id = "year-legend"
 
-        div.innerHTML = "<br><p>Indigenous Controlled Land</p>"+  '10%<br>' + previousYear + ' - ' + liveYear
+        div.innerHTML = previousYear + ' - ' + liveYear
         return div
     }
     yearLegend.addTo(timelineMap);
 
+    var totalLand = 5398895;
 
     // Check conditions, add to array
-    const correctArray = [];
+    var correctArray = [];
     for (var i = 0; i < data.features.length; i++) {
         const featureTime = data.features[i].properties.year;
-
         // Correct time check
         if ((featureTime > previousYear) && (featureTime <= (previousYear + range))) {
             // Don't include only part of the sale lot (inclusion by Lea May 15th)
             // These lots more or less line up with Kanehsatake today
             // if (data.features[i].properties.ORIGINAL_A != "Only part of the lot") {
-                correctArray.push(data.features[i])
+            correctArray.push(data.features[i])
+            accumulatedLandLoss = accumulatedLandLoss + data.features[i].properties.Area_new_1
             // }
         }
     }
+    console.log(accumulatedLandLoss)
+    landPercentRamaining = Math.round(((totalLand - accumulatedLandLoss) / totalLand) * 100, 4)
+    
+    document.getElementById("percent").innerHTML = landPercentRamaining
+    console.log(totalLand)
 
     var timelineStyle = {
 
-        "fillColor": "#0A0A0A",
+        "fillColor": "#808080",
         "fillOpacity": 0,
 
         "color": "#0A0A0A",
@@ -394,10 +402,10 @@ function timeDisplay(data, previousYear, liveYear, index) {
         timelineStyle
     ).addTo(timelineMap);
     // Fade that layer onto map over time
-    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 1, 0.01, interval / 100)
+    fadeInLayerLeaflet(timelineLayer, timelineStyle.opacity, 0.2, 0.0025, interval / 100)
     // Recursive call 
     if (liveYear <= 1960) {
-        timeouts.push(setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1)); }, interval + 500));
+        timeouts.push(setTimeout(() => { timeDisplay(data, liveYear, (liveYear + range), (index + 1), accumulatedLandLoss); }, interval + 500));
     } else {
         // Remove bottom left year range
         document.getElementById('year-legend').style.display = "none";
@@ -415,8 +423,6 @@ function fadeInLayerLeaflet(lyr, startOpacity, finalOpacity, opacityStep, delay)
         if (opacity < finalOpacity) {
             lyr.setStyle({
                 fillOpacity: opacity,
-                opacity: opacity,
-                weight: 1,
             });
             opacity = opacity + opacityStep
         }
@@ -444,11 +450,11 @@ function startTimeDisplay() {
 
                 "fillColor": purpleColor,
                 "fillOpacity": 0.3,
-        
+
                 "color": purpleColor,
                 "weight": 0.5,
                 "opacity": 0.5,
-        
+
                 "interactive": false,
             }
             L.geoJSON(mergedData, merged_style).addTo(timelineMap)
@@ -469,7 +475,7 @@ function startTimeDisplay() {
             }
 
             // Start the timeline animation
-            timeDisplay(cadasterData, earliestDate, (earliestDate - range), 0);
+            timeDisplay(cadasterData, earliestDate, (earliestDate - range), 0, 0);
 
             // If Reset Map is clicked during animation, end timeout
             // document.getElementById("reset-map").addEventListener("click", function () {
@@ -772,7 +778,7 @@ function addPhaseLayer(phaseLayerName) {
     document.getElementById("query-box").style.display = "none";
     document.getElementById("timeline-legend").style.display = "none";
     document.getElementById("geocoding-decoration").style.display = "none";
-    
+
 
     resetLayersTimeline();
 
