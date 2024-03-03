@@ -78,3 +78,29 @@
 #evidence-table th {
     border-right: 1px solid rgb(178, 178, 178);
 }
+
+.popup{
+    background-color: var(--white-color);
+    width: 600px;
+    padding: 30px;
+    position: fixed;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    display: none;
+    z-index: 1000;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 20px;
+}
+.popup button{
+    display: block;
+    position: relative;
+    margin:  0 0 -35px auto;
+    background-color: transparent;
+    font-size: 30px;
+    color: #c5c5c5;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
