@@ -626,13 +626,13 @@ var onEachFeatureQuery = function (feature, layer) {
     });
 }
 
-timelineMap.on('popupopen', function (e) {
+timelineMap.on('popupopen', function () {
     var language = checkLanguage();
 
     if (language == "english") {
         changeToEnglish();
     }
-    else if (language == "french") {
+    else {
         changeToFrench();
     }
 });
