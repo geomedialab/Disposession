@@ -111,3 +111,21 @@ function phoneCheckAndChange() {
             </div>'
     }
 }
+
+// Set up password check
+function passwordCheck(){
+    // if(localStorage.getItem("passwordVerified") === false)
+    console.log("here")
+    var password = prompt("This site requires a password to view\nPlease enter the password:");
+    if (password==="LandBack1721"){
+        window.location="../index.html";
+        localStorage.setItem("passwordVerified", true)
+    } else{
+        passwordCheck();
+    }
+}
+
+if(localStorage.getItem("passwordVerified") === false || localStorage.getItem("passwordVerified") === null) {
+    console.log("Password not entered")
+    window.onload=passwordCheck;
+}
