@@ -118,7 +118,7 @@ function passwordCheck(){
     console.log("here")
     var password = prompt("This site requires a password to view\nPlease enter the password:");
     if (password==="LandBack1721"){
-        window.location="../index.html";
+        window.location="../../index.html";
         localStorage.setItem("passwordVerified", true)
     } else{
         passwordCheck();
