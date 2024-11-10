@@ -114,11 +114,9 @@ function phoneCheckAndChange() {
 
 // Set up password check
 function passwordCheck(){
-    // if(localStorage.getItem("passwordVerified") === false)
-    console.log("here")
-    var password = prompt("This site requires a password to view\nPlease enter the password:");
+    var password = prompt("This site requires a password to view.\nPlease enter the password:");
     if (password==="LandBack1721"){
-        window.location="../../index.html";
+        window.location="https://geomedialab.github.io/Kanehsatake-Land-Defense/index.html";
         localStorage.setItem("passwordVerified", true)
     } else{
         passwordCheck();
